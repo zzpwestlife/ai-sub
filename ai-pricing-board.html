@@ -76,7 +76,7 @@ th.sorted-desc::after { content:' ▼'; font-size:.6rem; }
 <!-- ==================== 综合比价 ==================== -->
 <div id="view-overview" class="view active">
   <div class="filter-bar">
-    <input type="text" id="searchModel" placeholder="搜索模型名称..." oninput="renderOverview()">
+    <select id="filterModel" onchange="renderOverview()" style="min-width:180px"><option value="">← 选择模型查看对比</option></select>
     <select id="filterCategory" onchange="renderOverview()"><option value="">全部分类</option></select>
     <select id="filterProvider" onchange="renderOverview()"><option value="">全部提供商</option></select>
   </div>
@@ -189,7 +189,7 @@ function switchTab(name) {
 // 综合比价视图
 // ============================================================
 function renderOverview() {
-  const search = (document.getElementById('searchModel').value || '').toLowerCase();
+  const modelFilter = document.getElementById('filterModel').value;
   const catFilter = document.getElementById('filterCategory').value;
   const provFilter = document.getElementById('filterProvider').value;
 
@@ -227,11 +227,17 @@ function renderOverview() {
   // Filter
   let modelIds = Object.keys(grouped).filter(id => {
     const m = grouped[id];
-    if (search && !m.name.toLowerCase().includes(search) && !m.desc.toLowerCase().includes(search)) return false;
+    if (modelFilter && m.id !== modelFilter) return false;
     if (catFilter && m.category !== catFilter) return false;
     if (provFilter && !m.entries.some(e => e.provider === provFilter)) return false;
     return true;
   });
+
+  // If no model selected and no filters, only show summary
+  if (!modelFilter && !catFilter && !provFilter) {
+    document.getElementById('overviewContent').innerHTML = summaryHtml;
+    return;
+  }
 
   // Sort by composite price (best first)
   modelIds.sort((a, b) => {
@@ -300,7 +306,7 @@ function renderOverview() {
     html += `</tbody></table></div>`;
   });
 
-  document.getElementById('overviewContent').innerHTML = summaryHtml + html;
+  document.getElementById('overviewContent').innerHTML = html + summaryHtml;
 }
 
 // ============================================================
@@ -460,14 +466,18 @@ function init() {
   if (!DATA) return;
   document.getElementById('updateDate').textContent = `数据基准: ${DATA.updateDate} · 综合单价 = 70%×有效输入 + 30%×输出 · 缓存命中率按 ${document.getElementById('cacheHit').value}% 估算`;
 
-  // Populate filters
+  // Populate model dropdown
+  const modelSel = document.getElementById('filterModel');
+  DATA.models.forEach(m => { const o = document.createElement('option'); o.value = m.id; o.textContent = m.name; modelSel.appendChild(o); });
+
+  // Populate category filter
   const cats = [...new Set(DATA.models.map(m => m.category))];
   const catSel = document.getElementById('filterCategory');
   cats.forEach(c => { const o = document.createElement('option'); o.value = c; o.textContent = c; catSel.appendChild(o); });
 
-  const provs = DATA.providers.map(p => ({ id: p.id, name: p.name }));
+  // Populate provider filter
   const provSel = document.getElementById('filterProvider');
-  provs.forEach(p => { const o = document.createElement('option'); o.value = p.id; o.textContent = p.name; provSel.appendChild(o); });
+  DATA.providers.forEach(p => { const o = document.createElement('option'); o.value = p.id; o.textContent = p.name; provSel.appendChild(o); });
 
   render();
 }
