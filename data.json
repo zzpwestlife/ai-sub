@@ -6,6 +6,7 @@
     { "id": "openai", "name": "OpenAI 官方", "type": "official", "url": "https://openai.com", "notes": "GPT-5.6 系列官方定价" },
     { "id": "xai", "name": "xAI 官方", "type": "official", "url": "https://x.ai", "notes": "Grok 系列官方定价" },
     { "id": "deepseek", "name": "DeepSeek 官方", "type": "official", "url": "https://deepseek.com", "baseUrl": "https://api.deepseek.com", "notes": "峰谷定价：空闲 9-12/14-18 以外时段" },
+    { "id": "google", "name": "Google 官方", "type": "official", "url": "https://ai.google.dev", "notes": "Gemini 系列" },
     { "id": "apifun", "name": "apifun", "type": "third-party", "url": "https://apikey.fun/dashboard", "baseUrl": "https://api.apikey.fun", "notes": "第三方中转，支持缓存计费，GPT限Codex" },
     { "id": "aiberm", "name": "Aiberm", "type": "third-party", "url": "https://aiberm.com/console", "baseUrl": "https://aiberm.com/v1", "notes": "第三方中转，Claude裸价最低，不支持缓存" },
     { "id": "siliconflow", "name": "硅基流动", "type": "third-party", "url": "https://siliconflow.cn", "baseUrl": "https://api.siliconflow.cn/v1", "notes": "国内平台，DeepSeek缓存极低价" },
@@ -26,7 +27,8 @@
     "gpt-5.6-sol":        { "input": 35.00, "output": 210.00, "cacheWrite": 43.75, "cacheRead": 3.50 },
     "grok-4.6":           { "input": 14.00, "output": 42.00, "cacheWrite": 17.50, "cacheRead": 2.10 },
     "deepseek-v4-flash":  { "input": 3.00, "output": 9.00, "cacheWrite": 0, "cacheRead": 0.10, "peakInput": 3.00, "peakOutput": 9.00, "peakCacheRead": 0.10 },
-    "deepseek-v4-pro":    { "input": 9.00, "output": 27.00, "cacheWrite": 0, "cacheRead": 0.30, "peakInput": 9.00, "peakOutput": 27.00, "peakCacheRead": 0.30 }
+    "deepseek-v4-pro":    { "input": 9.00, "output": 27.00, "cacheWrite": 0, "cacheRead": 0.30, "peakInput": 9.00, "peakOutput": 27.00, "peakCacheRead": 0.30 },
+    "gemini-3.7-flash":   { "input": 5.25, "output": 26.25, "cacheWrite": 0, "cacheRead": 0.525 }
   },
 
   "models": [
@@ -38,7 +40,8 @@
     { "id": "gpt-5.6-sol", "name": "GPT-5.6 Sol", "category": "GPT-5.6", "desc": "旗舰Codex" },
     { "id": "grok-4.6", "name": "Grok 4.6", "category": "Grok", "desc": "编码+多模态生成" },
     { "id": "deepseek-v4-flash", "name": "DeepSeek V4 Flash", "category": "DeepSeek", "desc": "大批量/长会话" },
-    { "id": "deepseek-v4-pro", "name": "DeepSeek V4 Pro", "category": "DeepSeek", "desc": "重推理" }
+    { "id": "deepseek-v4-pro", "name": "DeepSeek V4 Pro", "category": "DeepSeek", "desc": "重推理" },
+    { "id": "gemini-3.7-flash", "name": "Gemini 3.7 Flash", "category": "Gemini", "desc": "多模态轻量" }
   ],
 
   "prices": [
@@ -104,7 +107,13 @@
     { "model": "deepseek-v4-pro", "provider": "openrouter", "input": 4.62, "output": 13.86, "cacheWrite": null, "cacheRead": null, "notes": "v4-pro-0813,$0.66/$1.98" },
     { "model": "deepseek-v4-pro", "provider": "nonelinear", "input": 4.50, "output": 13.50, "cacheWrite": null, "cacheRead": 0.15, "notes": "同官方价" },
     { "model": "deepseek-v4-pro", "provider": "v3api", "input": 5.60, "output": 16.80, "cacheWrite": null, "cacheRead": null, "notes": "big_sale分组,0.1x倍率" },
-    { "model": "deepseek-v4-pro", "provider": "aiberm", "input": 2.939, "output": 5.879, "cacheWrite": null, "cacheRead": null, "notes": "" }
+    { "model": "deepseek-v4-pro", "provider": "aiberm", "input": 2.939, "output": 5.879, "cacheWrite": null, "cacheRead": null, "notes": "" },
+
+    { "model": "gemini-3.7-flash", "provider": "apifun", "input": 0.75, "output": 3.75, "cacheWrite": null, "cacheRead": 0.08, "notes": "官方1.4折" },
+    { "model": "gemini-3.7-flash", "provider": "openrouter", "input": 0.35, "output": 2.80, "cacheWrite": null, "cacheRead": 0.035, "notes": "阶梯价(低档位)" },
+    { "model": "gemini-3.7-flash", "provider": "v3api", "input": 2.10, "output": 10.50, "cacheWrite": null, "cacheRead": null, "notes": "gemini_cli分组,0.4x" },
+    { "model": "gemini-3.7-flash", "provider": "aiberm", "input": 3.266, "output": 16.330, "cacheWrite": null, "cacheRead": null, "notes": "" },
+    { "model": "gemini-3.7-flash", "provider": "nonelinear", "input": 5.25, "output": 26.25, "cacheWrite": null, "cacheRead": 0.525, "notes": "同官方价" }
   ],
 
   "subscriptions": [
