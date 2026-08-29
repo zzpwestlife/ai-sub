@@ -13,7 +13,8 @@
     { "id": "aihubmix", "name": "AIHubMix", "type": "third-party", "url": "https://aihubmix.com/models", "baseUrl": "https://aihubmix.com/api/v1", "notes": "第三方聚合平台" },
     { "id": "openrouter", "name": "OpenRouter", "type": "third-party", "url": "https://openrouter.ai", "baseUrl": "https://openrouter.ai/api/v1", "notes": "知名聚合平台，模型覆盖广" },
     { "id": "cubence", "name": "Cubence", "type": "third-party", "url": "https://cubence.com/dashboard", "baseUrl": "https://api-dmit.cubence.com", "notes": "第三方中转" },
-    { "id": "aicode007", "name": "aicode007", "type": "third-party", "url": "https://aicode007.com/dashboard", "baseUrl": "", "notes": "GPT官方1.2折(支持Codex); Claude官方4.9折(限Claude Code)" }
+    { "id": "aicode007", "name": "aicode007", "type": "third-party", "url": "https://aicode007.com/dashboard", "baseUrl": "", "notes": "GPT官方1.2折(支持Codex); Claude官方4.9折(限Claude Code)" },
+    { "id": "nonelinear", "name": "非线智能", "type": "third-party", "url": "https://nonelinear.com/static/balance.html", "baseUrl": "https://api.nonelinear.com/v1", "notes": "价格同官方，无折扣优势" }
   ],
 
   "officialPrices": {
@@ -106,7 +107,8 @@
     { "provider": "aihubmix", "balance": 36, "currency": "CNY", "role": "少用", "models": [], "notes": "价格未确认,很少使用" },
     { "provider": "openrouter", "balance": 115, "currency": "CNY", "role": "备用", "models": ["claude-sonnet-5","claude-opus-5","claude-fable-5","gpt-5.6-luna","gpt-5.6-terra","gpt-5.6-sol","grok-4.6","deepseek-v4-flash","deepseek-v4-pro"], "notes": "官方价直连,DeepSeek有折扣" },
     { "provider": "cubence", "balance": 3, "currency": "CNY", "role": "停用", "models": [], "notes": "价格同官方,不再使用" },
-    { "provider": "aicode007", "balance": 52, "currency": "CNY", "role": "待定", "models": ["claude-sonnet-5","claude-opus-5","claude-fable-5","gpt-5.6-luna","gpt-5.6-terra","gpt-5.6-sol"], "notes": "GPT 1.2折,Claude 4.9折(限Claude Code)" }
+    { "provider": "aicode007", "balance": 52, "currency": "CNY", "role": "待定", "models": ["claude-sonnet-5","claude-opus-5","claude-fable-5","gpt-5.6-luna","gpt-5.6-terra","gpt-5.6-sol"], "notes": "GPT 1.2折,Claude 4.9折(限Claude Code)" },
+    { "provider": "nonelinear", "balance": 70, "currency": "CNY", "role": "少用", "models": ["claude-sonnet-5","claude-opus-5","claude-fable-5","gpt-5.6-luna","gpt-5.6-terra","gpt-5.6-sol","grok-4.6","deepseek-v4-flash","deepseek-v4-pro"], "notes": "价格同官方，无折扣" }
   ],
 
   "scenarios": [
