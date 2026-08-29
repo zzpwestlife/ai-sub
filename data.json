@@ -96,7 +96,7 @@
     { "model": "deepseek-v4-flash", "provider": "deepseek", "input": 1.50, "output": 4.50, "cacheWrite": null, "cacheRead": 0.05, "notes": "空闲时段", "peak": true },
     { "model": "deepseek-v4-flash", "provider": "deepseek", "input": 3.00, "output": 9.00, "cacheWrite": null, "cacheRead": 0.10, "notes": "高峰时段", "peak": true, "isPeak": true },
     { "model": "deepseek-v4-flash", "provider": "v3api", "input": 0.70, "output": 1.40, "cacheWrite": null, "cacheRead": 0.014, "notes": "big_sale分组,0.1x倍率" },
-    { "model": "deepseek-v4-flash", "provider": "openrouter", "input": 0.21, "output": 0.70, "cacheWrite": null, "cacheRead": null, "notes": "v4-flash-0731,$0.03/$0.10" },
+    { "model": "deepseek-v4-flash", "provider": "openrouter", "input": 0.21, "output": 0.70, "cacheWrite": null, "cacheRead": 0.049, "notes": "v4-flash-0731,$0.03/$0.10" },
     { "model": "deepseek-v4-flash", "provider": "nonelinear", "input": 1.50, "output": 4.50, "cacheWrite": null, "cacheRead": 0.05, "notes": "同官方价" },
     { "model": "deepseek-v4-flash", "provider": "aiberm", "input": 1.021, "output": 1.531, "cacheWrite": null, "cacheRead": null, "notes": "" },
 
@@ -104,7 +104,7 @@
     { "model": "deepseek-v4-pro", "provider": "deepseek", "input": 4.50, "output": 13.50, "cacheWrite": null, "cacheRead": 0.15, "notes": "空闲时段", "peak": true },
     { "model": "deepseek-v4-pro", "provider": "deepseek", "input": 9.00, "output": 27.00, "cacheWrite": null, "cacheRead": 0.30, "notes": "高峰时段", "peak": true, "isPeak": true },
     { "model": "deepseek-v4-pro", "provider": "siliconflow", "input": 12.00, "output": 24.00, "cacheWrite": null, "cacheRead": 1.00, "notes": "不推荐" },
-    { "model": "deepseek-v4-pro", "provider": "openrouter", "input": 4.62, "output": 13.86, "cacheWrite": null, "cacheRead": null, "notes": "v4-pro-0813,$0.66/$1.98" },
+    { "model": "deepseek-v4-pro", "provider": "openrouter", "input": 4.62, "output": 13.86, "cacheWrite": null, "cacheRead": 0.308, "notes": "v4-pro-0813,$0.66/$1.98" },
     { "model": "deepseek-v4-pro", "provider": "nonelinear", "input": 4.50, "output": 13.50, "cacheWrite": null, "cacheRead": 0.15, "notes": "同官方价" },
     { "model": "deepseek-v4-pro", "provider": "v3api", "input": 5.60, "output": 16.80, "cacheWrite": null, "cacheRead": null, "notes": "big_sale分组,0.1x倍率" },
     { "model": "deepseek-v4-pro", "provider": "aiberm", "input": 2.939, "output": 5.879, "cacheWrite": null, "cacheRead": null, "notes": "" },
