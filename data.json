@@ -47,39 +47,46 @@
     { "model": "claude-sonnet-5", "provider": "v3api", "input": 4.90, "output": 24.50, "cacheWrite": 6.125, "cacheRead": 0.49, "notes": "claude_kiro分组,0.35x" },
     { "model": "claude-sonnet-5", "provider": "aicode007", "input": 6.86, "output": 34.30, "cacheWrite": null, "cacheRead": null, "notes": "官方4.9折,限Claude Code" },
     { "model": "claude-sonnet-5", "provider": "openrouter", "input": 14.00, "output": 70.00, "cacheWrite": null, "cacheRead": 1.40, "notes": "官方价直连" },
+    { "model": "claude-sonnet-5", "provider": "nonelinear", "input": 14.00, "output": 70.00, "cacheWrite": null, "cacheRead": 1.40, "notes": "同官方价" },
 
     { "model": "claude-opus-5", "provider": "apifun", "input": 4.00, "output": 20.00, "cacheWrite": 5.00, "cacheRead": 0.40, "notes": "支持缓存计费" },
     { "model": "claude-opus-5", "provider": "aiberm", "input": 3.547, "output": 17.734, "cacheWrite": null, "cacheRead": null, "notes": "无缓存价" },
     { "model": "claude-opus-5", "provider": "v3api", "input": 12.25, "output": 61.25, "cacheWrite": 15.31, "cacheRead": 1.225, "notes": "claude_kiro分组,0.35x" },
     { "model": "claude-opus-5", "provider": "aicode007", "input": 17.15, "output": 85.75, "cacheWrite": null, "cacheRead": null, "notes": "官方4.9折,限Claude Code" },
     { "model": "claude-opus-5", "provider": "openrouter", "input": 35.00, "output": 175.00, "cacheWrite": null, "cacheRead": 3.50, "notes": "官方价直连" },
+    { "model": "claude-opus-5", "provider": "nonelinear", "input": 35.00, "output": 175.00, "cacheWrite": null, "cacheRead": 3.50, "notes": "同官方价" },
 
     { "model": "claude-fable-5", "provider": "aiberm", "input": 13.489, "output": 67.443, "cacheWrite": null, "cacheRead": null, "notes": "无缓存价" },
     { "model": "claude-fable-5", "provider": "v3api", "input": 24.50, "output": 123.00, "cacheWrite": null, "cacheRead": null, "notes": "1.85x" },
     { "model": "claude-fable-5", "provider": "aicode007", "input": 34.30, "output": 171.50, "cacheWrite": null, "cacheRead": null, "notes": "官方4.9折,限Claude Code" },
     { "model": "claude-fable-5", "provider": "openrouter", "input": 70.00, "output": 350.00, "cacheWrite": null, "cacheRead": 70.00, "notes": "官方价直连" },
+    { "model": "claude-fable-5", "provider": "nonelinear", "input": 70.00, "output": 350.00, "cacheWrite": null, "cacheRead": 7.00, "notes": "同官方价" },
 
     { "model": "gpt-5.6-luna", "provider": "apifun", "input": 0.60, "output": 3.60, "cacheWrite": null, "cacheRead": 0.06, "notes": "外接版,支持生图,>272K价格翻倍" },
     { "model": "gpt-5.6-luna", "provider": "v3api", "input": 1.40, "output": 8.40, "cacheWrite": 1.75, "cacheRead": 0.14, "notes": "default分组" },
     { "model": "gpt-5.6-luna", "provider": "aicode007", "input": 0.84, "output": 5.04, "cacheWrite": null, "cacheRead": null, "notes": "官方1.2折,支持Codex" },
     { "model": "gpt-5.6-luna", "provider": "openrouter", "input": 1.40, "output": 8.40, "cacheWrite": null, "cacheRead": 0.14, "notes": "" },
+    { "model": "gpt-5.6-luna", "provider": "nonelinear", "input": 1.40, "output": 8.40, "cacheWrite": null, "cacheRead": 0.14, "notes": "同官方价" },
     { "model": "gpt-5.6-luna", "provider": "aiberm", "input": 3.194, "output": 15.969, "cacheWrite": null, "cacheRead": null, "notes": "" },
 
     { "model": "gpt-5.6-terra", "provider": "apifun", "input": 1.20, "output": 7.20, "cacheWrite": null, "cacheRead": 0.12, "notes": "外接版,支持生图,>272K价格翻倍" },
     { "model": "gpt-5.6-terra", "provider": "v3api", "input": 17.50, "output": 105.00, "cacheWrite": null, "cacheRead": 1.75, "notes": "default分组" },
     { "model": "gpt-5.6-terra", "provider": "aicode007", "input": 1.68, "output": 10.08, "cacheWrite": null, "cacheRead": null, "notes": "官方1.2折,支持Codex" },
     { "model": "gpt-5.6-terra", "provider": "openrouter", "input": 14.00, "output": 84.00, "cacheWrite": null, "cacheRead": 1.40, "notes": "" },
+    { "model": "gpt-5.6-terra", "provider": "nonelinear", "input": 14.00, "output": 84.00, "cacheWrite": null, "cacheRead": 1.40, "notes": "同官方价" },
     { "model": "gpt-5.6-terra", "provider": "aiberm", "input": 5.323, "output": 31.938, "cacheWrite": null, "cacheRead": null, "notes": "" },
 
     { "model": "gpt-5.6-sol", "provider": "apifun", "input": 3.00, "output": 18.00, "cacheWrite": null, "cacheRead": 0.30, "notes": "外接版,支持生图,>272K价格翻倍" },
     { "model": "gpt-5.6-sol", "provider": "v3api", "input": 35.00, "output": 210.00, "cacheWrite": null, "cacheRead": 3.50, "notes": "default分组,同官方价" },
     { "model": "gpt-5.6-sol", "provider": "aicode007", "input": 4.20, "output": 25.20, "cacheWrite": null, "cacheRead": null, "notes": "官方1.2折,支持Codex" },
     { "model": "gpt-5.6-sol", "provider": "openrouter", "input": 14.00, "output": 70.00, "cacheWrite": null, "cacheRead": 1.40, "notes": "" },
+    { "model": "gpt-5.6-sol", "provider": "nonelinear", "input": 35.00, "output": 210.00, "cacheWrite": null, "cacheRead": 3.50, "notes": "同官方价" },
 
     { "model": "grok-4.6", "provider": "apifun", "input": 2.00, "output": 6.00, "cacheWrite": null, "cacheRead": 0.30, "notes": "满血号池,支持生图/视频" },
     { "model": "grok-4.6", "provider": "aiberm", "input": 4.083, "output": 10.206, "cacheWrite": null, "cacheRead": null, "notes": "" },
     { "model": "grok-4.6", "provider": "v3api", "input": 28.00, "output": 84.00, "cacheWrite": null, "cacheRead": 7.00, "notes": "gf分组,2x倍率" },
     { "model": "grok-4.6", "provider": "openrouter", "input": 14.00, "output": 42.00, "cacheWrite": null, "cacheRead": 3.50, "notes": "官方价直连" },
+    { "model": "grok-4.6", "provider": "nonelinear", "input": 14.00, "output": 42.00, "cacheWrite": null, "cacheRead": 3.50, "notes": "同官方价" },
 
     { "model": "deepseek-v4-flash", "provider": "siliconflow", "input": 1.00, "output": 2.00, "cacheWrite": null, "cacheRead": 0.02, "notes": "全网最低,无峰谷" },
     { "model": "deepseek-v4-flash", "provider": "apifun", "input": 1.13, "output": 3.38, "cacheWrite": null, "cacheRead": 0.04, "notes": "固定7.5折,无峰谷,缓存创建价待确认" },
@@ -87,6 +94,7 @@
     { "model": "deepseek-v4-flash", "provider": "deepseek", "input": 3.00, "output": 9.00, "cacheWrite": null, "cacheRead": 0.10, "notes": "高峰时段", "peak": true, "isPeak": true },
     { "model": "deepseek-v4-flash", "provider": "v3api", "input": 0.70, "output": 1.40, "cacheWrite": null, "cacheRead": 0.014, "notes": "big_sale分组,0.1x倍率" },
     { "model": "deepseek-v4-flash", "provider": "openrouter", "input": 0.21, "output": 0.70, "cacheWrite": null, "cacheRead": null, "notes": "v4-flash-0731,$0.03/$0.10" },
+    { "model": "deepseek-v4-flash", "provider": "nonelinear", "input": 1.50, "output": 4.50, "cacheWrite": null, "cacheRead": 0.05, "notes": "同官方价" },
     { "model": "deepseek-v4-flash", "provider": "aiberm", "input": 1.021, "output": 1.531, "cacheWrite": null, "cacheRead": null, "notes": "" },
 
     { "model": "deepseek-v4-pro", "provider": "apifun", "input": 3.38, "output": 10.13, "cacheWrite": null, "cacheRead": 0.11, "notes": "固定7.5折,无峰谷" },
@@ -94,6 +102,7 @@
     { "model": "deepseek-v4-pro", "provider": "deepseek", "input": 9.00, "output": 27.00, "cacheWrite": null, "cacheRead": 0.30, "notes": "高峰时段", "peak": true, "isPeak": true },
     { "model": "deepseek-v4-pro", "provider": "siliconflow", "input": 12.00, "output": 24.00, "cacheWrite": null, "cacheRead": 1.00, "notes": "不推荐" },
     { "model": "deepseek-v4-pro", "provider": "openrouter", "input": 4.62, "output": 13.86, "cacheWrite": null, "cacheRead": null, "notes": "v4-pro-0813,$0.66/$1.98" },
+    { "model": "deepseek-v4-pro", "provider": "nonelinear", "input": 4.50, "output": 13.50, "cacheWrite": null, "cacheRead": 0.15, "notes": "同官方价" },
     { "model": "deepseek-v4-pro", "provider": "v3api", "input": 5.60, "output": 16.80, "cacheWrite": null, "cacheRead": null, "notes": "big_sale分组,0.1x倍率" },
     { "model": "deepseek-v4-pro", "provider": "aiberm", "input": 2.939, "output": 5.879, "cacheWrite": null, "cacheRead": null, "notes": "" }
   ],
