@@ -129,6 +129,17 @@ def http_get_json(url, proxy=None, timeout=30, headers=None):
 # OpenRouter
 # ---------------------------------------------------------------------------
 
+# 核验链接：发现变动后方便人工到源头确认
+def verify_url(provider, model_id=None, or_id=None):
+    if provider == "OpenRouter" and or_id:
+        return f"https://openrouter.ai/{or_id}"
+    if provider == "apifun":
+        return "https://apikey.fun/pricing"
+    if provider == "V3 API":
+        return "https://api.v3.cm/panel"
+    return ""
+
+
 def check_openrouter(data, cfg):
     """对比 OpenRouter 实际价格与 data.json 记录。"""
     diffs = []
@@ -140,9 +151,10 @@ def check_openrouter(data, cfg):
     or_entries = {p["model"]: p for p in data["prices"] if p["provider"] == "openrouter"}
 
     for model_id, or_id in OPENROUTER_MODEL_MAP.items():
+        url = verify_url("OpenRouter", model_id, or_id)
         if or_id not in api_prices:
             diffs.append({"provider": "OpenRouter", "model": model_id, "field": "-",
-                          "local": "-", "remote": "模型在 OpenRouter 上不存在"})
+                          "local": "-", "remote": "模型在 OpenRouter 上不存在", "url": url})
             continue
         p = api_prices[or_id]
         remote = {
@@ -158,11 +170,11 @@ def check_openrouter(data, cfg):
             if lv is None:
                 if rv > 0:
                     diffs.append({"provider": "OpenRouter", "model": model_id, "field": field,
-                                  "local": "(空)", "remote": f"¥{rv:.4f}"})
+                                  "local": "(空)", "remote": f"¥{rv:.4f}", "url": url})
                 continue
             if is_changed(lv, rv, cfg):
                 diffs.append({"provider": "OpenRouter", "model": model_id, "field": field,
-                              "local": f"¥{lv}", "remote": f"¥{rv:.4f}"})
+                              "local": f"¥{lv}", "remote": f"¥{rv:.4f}", "url": url})
     return diffs
 
 
@@ -189,7 +201,8 @@ def check_apifun(data, cfg):
         g = groups.get(group_name)
         if not g:
             diffs.append({"provider": "apifun", "model": "-", "field": "-",
-                          "local": "-", "remote": f"分组「{group_name}」不存在（可能改名）"})
+                          "local": "-", "remote": f"分组「{group_name}」不存在（可能改名）",
+                          "url": verify_url("apifun")})
             continue
         rate = g.get("rate_multiplier", 0)
         for model_id in model_ids:
@@ -217,7 +230,8 @@ def check_apifun(data, cfg):
                 if is_changed(lv, ev, cfg):
                     diffs.append({"provider": "apifun", "model": model_id, "field": field,
                                   "local": f"¥{lv}",
-                                  "remote": f"¥{ev:.4f}（倍率 {rate}）"})
+                                  "remote": f"¥{ev:.4f}（倍率 {rate}）",
+                                  "url": verify_url("apifun")})
     return diffs
 
 
@@ -254,15 +268,18 @@ def check_v3(cfg):
             s = snapshot.get(name)
             if s is None:
                 diffs.append({"provider": "V3 API", "model": name, "field": "-",
-                              "local": "(快照中无)", "remote": f"新增模型 倍率 {r['model_ratio']}/{r['completion_ratio']}"})
+                              "local": "(快照中无)", "remote": f"新增模型 倍率 {r['model_ratio']}/{r['completion_ratio']}",
+                              "url": verify_url("V3 API")})
                 continue
             for k in ("model_ratio", "completion_ratio"):
                 if s.get(k) != r.get(k):
                     diffs.append({"provider": "V3 API", "model": name, "field": k,
-                                  "local": f"{s.get(k)}", "remote": f"{r.get(k)}"})
+                                  "local": f"{s.get(k)}", "remote": f"{r.get(k)}",
+                                  "url": verify_url("V3 API")})
             if sorted(s.get("enable_groups", [])) != sorted(r.get("enable_groups", [])):
                 diffs.append({"provider": "V3 API", "model": name, "field": "enable_groups",
-                              "local": str(s.get("enable_groups")), "remote": str(r.get("enable_groups"))})
+                              "local": str(s.get("enable_groups")), "remote": str(r.get("enable_groups")),
+                              "url": verify_url("V3 API")})
 
     SNAPSHOT_FILE.parent.mkdir(parents=True, exist_ok=True)
     with open(SNAPSHOT_FILE, "w") as f:
@@ -296,10 +313,11 @@ def write_report(all_diffs, errors):
     if all_diffs:
         lines.append(f"⚠️ 发现 {len(all_diffs)} 处变动（请确认后手动更新 data.json）：")
         lines.append("")
-        lines.append("| 提供商 | 模型 | 字段 | 当前记录 | 线上最新 |")
-        lines.append("|--------|------|------|----------|----------|")
+        lines.append("| 提供商 | 模型 | 字段 | 当前记录 | 线上最新 | 核验链接 |")
+        lines.append("|--------|------|------|----------|----------|----------|")
         for d in all_diffs:
-            lines.append(f"| {d['provider']} | {d['model']} | {d['field']} | {d['local']} | {d['remote']} |")
+            link = f"[去核验]({d['url']})" if d.get("url") else "—"
+            lines.append(f"| {d['provider']} | {d['model']} | {d['field']} | {d['local']} | {d['remote']} | {link} |")
     if errors:
         lines.append("")
         lines.append("## 检查失败的部分")
