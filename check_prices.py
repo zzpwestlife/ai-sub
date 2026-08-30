@@ -32,6 +32,8 @@ BASE_DIR = Path(__file__).parent
 DATA_FILE = BASE_DIR / "data.json"
 CONFIG_FILE = BASE_DIR / "monitor_config.local.json"
 SNAPSHOT_FILE = BASE_DIR / "price_state" / "v3_snapshot.json"
+DATA_SNAPSHOT_FILE = BASE_DIR / "price_state" / "data_snapshot.json"
+HISTORY_FILE = BASE_DIR / "price_history.json"
 REPORT_DIR = BASE_DIR / "price_reports"
 
 VERBOSE = "--verbose" in sys.argv
@@ -323,6 +325,76 @@ def check_v3(cfg):
 
 
 # ---------------------------------------------------------------------------
+# 价格变更历史（自动检测 data.json 的改动）
+# ---------------------------------------------------------------------------
+
+PRICE_FIELDS = ("input", "output", "cacheWrite", "cacheRead")
+
+
+def record_local_changes(data):
+    """对比 data.json 当前价格与上次快照，将人工改动记入 price_history.json。
+    每次脚本运行时自动执行，无需人工操作。"""
+    current = {}
+    for p in data.get("prices", []):
+        key = f"{p['provider']}|{p['model']}"
+        current[key] = {f: p.get(f) for f in PRICE_FIELDS}
+
+    snapshot = {}
+    if DATA_SNAPSHOT_FILE.exists():
+        try:
+            with open(DATA_SNAPSHOT_FILE) as f:
+                snapshot = json.load(f)
+        except Exception:
+            snapshot = {}
+
+    entries = []
+    now = datetime.now().strftime("%Y-%m-%d %H:%M")
+
+    if snapshot:
+        for key, cur in current.items():
+            prov, model = key.split("|", 1)
+            old = snapshot.get(key)
+            if old is None:
+                entries.append({"time": now, "provider": prov, "model": model,
+                                "field": "(新增条目)", "from": "-", "to": "-",
+                                "note": "新录入的价格条目"})
+                continue
+            for f in PRICE_FIELDS:
+                ov, cv = old.get(f), cur.get(f)
+                if ov == cv or (ov is None and cv is None):
+                    continue
+                entries.append({"time": now, "provider": prov, "model": model,
+                                "field": f, "from": ov if ov is not None else "-",
+                                "to": cv if cv is not None else "-", "note": ""})
+        for key in snapshot:
+            if key not in current:
+                prov, model = key.split("|", 1)
+                entries.append({"time": now, "provider": prov, "model": model,
+                                "field": "(删除条目)", "from": "-", "to": "-",
+                                "note": "价格条目被移除"})
+    else:
+        log("无 data.json 历史快照，本次建立基线（不记录历史）。")
+
+    if entries:
+        history = []
+        if HISTORY_FILE.exists():
+            try:
+                with open(HISTORY_FILE) as f:
+                    history = json.load(f)
+            except Exception:
+                history = []
+        history.extend(entries)
+        with open(HISTORY_FILE, "w") as f:
+            json.dump(history, f, ensure_ascii=False, indent=2)
+        print(f"📝 已记录 {len(entries)} 条价格变更 → {HISTORY_FILE.name}")
+
+    DATA_SNAPSHOT_FILE.parent.mkdir(parents=True, exist_ok=True)
+    with open(DATA_SNAPSHOT_FILE, "w") as f:
+        json.dump(current, f, ensure_ascii=False, indent=2)
+    return entries
+
+
+# ---------------------------------------------------------------------------
 # 工具
 # ---------------------------------------------------------------------------
 
@@ -388,6 +460,12 @@ def main():
     cfg = load_config()
     with open(DATA_FILE) as f:
         data = json.load(f)
+
+    # 先检测 data.json 本身的人工改动，记入历史（在任何在线检查之前）
+    try:
+        record_local_changes(data)
+    except Exception as e:
+        log(f"历史检测失败（不影响主流程）: {e}")
 
     all_diffs, errors = [], []
 

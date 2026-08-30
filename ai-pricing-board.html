@@ -66,11 +66,12 @@ th.sorted-desc::after { content:' ▼'; font-size:.6rem; }
 </div>
 
 <div class="tabs">
-  <div class="tab active" onclick="switchTab('overview')">📊 综合比价</div>
-  <div class="tab" onclick="switchTab('provider')">🏢 提供商视图</div>
-  <div class="tab" onclick="switchTab('subscription')">💳 订阅管理</div>
-  <div class="tab" onclick="switchTab('scenario')">🎯 场景路由</div>
-  <div class="tab" onclick="switchTab('config')">⚙️ 配置指南</div>
+  <div class="tab active" onclick=\"switchTab('overview', this)\">📊 综合比价</div>
+  <div class="tab" onclick=\"switchTab('provider', this)\">🏢 提供商视图</div>
+  <div class="tab" onclick=\"switchTab('subscription', this)\">💳 订阅管理</div>
+  <div class="tab" onclick=\"switchTab('scenario', this)\">🎯 场景路由</div>
+  <div class="tab" onclick=\"switchTab('config', this)\">⚙️ 配置指南</div>
+  <div class="tab" onclick=\"switchTab('history', this)\">📜 变更历史</div>
 </div>
 
 <!-- ==================== 综合比价 ==================== -->
@@ -101,6 +102,16 @@ th.sorted-desc::after { content:' ▼'; font-size:.6rem; }
 <!-- ==================== 场景路由 ==================== -->
 <div id="view-scenario" class="view">
   <div id="scenarioContent"></div>
+</div>
+
+<!-- ==================== 变更历史 ==================== -->
+<div id="view-history" class="view">
+  <div class="filter-bar">
+    <select id="histProvider" onchange="renderHistory()"><option value="">全部提供商</option></select>
+    <select id="histModel" onchange="renderHistory()"><option value="">全部模型</option></select>
+    <span class="note" id="histCount"></span>
+  </div>
+  <div id="historyContent"></div>
 </div>
 
 <script>
@@ -177,10 +188,11 @@ function sortTable(key) {
 // ============================================================
 // Tab 切换
 // ============================================================
-function switchTab(name) {
+function switchTab(name, el) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  event.target.classList.add('active');
+  const tab = el || [...document.querySelectorAll('.tab')].find(t => t.getAttribute('onclick')?.includes(`'${name}'`));
+  if (tab) tab.classList.add('active');
   document.getElementById('view-' + name).classList.add('active');
   render();
 }
@@ -426,6 +438,64 @@ function renderScenario() {
 }
 
 // ============================================================
+// 变更历史视图（数据来自 price_history.json，由监控脚本自动记录）
+// ============================================================
+let HISTORY_DATA = null;
+
+function loadHistory() {
+  return fetch('price_history.json')
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(h => {
+      HISTORY_DATA = h;
+      // 填充筛选器（去重）
+      const provSel = document.getElementById('histProvider');
+      const modelSel = document.getElementById('histModel');
+      provSel.innerHTML = '<option value="">全部提供商</option>';
+      modelSel.innerHTML = '<option value="">全部模型</option>';
+      [...new Set(h.map(e => e.provider))].forEach(p => {
+        const o = document.createElement('option'); o.value = p; o.textContent = providerName(p) || p; provSel.appendChild(o);
+      });
+      [...new Set(h.map(e => e.model))].forEach(m => {
+        const mi = modelInfo(m);
+        const o = document.createElement('option'); o.value = m; o.textContent = mi.name || m; modelSel.appendChild(o);
+      });
+      renderHistory();
+    })
+    .catch(() => {
+      document.getElementById('historyContent').innerHTML =
+        '<div class="card"><h2>📜 暂无变更历史</h2><p class="note">price_history.json 不存在或为空。价格变更由监控脚本（check_prices.py）自动记录。</p></div>';
+    });
+}
+
+function renderHistory() {
+  if (!HISTORY_DATA) return;
+  const pf = document.getElementById('histProvider').value;
+  const mf = document.getElementById('histModel').value;
+  const FIELD_NAMES = { input:'输入', output:'输出', cacheWrite:'缓存写', cacheRead:'缓存读' };
+  let entries = HISTORY_DATA.filter(e => (!pf || e.provider === pf) && (!mf || e.model === mf));
+  entries.sort((a, b) => (b.time || '').localeCompare(a.time || ''));
+  document.getElementById('histCount').textContent = `共 ${entries.length} 条记录`;
+  if (!entries.length) {
+    document.getElementById('historyContent').innerHTML = '<div class="card"><p class="note">没有符合条件的记录。</p></div>';
+    return;
+  }
+  let html = '<div class="card"><table><thead><tr><th>时间</th><th>提供商</th><th>模型</th><th>字段</th><th>原价格</th><th>→</th><th>新价格</th><th>备注</th></tr></thead><tbody>';
+  entries.forEach(e => {
+    const mi = modelInfo(e.model);
+    const fromStr = e.from === '-' ? '—' : `¥${e.from}`;
+    const toStr = e.to === '-' ? '—' : `¥${e.to}`;
+    html += `<tr><td class="note" style="white-space:nowrap">${e.time}</td>`;
+    html += `<td>${providerName(e.provider) || e.provider}</td>`;
+    html += `<td>${mi.name || e.model}</td>`;
+    html += `<td>${FIELD_NAMES[e.field] || e.field}</td>`;
+    html += `<td class="note">${fromStr}</td><td class="note">→</td><td class="best">${toStr}</td>`;
+    html += `<td class="note">${e.note || ''}</td></tr>`;
+  });
+  html += '</tbody></table></div>';
+  document.getElementById('historyContent').innerHTML = html;
+}
+
+// ============================================================
 // 初始化
 // ============================================================
 function renderConfig() {
@@ -460,6 +530,7 @@ function render() {
   renderSubscription();
   renderScenario();
   renderConfig();
+  if (HISTORY_DATA) renderHistory();
 }
 
 function init() {
@@ -480,6 +551,7 @@ function init() {
   DATA.providers.forEach(p => { const o = document.createElement('option'); o.value = p.id; o.textContent = p.name; provSel.appendChild(o); });
 
   render();
+  loadHistory();
 }
 
 </script>

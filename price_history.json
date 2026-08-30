@@ -1,0 +1,164 @@
+[
+  {
+    "time": "2026-08-30 16:43",
+    "provider": "openrouter",
+    "model": "claude-fable-5",
+    "field": "cacheRead",
+    "from": 70.0,
+    "to": 7.0,
+    "note": ""
+  },
+  {
+    "time": "2026-08-30 16:43",
+    "provider": "openrouter",
+    "model": "gpt-5.6-luna",
+    "field": "input",
+    "from": 1.4,
+    "to": 1.54,
+    "note": ""
+  },
+  {
+    "time": "2026-08-30 16:43",
+    "provider": "openrouter",
+    "model": "gpt-5.6-luna",
+    "field": "output",
+    "from": 8.4,
+    "to": 9.24,
+    "note": ""
+  },
+  {
+    "time": "2026-08-30 16:43",
+    "provider": "openrouter",
+    "model": "gpt-5.6-luna",
+    "field": "cacheRead",
+    "from": 0.14,
+    "to": 0.154,
+    "note": ""
+  },
+  {
+    "time": "2026-08-30 16:43",
+    "provider": "openrouter",
+    "model": "gpt-5.6-terra",
+    "field": "input",
+    "from": 14.0,
+    "to": 15.4,
+    "note": ""
+  },
+  {
+    "time": "2026-08-30 16:43",
+    "provider": "openrouter",
+    "model": "gpt-5.6-terra",
+    "field": "output",
+    "from": 84.0,
+    "to": 92.4,
+    "note": ""
+  },
+  {
+    "time": "2026-08-30 16:43",
+    "provider": "openrouter",
+    "model": "gpt-5.6-terra",
+    "field": "cacheRead",
+    "from": 1.4,
+    "to": 1.54,
+    "note": ""
+  },
+  {
+    "time": "2026-08-30 16:43",
+    "provider": "openrouter",
+    "model": "gpt-5.6-sol",
+    "field": "input",
+    "from": 14.0,
+    "to": 38.5,
+    "note": ""
+  },
+  {
+    "time": "2026-08-30 16:43",
+    "provider": "openrouter",
+    "model": "gpt-5.6-sol",
+    "field": "output",
+    "from": 70.0,
+    "to": 231.0,
+    "note": ""
+  },
+  {
+    "time": "2026-08-30 16:43",
+    "provider": "openrouter",
+    "model": "gpt-5.6-sol",
+    "field": "cacheRead",
+    "from": 1.4,
+    "to": 3.85,
+    "note": ""
+  },
+  {
+    "time": "2026-08-30 16:43",
+    "provider": "openrouter",
+    "model": "deepseek-v4-flash",
+    "field": "input",
+    "from": 0.21,
+    "to": 3.08,
+    "note": ""
+  },
+  {
+    "time": "2026-08-30 16:43",
+    "provider": "openrouter",
+    "model": "deepseek-v4-flash",
+    "field": "output",
+    "from": 0.7,
+    "to": 1.96,
+    "note": ""
+  },
+  {
+    "time": "2026-08-30 16:43",
+    "provider": "openrouter",
+    "model": "deepseek-v4-flash",
+    "field": "cacheRead",
+    "from": 0.049,
+    "to": 0.196,
+    "note": ""
+  },
+  {
+    "time": "2026-08-30 16:43",
+    "provider": "openrouter",
+    "model": "deepseek-v4-pro",
+    "field": "input",
+    "from": 4.62,
+    "to": 9.24,
+    "note": ""
+  },
+  {
+    "time": "2026-08-30 16:43",
+    "provider": "openrouter",
+    "model": "deepseek-v4-pro",
+    "field": "output",
+    "from": 13.86,
+    "to": 27.72,
+    "note": ""
+  },
+  {
+    "time": "2026-08-30 16:43",
+    "provider": "openrouter",
+    "model": "gemini-3.7-flash",
+    "field": "input",
+    "from": 0.35,
+    "to": 5.25,
+    "note": ""
+  },
+  {
+    "time": "2026-08-30 16:43",
+    "provider": "openrouter",
+    "model": "gemini-3.7-flash",
+    "field": "output",
+    "from": 2.8,
+    "to": 26.25,
+    "note": ""
+  },
+  {
+    "time": "2026-08-30 16:43",
+    "provider": "openrouter",
+    "model": "gemini-3.7-flash",
+    "field": "cacheRead",
+    "from": 0.035,
+    "to": 0.525,
+    "note": ""
+  }
+]
