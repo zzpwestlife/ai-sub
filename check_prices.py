@@ -191,15 +191,35 @@ def check_openrouter(data, cfg):
         if not endpoints:
             continue
 
-        # 收集各 provider 价格（CNY），缓存读只统计非零值
+        # 收集各 provider 价格（CNY），缓存读只统计非零值；
+        # 同时记录每家（input, output, cacheRead）用于算最低档参考
         samples = {"input": [], "output": [], "cacheRead": []}
+        ep_prices = []
         for ep in endpoints:
             p = ep.get("pricing", {})
-            samples["input"].append(round(float(p.get("prompt", 0)) * 1e6 * fx, 3))
-            samples["output"].append(round(float(p.get("completion", 0)) * 1e6 * fx, 3))
+            pi = round(float(p.get("prompt", 0)) * 1e6 * fx, 3)
+            po = round(float(p.get("completion", 0)) * 1e6 * fx, 3)
             cr = float(p.get("input_cache_read") or 0) * 1e6 * fx
+            samples["input"].append(pi)
+            samples["output"].append(po)
             if cr > 0:
                 samples["cacheRead"].append(round(cr, 4))
+            ep_prices.append((pi, po, round(cr, 4)))
+
+        # 最低档参考：按单家 provider 用看板同公式算综合单价（命中率按 90%），
+        # 取最便宜一家的原始价格——是真实可达档位，不是跨家拼的虚拟价，
+        # 也不参与对比报警，仅供看板展示参考。
+        best_ref = None
+        for pi, po, pcr in ep_prices:
+            eff = pcr * 0.9 + pi * 0.1 if pcr > 0 else pi
+            comp = eff * 0.7 + po * 0.3
+            if best_ref is None or comp < best_ref[0]:
+                ref_entry = {"input": pi, "output": po}
+                if pcr > 0:
+                    ref_entry["cacheRead"] = pcr
+                best_ref = (comp, ref_entry)
+        if best_ref:
+            data.setdefault("openrouterRefMin", {})[model_id] = best_ref[1]
 
         local = or_entries.get(model_id, {})
         for field, values in samples.items():
@@ -584,6 +604,7 @@ def main():
     cfg = load_config()
     with open(DATA_FILE) as f:
         data = json.load(f)
+    old_ref_min = data.get("openrouterRefMin")
 
     # 先检测 data.json 本身的人工改动，记入历史（在任何在线检查之前）
     try:
@@ -606,6 +627,11 @@ def main():
         except Exception as e:
             errors.append(f"{name} 检查失败: {e}")
             log(f"{name} 检查失败: {e}")
+
+    # OpenRouter 最低档参考价有变化时回写 data.json（仅供看板参考展示）
+    if data.get("openrouterRefMin") != old_ref_min:
+        atomic_write_json(DATA_FILE, data)
+        log("openrouterRefMin 已更新 → data.json")
 
     report_path = write_report(all_diffs, errors)
     print(f"检查完成：{len(all_diffs)} 处变动，{len(errors)} 个错误")

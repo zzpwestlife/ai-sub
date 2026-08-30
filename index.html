@@ -306,6 +306,7 @@ function renderOverview() {
     html += `<th class="sortable ${sortCls('cacheRead')}" onclick="sortTable('cacheRead')">缓存读</th>`;
     html += `<th class="sortable ${sortCls('composite')}" onclick="sortTable('composite')">综合单价</th>`;
     html += `<th class="sortable ${sortCls('vsOfficial')}" onclick="sortTable('vsOfficial')">vs 官方</th>`;
+    html += `<th title="OpenRouter 上最便宜 provider 的真实档位，仅供展示，不参与排序与最优计算">最低参考</th>`;
     html += `<th>备注</th></tr></thead><tbody>`;
 
     // Official price row
@@ -313,7 +314,7 @@ function renderOverview() {
       const offComp = off.input * 0.7 + off.output * 0.3;
       html += `<tr style="opacity:.7"><td><span class="tag tag-official">官方基准</span></td>`;
       html += `<td>${fmt(off.input)}</td><td>${fmt(off.output)}</td><td>${fmt(off.cacheWrite)}</td><td>${fmt(off.cacheRead)}</td>`;
-      html += `<td>${fmt(offComp)}</td><td>1.00×</td><td></td></tr>`;
+      html += `<td>${fmt(offComp)}</td><td>1.00×</td><td></td><td></td></tr>`;
     }
 
     entries.forEach(e => {
@@ -324,6 +325,9 @@ function renderOverview() {
       html += `<td>${fmt(e.input)}</td><td>${fmt(e.output)}</td><td>${e.cacheWrite != null ? fmt(e.cacheWrite) : '—'}</td><td>${e.cacheRead != null ? fmt(e.cacheRead) : '—'}</td>`;
       html += `<td class="${isBest ? 'best' : ''}">${fmt(e.composite)}</td>`;
       html += `<td><span class="vs-official ${vsClass}">${e.vsOfficial != null ? fmtPct(e.vsOfficial) : '—'}</span></td>`;
+      const ref = e.provider === 'openrouter' && DATA.openrouterRefMin?.[e.model];
+      const refComp = ref ? compositePrice(ref, off) : null;
+      html += `<td class="note">${refComp != null ? '¥' + fmt(refComp) : '—'}</td>`;
       html += `<td class="note">${esc(e.notes)}</td></tr>`;
     });
 
@@ -332,7 +336,7 @@ function renderOverview() {
     peakEntries.forEach(e => {
       html += `<tr style="opacity:.5"><td>${providerName(e.provider)} ⚠️高峰</td>`;
       html += `<td>${fmt(e.input)}</td><td>${fmt(e.output)}</td><td>—</td><td>${e.cacheRead != null ? fmt(e.cacheRead) : '—'}</td>`;
-      html += `<td>${fmt(e.composite)}</td><td><span class="vs-official vs-expensive">${e.vsOfficial != null ? fmtPct(e.vsOfficial) : '—'}</span></td>`;
+      html += `<td>${fmt(e.composite)}</td><td><span class="vs-official vs-expensive">${e.vsOfficial != null ? fmtPct(e.vsOfficial) : '—'}</span></td><td>—</td>`;
       html += `<td class="note">${esc(e.notes)}</td></tr>`;
     });
 

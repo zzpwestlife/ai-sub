@@ -1065,5 +1065,67 @@
       "backup": "deepseek",
       "reason": "apifun固定价;官方周末空闲价补充"
     }
-  ]
+  ],
+  "openrouterRefMin": {
+    "claude-sonnet-5": {
+      "input": 14.0,
+      "output": 70.0,
+      "cacheRead": 1.4
+    },
+    "claude-opus-5": {
+      "input": 35.0,
+      "output": 175.0,
+      "cacheRead": 3.5
+    },
+    "claude-fable-5": {
+      "input": 70.0,
+      "output": 350.0,
+      "cacheRead": 7.0
+    },
+    "gpt-5.6-luna": {
+      "input": 0.7,
+      "output": 4.2,
+      "cacheRead": 0.07
+    },
+    "gpt-5.6-terra": {
+      "input": 7.0,
+      "output": 42.0,
+      "cacheRead": 0.7
+    },
+    "gpt-5.6-sol": {
+      "input": 7.0,
+      "output": 35.0,
+      "cacheRead": 0.7
+    },
+    "grok-4.6": {
+      "input": 14.0,
+      "output": 42.0,
+      "cacheRead": 3.5
+    },
+    "deepseek-v4-flash": {
+      "input": 0.315,
+      "output": 0.629,
+      "cacheRead": 0.0629
+    },
+    "deepseek-v4-pro": {
+      "input": 4.62,
+      "output": 13.86,
+      "cacheRead": 0.154
+    },
+    "gemini-3.7-flash": {
+      "input": 2.625,
+      "output": 13.125,
+      "cacheRead": 0.2625
+    },
+    "glm-5.3-flash": {
+      "input": 0.35,
+      "output": 1.167,
+      "cacheRead": 0.07
+    },
+    "glm-5.3": {
+      "input": 8.4,
+      "output": 28.0,
+      "cacheRead": 1.68
+    }
+  }
 }
