@@ -227,7 +227,7 @@ function renderOverview() {
   const provFilter = document.getElementById('filterProvider').value;
 
   // === 最优总览 ===
-  let summaryHtml = '<div class="card" style="border-color:var(--accent)"><h2>🏆 最优总览</h2><table><thead><tr><th>模型</th><th>最低提供商</th><th>综合单价</th><th>vs 官方</th></tr></thead><tbody>';
+  const summaryRows = [];
   DATA.models.forEach(m => {
     const entries = DATA.prices.filter(p => p.model === m.id && !p.isPeak);
     if (!entries.length) return;
@@ -236,6 +236,13 @@ function renderOverview() {
     const best = scored[0];
     const off = officialFor(m.id);
     const offComp = off ? off.input * 0.7 + off.output * 0.3 : null;
+    summaryRows.push({ m, best, offComp });
+  });
+  // 按最优综合单价升序（综合价为空时排末尾）
+  summaryRows.sort((a, b) => (a.best.composite ?? Infinity) - (b.best.composite ?? Infinity));
+
+  let summaryHtml = '<div class="card" style="border-color:var(--accent)"><h2>🏆 最优总览</h2><table><thead><tr><th>模型</th><th>最低提供商</th><th>综合单价</th><th>vs 官方</th></tr></thead><tbody>';
+  summaryRows.forEach(({ m, best, offComp }) => {
     const vs = offComp ? (best.composite / offComp * 100).toFixed(0) + '%' : '—';
     const isVeryCheap = offComp && best.composite / offComp < 0.2;
     summaryHtml += `<tr><td><strong>${m.name}</strong></td>`;
