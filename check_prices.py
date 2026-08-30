@@ -60,6 +60,8 @@ OPENROUTER_MODEL_MAP = {
     "deepseek-v4-flash": "deepseek/deepseek-v4-flash-0731",
     "deepseek-v4-pro": "deepseek/deepseek-v4-pro-0813",
     "gemini-3.7-flash": "google/gemini-3.7-flash",
+    "glm-5.3-flash": "z-ai/glm-5.3-flash",
+    "glm-5.3": "z-ai/glm-5.3",
 }
 
 # apifun 分组名 → 负责的模型（与用户当前使用的分组一致）
@@ -68,12 +70,16 @@ APIFUN_GROUP_MODELS = {
     "Codex Pro（外接版）": ["gpt-5.6-luna", "gpt-5.6-terra", "gpt-5.6-sol"],
     "Grok 企业版": ["grok-4.6"],
     "DeepSeek（自部署精选）": ["deepseek-v4-flash", "deepseek-v4-pro"],
+    "智谱 Zhipu（满血模型）": ["glm-5.3-flash", "glm-5.3"],
 }
 
-# DeepSeek 官方人民币定价（空闲时段，apifun 倍率以此为基础计算）
-DEEPSEEK_OFFICIAL_CNY = {
+# 官方价本身就是人民币的模型（DeepSeek/GLM），apifun 倍率直接乘人民币价；
+# 其余平台（Anthropic/OpenAI/xAI/Google）官方价是美元，需先除以汇率再乘倍率。
+CNY_OFFICIAL_MODELS = {
     "deepseek-v4-flash": {"input": 1.50, "output": 4.50, "cacheRead": 0.05},
     "deepseek-v4-pro": {"input": 4.50, "output": 13.50, "cacheRead": 0.15},
+    "glm-5.3-flash": {"input": 0.80, "output": 2.80, "cacheRead": 0.23},
+    "glm-5.3": {"input": 8.00, "output": 28.00, "cacheRead": 2.00},
 }
 
 # V3 上追踪的模型名
@@ -246,8 +252,8 @@ def check_apifun(data, cfg):
             local = apifun_entries.get(model_id)
             if not local:
                 continue
-            if model_id in DEEPSEEK_OFFICIAL_CNY:
-                base = DEEPSEEK_OFFICIAL_CNY[model_id]
+            if model_id in CNY_OFFICIAL_MODELS:
+                base = CNY_OFFICIAL_MODELS[model_id]
                 expected = {k: v * rate for k, v in base.items()}
             else:
                 off = data["officialPrices"].get(model_id, {})

@@ -108,6 +108,13 @@
       "url": "https://nonelinear.com/static/balance.html",
       "baseUrl": "https://api.nonelinear.com/v1",
       "notes": "价格同官方，无折扣优势"
+    },
+    {
+      "id": "zhipu",
+      "name": "智谱官方",
+      "type": "official",
+      "url": "https://bigmodel.cn",
+      "notes": "GLM 系列"
     }
   ],
   "officialPrices": {
@@ -176,6 +183,18 @@
       "output": 26.25,
       "cacheWrite": 0,
       "cacheRead": 0.525
+    },
+    "glm-5.3-flash": {
+      "input": 0.8,
+      "output": 2.8,
+      "cacheWrite": 0,
+      "cacheRead": 0.23
+    },
+    "glm-5.3": {
+      "input": 8.0,
+      "output": 28.0,
+      "cacheWrite": 0,
+      "cacheRead": 2.0
     }
   },
   "models": [
@@ -238,6 +257,18 @@
       "name": "Gemini 3.7 Flash",
       "category": "Gemini",
       "desc": "多模态轻量"
+    },
+    {
+      "id": "glm-5.3-flash",
+      "name": "GLM 5.3 Flash",
+      "category": "GLM",
+      "desc": "轻量中文/1.31M上下文"
+    },
+    {
+      "id": "glm-5.3",
+      "name": "GLM 5.3",
+      "category": "GLM",
+      "desc": "编码观察中(宣称媲美opus5)"
     }
   ],
   "prices": [
@@ -786,6 +817,69 @@
       "cacheWrite": null,
       "cacheRead": 0.525,
       "notes": "同官方价"
+    },
+    {
+      "model": "glm-5.3-flash",
+      "provider": "apifun",
+      "input": 0.4,
+      "output": 1.4,
+      "cacheWrite": null,
+      "cacheRead": 0.12,
+      "notes": "满血分组5折"
+    },
+    {
+      "model": "glm-5.3-flash",
+      "provider": "nonelinear",
+      "input": 0.4,
+      "output": 1.4,
+      "cacheWrite": null,
+      "cacheRead": 0.115,
+      "notes": "限时5折(官方¥0.80/¥2.80)"
+    },
+    {
+      "model": "glm-5.3-flash",
+      "provider": "openrouter",
+      "input": 1.05,
+      "output": 3.5,
+      "cacheWrite": null,
+      "cacheRead": 0.21,
+      "notes": "众数 输入15/20 输出14/20 缓存13/20"
+    },
+    {
+      "model": "glm-5.3-flash",
+      "provider": "zhipu",
+      "input": 0.8,
+      "output": 2.8,
+      "cacheWrite": null,
+      "cacheRead": 0.23,
+      "notes": "官方价"
+    },
+    {
+      "model": "glm-5.3",
+      "provider": "apifun",
+      "input": 4.0,
+      "output": 14.0,
+      "cacheWrite": null,
+      "cacheRead": 1.0,
+      "notes": "满血分组5折,1M上下文"
+    },
+    {
+      "model": "glm-5.3",
+      "provider": "openrouter",
+      "input": 9.8,
+      "output": 30.8,
+      "cacheWrite": null,
+      "cacheRead": 1.82,
+      "notes": "$1.4/$4.4/$0.26"
+    },
+    {
+      "model": "glm-5.3",
+      "provider": "zhipu",
+      "input": 8.0,
+      "output": 28.0,
+      "cacheWrite": null,
+      "cacheRead": 2.0,
+      "notes": "官方价"
     }
   ],
   "subscriptions": [
@@ -801,7 +895,9 @@
         "gpt-5.6-luna",
         "gpt-5.6-terra",
         "gpt-5.6-sol",
-        "deepseek-v4-pro"
+        "deepseek-v4-pro",
+        "glm-5.3-flash",
+        "glm-5.3"
       ],
       "notes": "覆盖最广,支持缓存"
     },
@@ -922,9 +1018,10 @@
         "gpt-5.6-sol",
         "grok-4.6",
         "deepseek-v4-flash",
-        "deepseek-v4-pro"
+        "deepseek-v4-pro",
+        "glm-5.3-flash"
       ],
-      "notes": "价格同官方，无折扣"
+      "notes": "价格同官方，GLM限时5折,其余同官方"
     }
   ],
   "scenarios": [

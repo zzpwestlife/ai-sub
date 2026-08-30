@@ -343,7 +343,7 @@ function renderProviderView() {
         if (!op) return;
         const isForThisProvider = DATA.providers.find(p=>p.id===prov.id);
         // Check if this official provider has this model
-        const modelCats = { 'anthropic':'Claude', 'openai':'GPT-5.6', 'xai':'Grok', 'deepseek':'DeepSeek', 'google':'Gemini' };
+        const modelCats = { 'anthropic':'Claude', 'openai':'GPT-5.6', 'xai':'Grok', 'deepseek':'DeepSeek', 'google':'Gemini', 'zhipu':'GLM' };
         if (modelCats[prov.id] && m.category !== modelCats[prov.id]) return;
         if (!modelCats[prov.id] && prov.type === 'official') return;
 

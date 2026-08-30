@@ -160,5 +160,95 @@
     "from": 0.035,
     "to": 0.525,
     "note": ""
+  },
+  {
+    "time": "2026-08-30 17:23",
+    "provider": "apifun",
+    "model": "glm-5.3-flash",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-08-30 17:23",
+    "provider": "nonelinear",
+    "model": "glm-5.3-flash",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-08-30 17:23",
+    "provider": "openrouter",
+    "model": "glm-5.3-flash",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-08-30 17:23",
+    "provider": "zhipu",
+    "model": "glm-5.3-flash",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-08-30 17:23",
+    "provider": "apifun",
+    "model": "glm-5.3",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-08-30 17:23",
+    "provider": "openrouter",
+    "model": "glm-5.3",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-08-30 17:23",
+    "provider": "zhipu",
+    "model": "glm-5.3",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-08-30 17:23",
+    "provider": "openrouter",
+    "model": "glm-5.3-flash",
+    "field": "input",
+    "from": 0.525,
+    "to": 1.05,
+    "note": ""
+  },
+  {
+    "time": "2026-08-30 17:23",
+    "provider": "openrouter",
+    "model": "glm-5.3-flash",
+    "field": "output",
+    "from": 1.75,
+    "to": 3.5,
+    "note": ""
+  },
+  {
+    "time": "2026-08-30 17:23",
+    "provider": "openrouter",
+    "model": "glm-5.3-flash",
+    "field": "cacheRead",
+    "from": 0.105,
+    "to": 0.21,
+    "note": ""
   }
 ]
