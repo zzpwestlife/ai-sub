@@ -141,41 +141,76 @@ def verify_url(provider, model_id=None, or_id=None):
 
 
 def check_openrouter(data, cfg):
-    """对比 OpenRouter 实际价格与 data.json 记录。"""
+    """对比 OpenRouter 实际价格与 data.json 记录。
+    策略：拉取每个模型的全部 provider 价格，取出现次数最多的价格（众数）
+    作为数据库基准（代表最可能被路由到的价格档位）。
+    """
     diffs = []
-    log("拉取 OpenRouter 价格 ...")
+    log("拉取 OpenRouter 价格（含全部 provider）...")
     raw = http_get_json("https://openrouter.ai/api/v1/models", proxy=cfg.get("proxy"))
-    api_prices = {m["id"]: m.get("pricing", {}) for m in raw.get("data", [])}
+    existing = {m["id"] for m in raw.get("data", [])}
     fx = cfg["fx_rate"]
 
     or_entries = {p["model"]: p for p in data["prices"] if p["provider"] == "openrouter"}
 
     for model_id, or_id in OPENROUTER_MODEL_MAP.items():
         url = verify_url("OpenRouter", model_id, or_id)
-        if or_id not in api_prices:
+        if or_id not in existing:
             diffs.append({"provider": "OpenRouter", "model": model_id, "field": "-",
                           "local": "-", "remote": "模型在 OpenRouter 上不存在", "url": url})
             continue
-        p = api_prices[or_id]
-        remote = {
-            "input": float(p.get("prompt", 0)) * 1e6 * fx,
-            "output": float(p.get("completion", 0)) * 1e6 * fx,
-            "cacheRead": float(p.get("input_cache_read") or 0) * 1e6 * fx,
-        }
+        try:
+            ep_raw = http_get_json(f"https://openrouter.ai/api/v1/models/{or_id}/endpoints",
+                                   proxy=cfg.get("proxy"))
+        except Exception as e:
+            diffs.append({"provider": "OpenRouter", "model": model_id, "field": "-",
+                          "local": "-", "remote": f"endpoints 接口失败: {e}", "url": url})
+            continue
+
+        endpoints = ep_raw.get("data", {}).get("endpoints", [])
+        if not endpoints:
+            continue
+
+        # 收集各 provider 价格（CNY），缓存读只统计非零值
+        samples = {"input": [], "output": [], "cacheRead": []}
+        for ep in endpoints:
+            p = ep.get("pricing", {})
+            samples["input"].append(round(float(p.get("prompt", 0)) * 1e6 * fx, 3))
+            samples["output"].append(round(float(p.get("completion", 0)) * 1e6 * fx, 3))
+            cr = float(p.get("input_cache_read") or 0) * 1e6 * fx
+            if cr > 0:
+                samples["cacheRead"].append(round(cr, 4))
+
         local = or_entries.get(model_id, {})
-        for field, rv in remote.items():
-            if rv == 0 and field == "cacheRead" and not local.get("cacheRead"):
-                continue  # 双方都没有缓存价，跳过
+        for field, values in samples.items():
+            if not values:
+                continue  # 无有效样本（如全部不支持缓存）
+            mv, count = mode_price(values)
             lv = local.get(field)
             if lv is None:
-                if rv > 0:
+                if mv > 0:
                     diffs.append({"provider": "OpenRouter", "model": model_id, "field": field,
-                                  "local": "(空)", "remote": f"¥{rv:.4f}", "url": url})
+                                  "local": "(空)", "remote": f"¥{mv}（众数，{count}/{len(values)} 家）",
+                                  "url": url})
                 continue
-            if is_changed(lv, rv, cfg):
+            if is_changed(lv, mv, cfg):
                 diffs.append({"provider": "OpenRouter", "model": model_id, "field": field,
-                              "local": f"¥{lv}", "remote": f"¥{rv:.4f}", "url": url})
+                              "local": f"¥{lv}", "remote": f"¥{mv}（众数，{count}/{len(values)} 家）",
+                              "url": url})
     return diffs
+
+
+def mode_price(values):
+    """取众数（出现次数最多的价格）。全部唯一时回退为中位数。"""
+    from collections import Counter
+    counter = Counter(values)
+    best_val, best_count = counter.most_common(1)[0]
+    if best_count == 1 and len(values) > 2:
+        # 全部唯一，取中位数作为代表值
+        s = sorted(values)
+        mid = len(s) // 2
+        best_val = s[mid] if len(s) % 2 else round((s[mid - 1] + s[mid]) / 2, 4)
+    return best_val, best_count
 
 
 # ---------------------------------------------------------------------------
