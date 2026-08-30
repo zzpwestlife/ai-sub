@@ -250,5 +250,14 @@
     "from": 0.105,
     "to": 0.21,
     "note": ""
+  },
+  {
+    "time": "2026-08-30 18:55",
+    "provider": "apifun",
+    "model": "gemini-3.7-flash",
+    "field": "cacheRead",
+    "from": 0.08,
+    "to": 0.075,
+    "note": "按监控报告更新 apifun gemini-3.7-flash 缓存价"
   }
 ]

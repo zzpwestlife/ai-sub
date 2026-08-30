@@ -1,5 +1,5 @@
 {
-  "updateDate": "2026-08-29",
+  "updateDate": "2026-08-30",
   "providers": [
     {
       "id": "anthropic",
@@ -161,19 +161,19 @@
       "cacheRead": 2.1
     },
     "deepseek-v4-flash": {
-      "input": 3.0,
-      "output": 9.0,
+      "input": 1.5,
+      "output": 4.5,
       "cacheWrite": 0,
-      "cacheRead": 0.1,
+      "cacheRead": 0.05,
       "peakInput": 3.0,
       "peakOutput": 9.0,
       "peakCacheRead": 0.1
     },
     "deepseek-v4-pro": {
-      "input": 9.0,
-      "output": 27.0,
+      "input": 4.5,
+      "output": 13.5,
       "cacheWrite": 0,
-      "cacheRead": 0.3,
+      "cacheRead": 0.15,
       "peakInput": 9.0,
       "peakOutput": 27.0,
       "peakCacheRead": 0.3
@@ -648,8 +648,7 @@
       "output": 4.5,
       "cacheWrite": null,
       "cacheRead": 0.05,
-      "notes": "空闲时段",
-      "peak": true
+      "notes": "空闲时段"
     },
     {
       "model": "deepseek-v4-flash",
@@ -714,8 +713,7 @@
       "output": 13.5,
       "cacheWrite": null,
       "cacheRead": 0.15,
-      "notes": "空闲时段",
-      "peak": true
+      "notes": "空闲时段"
     },
     {
       "model": "deepseek-v4-pro",
@@ -779,7 +777,7 @@
       "input": 0.75,
       "output": 3.75,
       "cacheWrite": null,
-      "cacheRead": 0.08,
+      "cacheRead": 0.075,
       "notes": "官方1.4折"
     },
     {
@@ -870,7 +868,7 @@
       "output": 30.8,
       "cacheWrite": null,
       "cacheRead": 1.82,
-      "notes": "$1.4/$4.4/$0.26"
+      "notes": "众数（与挂牌价一致）$1.4/$4.4/$0.26"
     },
     {
       "model": "glm-5.3",
@@ -1043,8 +1041,8 @@
       "name": "Codex CLI编码",
       "model": "gpt-5.6-terra",
       "provider": "apifun",
-      "backup": "gpt-5.6-sol",
-      "reason": "官方1/14,全表最大折扣"
+      "backup": "aicode007",
+      "reason": "官方1/14,全表最大折扣；备选换 aicode007 的 sol"
     },
     {
       "name": "Grok编码+生图/视频",

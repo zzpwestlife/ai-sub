@@ -44,7 +44,7 @@ tr:hover { background:rgba(56,189,248,.05); }
 .badge-green { background:var(--green); } .badge-red { background:var(--red); } .badge-yellow { background:var(--yellow); }
 .provider-header { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border); margin-bottom:8px; }
 .vs-official { font-size:.75rem; padding:2px 6px; border-radius:3px; }
-.vs-cheap { background:#14532d; color:#4ade80; } .-vs-expensive { background:#422006; color:#fb923c; }
+.vs-cheap { background:#14532d; color:#4ade80; } .vs-expensive { background:#422006; color:#fb923c; }
 .note { font-size:.75rem; color:var(--muted); margin-top:4px; }
 .actions { display:flex; gap:6px; margin:8px 0; }
 .btn { padding:6px 14px; border-radius:4px; border:1px solid var(--border); background:var(--card); color:var(--text); cursor:pointer; font-size:.8rem; }
@@ -121,7 +121,7 @@ th.sorted-desc::after { content:' ▼'; font-size:.6rem; }
 
 let DATA = null;
 
-fetch('data.json')
+fetch('data.json?v=' + Date.now())
   .then(r => r.json())
   .then(data => { DATA = data; init(); })
   .catch(err => {
@@ -133,7 +133,10 @@ fetch('data.json')
 // 工具函数
 // ============================================================
 const fx = () => parseFloat(document.getElementById('fxRate').value) || 7.0;
-const hitRate = () => (parseFloat(document.getElementById('cacheHit').value) || 90) / 100;
+const hitRate = () => {
+  const v = parseFloat(document.getElementById('cacheHit').value);
+  return (Number.isFinite(v) ? v : 90) / 100;
+};
 
 function effectiveInput(price, official) {
   if (!price) return null;
@@ -153,26 +156,44 @@ function compositePrice(price, official) {
 }
 
 function vsOfficial(modelId, composite) {
-  const off = DATA.officialPrices[modelId];
+  const off = officialFor(modelId);
   if (!off || !composite) return null;
   const offComposite = off.input * 0.7 + off.output * 0.3;
   return composite / offComposite;
 }
 
 function fmt(v, d=2) { return v == null ? '—' : v.toFixed(d); }
+function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function fmtPct(v) { return v == null ? '—' : (v * 100).toFixed(0) + '%'; }
+// 官方基准价：DeepSeek 等有峰谷定价的模型按峰值展示/对比（用户选定的基准），
+// data.json 中 officialPrices 的 input/output 为空闲价（apifun 折扣计算基准）
+function officialFor(modelId) {
+  const off = DATA.officialPrices[modelId];
+  if (!off) return null;
+  return {
+    input: off.peakInput != null ? off.peakInput : off.input,
+    output: off.peakOutput != null ? off.peakOutput : off.output,
+    cacheRead: off.peakCacheRead != null ? off.peakCacheRead : off.cacheRead,
+    cacheWrite: off.cacheWrite,
+  };
+}
 function providerName(id) { const p = DATA.providers.find(p=>p.id===id); return p ? p.name : id; }
 function modelInfo(id) { return DATA.models.find(m=>m.id===id) || { name:id, category:'?', desc:'' }; }
 
 function copyCmd(id) {
   const el = document.getElementById('cmd-' + id);
   if (!el) return;
-  navigator.clipboard.writeText(el.textContent).then(() => {
+  const done = ok => {
     const btn = el.nextElementSibling;
     const orig = btn.textContent;
-    btn.textContent = '已复制!';
+    btn.textContent = ok ? '已复制!' : '复制失败';
     setTimeout(() => btn.textContent = orig, 1500);
-  });
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(el.textContent).then(() => done(true)).catch(() => done(false));
+  } else {
+    done(false);
+  }
 }
 
 function sortTable(key) {
@@ -213,7 +234,7 @@ function renderOverview() {
     const scored = entries.map(e => ({ ...e, composite: compositePrice(e, DATA.officialPrices[m.id]) }));
     scored.sort((a, b) => a.composite - b.composite);
     const best = scored[0];
-    const off = DATA.officialPrices[m.id];
+    const off = officialFor(m.id);
     const offComp = off ? off.input * 0.7 + off.output * 0.3 : null;
     const vs = offComp ? (best.composite / offComp * 100).toFixed(0) + '%' : '—';
     const isVeryCheap = offComp && best.composite / offComp < 0.2;
@@ -265,7 +286,7 @@ function renderOverview() {
 
   modelIds.forEach(id => {
     const m = grouped[id];
-    const off = DATA.officialPrices[id];
+    const off = officialFor(id);
     let entries = m.entries.filter(e => !e.isPeak);
     // Apply sort
     entries.sort((a, b) => {
@@ -277,7 +298,7 @@ function renderOverview() {
     });
     const bestComp = Math.min(...entries.map(e => e.composite || Infinity));
 
-    html += `<div class="card"><h3>${m.name} <span class="note">${m.desc}</span></h3>`;
+    html += `<div class="card"><h3>${m.name} <span class="note">${esc(m.desc)}</span></h3>`;
     html += `<table><thead><tr><th>提供商</th>`;
     html += `<th class="sortable ${sortCls('input')}" onclick="sortTable('input')">输入</th>`;
     html += `<th class="sortable ${sortCls('output')}" onclick="sortTable('output')">输出</th>`;
@@ -289,7 +310,7 @@ function renderOverview() {
 
     // Official price row
     if (off) {
-      const offComp = off.input * 0.7 + off.output * 0.9;
+      const offComp = off.input * 0.7 + off.output * 0.3;
       html += `<tr style="opacity:.7"><td><span class="tag tag-official">官方基准</span></td>`;
       html += `<td>${fmt(off.input)}</td><td>${fmt(off.output)}</td><td>${fmt(off.cacheWrite)}</td><td>${fmt(off.cacheRead)}</td>`;
       html += `<td>${fmt(offComp)}</td><td>1.00×</td><td></td></tr>`;
@@ -303,7 +324,7 @@ function renderOverview() {
       html += `<td>${fmt(e.input)}</td><td>${fmt(e.output)}</td><td>${e.cacheWrite != null ? fmt(e.cacheWrite) : '—'}</td><td>${e.cacheRead != null ? fmt(e.cacheRead) : '—'}</td>`;
       html += `<td class="${isBest ? 'best' : ''}">${fmt(e.composite)}</td>`;
       html += `<td><span class="vs-official ${vsClass}">${e.vsOfficial != null ? fmtPct(e.vsOfficial) : '—'}</span></td>`;
-      html += `<td class="note">${e.notes || ''}</td></tr>`;
+      html += `<td class="note">${esc(e.notes)}</td></tr>`;
     });
 
     // Peak price for DeepSeek
@@ -312,7 +333,7 @@ function renderOverview() {
       html += `<tr style="opacity:.5"><td>${providerName(e.provider)} ⚠️高峰</td>`;
       html += `<td>${fmt(e.input)}</td><td>${fmt(e.output)}</td><td>—</td><td>${e.cacheRead != null ? fmt(e.cacheRead) : '—'}</td>`;
       html += `<td>${fmt(e.composite)}</td><td><span class="vs-official vs-expensive">${e.vsOfficial != null ? fmtPct(e.vsOfficial) : '—'}</span></td>`;
-      html += `<td class="note">${e.notes || ''}</td></tr>`;
+      html += `<td class="note">${esc(e.notes)}</td></tr>`;
     });
 
     html += `</tbody></table></div>`;
@@ -331,7 +352,7 @@ function renderProviderView() {
     if (!entries.length && prov.type === 'third-party') return;
 
     const typeTag = prov.type === 'official' ? '<span class="tag tag-official">官方</span>' : '<span class="tag tag-third">第三方</span>';
-    html += `<div class="card"><div class="provider-header"><div><h2>${prov.name} ${typeTag}</h2><div class="note">${prov.notes}</div></div>`;
+    html += `<div class="card"><div class="provider-header"><div><h2>${prov.name} ${typeTag}</h2><div class="note">${esc(prov.notes)}</div></div>`;
     if (prov.url) html += `<a href="${prov.url}" target="_blank" class="btn" style="font-size:.75rem">官网 ↗</a>`;
     html += `</div>`;
 
@@ -339,8 +360,9 @@ function renderProviderView() {
       // Official: show models with official prices
       html += `<table><thead><tr><th>模型</th><th>输入</th><th>输出</th><th>缓存写</th><th>缓存读</th><th>备注</th></tr></thead><tbody>`;
       DATA.models.forEach(m => {
-        const op = DATA.officialPrices[m.id];
-        if (!op) return;
+        const hasOff = DATA.officialPrices[m.id];
+        if (!hasOff) return;
+        const op = officialFor(m.id);
         const isForThisProvider = DATA.providers.find(p=>p.id===prov.id);
         // Check if this official provider has this model
         const modelCats = { 'anthropic':'Claude', 'openai':'GPT-5.6', 'xai':'Grok', 'deepseek':'DeepSeek', 'google':'Gemini', 'zhipu':'GLM' };
@@ -349,7 +371,7 @@ function renderProviderView() {
 
         html += `<tr><td>${m.name}</td><td>${fmt(op.input)}</td><td>${fmt(op.output)}</td>`;
         html += `<td>${fmt(op.cacheWrite)}</td><td>${fmt(op.cacheRead)}</td>`;
-        html += `<td class="note">${op.peakInput ? '峰谷定价' : ''}</td></tr>`;
+        html += `<td class="note">${hasOff.peakInput ? '峰谷定价(按峰值)' : ''}</td></tr>`;
       });
       html += `</tbody></table>`;
     } else {
@@ -357,7 +379,7 @@ function renderProviderView() {
       html += `<table><thead><tr><th>模型</th><th>输入</th><th>输出</th><th>缓存读</th><th>综合单价</th><th>vs 官方</th><th>备注</th></tr></thead><tbody>`;
       entries.forEach(e => {
         if (e.isPeak) return;
-        const off = DATA.officialPrices[e.model];
+        const off = officialFor(e.model);
         const comp = compositePrice(e, off);
         const vs = vsOfficial(e.model, comp);
         const vsClass = vs != null && vs <= 0.2 ? 'vs-cheap' : 'vs-expensive';
@@ -366,7 +388,7 @@ function renderProviderView() {
         html += `<td>${e.cacheRead != null ? fmt(e.cacheRead) : '—'}</td>`;
         html += `<td>${fmt(comp)}</td>`;
         html += `<td><span class="vs-official ${vsClass}">${vs != null ? fmtPct(vs) : '—'}</span></td>`;
-        html += `<td class="note">${e.notes || ''}</td></tr>`;
+        html += `<td class="note">${esc(e.notes)}</td></tr>`;
       });
       html += `</tbody></table>`;
     }
@@ -397,7 +419,7 @@ function renderSubscription() {
     const balStr = s.balance != null ? `¥${s.balance}` : (s.currency === 'USD' ? 'Office Key' : '—');
     const rowStyle = s.role === '停用' ? 'style="opacity:.4"' : '';
     html += `<tr ${rowStyle}><td>${prov?.name || s.provider}</td><td>${typeTag}</td><td>${s.role}</td><td>${balStr}</td>`;
-    html += `<td class="note">${modelNames}</td><td class="note">${s.notes}</td></tr>`;
+    html += `<td class="note">${esc(modelNames)}</td><td class="note">${esc(s.notes)}</td></tr>`;
   });
   html += '</tbody></table>';
 
@@ -422,7 +444,7 @@ function renderScenario() {
     html += `<tr><td><strong>${s.name}</strong></td><td>${mi.name}</td>`;
     html += `<td><span class="tag tag-best">${providerName(s.provider)}</span></td>`;
     html += `<td>${s.backup ? providerName(s.backup) || s.backup : '—'}</td>`;
-    html += `<td class="note">${s.reason}</td></tr>`;
+    html += `<td class="note">${esc(s.reason)}</td></tr>`;
   });
   html += '</tbody></table></div>';
 
@@ -443,7 +465,7 @@ function renderScenario() {
 let HISTORY_DATA = null;
 
 function loadHistory() {
-  return fetch('price_history.json')
+  return fetch('price_history.json?v=' + Date.now())
     .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(h => {
       HISTORY_DATA = h;
@@ -489,7 +511,7 @@ function renderHistory() {
     html += `<td>${mi.name || e.model}</td>`;
     html += `<td>${FIELD_NAMES[e.field] || e.field}</td>`;
     html += `<td class="note">${fromStr}</td><td class="note">→</td><td class="best">${toStr}</td>`;
-    html += `<td class="note">${e.note || ''}</td></tr>`;
+    html += `<td class="note">${esc(e.note)}</td></tr>`;
   });
   html += '</tbody></table></div>';
   document.getElementById('historyContent').innerHTML = html;
@@ -512,7 +534,7 @@ function renderConfig() {
     html += `<tr><td style="width:100px;color:var(--muted)">Base URL</td><td><code style="color:var(--accent);word-break:break-all">${prov.baseUrl}</code></td></tr>`;
     html += `<tr><td style="color:var(--muted)">API Key</td><td class="note">在上方控制台获取</td></tr>`;
     html += `<tr><td style="color:var(--muted)">覆盖模型</td><td class="note">${sub?.models.map(m => modelInfo(m).name).join('、') || '—'}</td></tr>`;
-    html += `<tr><td style="color:var(--muted)">备注</td><td class="note">${prov.notes}</td></tr>`;
+    html += `<tr><td style="color:var(--muted)">备注</td><td class="note">${esc(prov.notes)}</td></tr>`;
     html += `</tbody></table>`;
     // Claude Code example
     if (sub && sub.models.length > 0) {
@@ -525,6 +547,7 @@ function renderConfig() {
 }
 
 function render() {
+  if (!DATA) return;
   renderOverview();
   renderProviderView();
   renderSubscription();
