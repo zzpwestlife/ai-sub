@@ -3,3 +3,4 @@ secrets.local.json
 price_reports/
 price_state/
 monitor_config.local.json
+*.png
