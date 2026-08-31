@@ -72,6 +72,7 @@ th.sorted-desc::after { content:' ▼'; font-size:.6rem; }
   <div class="tab" onclick="switchTab('scenario', this)">🎯 场景路由</div>
   <div class="tab" onclick="switchTab('config', this)">⚙️ 配置指南</div>
   <div class="tab" onclick="switchTab('history', this)">📜 变更历史</div>
+  <div class="tab" onclick="switchTab('leaderboard', this)">🏅 榜单追踪</div>
 </div>
 
 <!-- ==================== 综合比价 ==================== -->
@@ -112,6 +113,11 @@ th.sorted-desc::after { content:' ▼'; font-size:.6rem; }
     <span class="note" id="histCount"></span>
   </div>
   <div id="historyContent"></div>
+</div>
+
+<!-- ==================== 榜单追踪 ==================== -->
+<div id="view-leaderboard" class="view">
+  <div id="leaderboardContent"></div>
 </div>
 
 <script>
@@ -529,6 +535,87 @@ function renderHistory() {
 }
 
 // ============================================================
+// 榜单追踪视图（数据来自 leaderboard_data.json，由 check_leaderboard.py 每日抓取）
+// ============================================================
+let LEADERBOARD_DATA = null;
+
+function loadLeaderboard() {
+  return fetch('leaderboard_data.json?v=' + Date.now())
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(d => { LEADERBOARD_DATA = d; renderLeaderboard(); })
+    .catch(() => {
+      document.getElementById('leaderboardContent').innerHTML =
+        '<div class="card"><h2>🏅 榜单追踪</h2><p class="note">leaderboard_data.json 不存在或为空，请先运行 <code>python3 check_leaderboard.py</code> 建立基线。</p></div>';
+    });
+}
+
+// 对比两份快照的变动（与 check_leaderboard.py 的 diff 逻辑保持一致：±0.5 分噪音容差）
+function leaderboardDiff(prev, cur) {
+  const changes = [];
+  for (const [mid, ce] of Object.entries(cur.models)) {
+    const pe = prev.models ? prev.models[mid] : undefined;
+    const name = modelInfo(mid).name;
+    if (!pe && ce) { changes.push(`${name}: 新上榜 #${ce.rank}`); continue; }
+    if (pe && !ce) { changes.push(`${name}: 掉榜（原 #${pe.rank}）`); continue; }
+    if (!pe || !ce) continue;
+    if (ce.rank !== pe.rank) changes.push(`${name}: 排名 #${pe.rank} → #${ce.rank}`);
+    if (pe.score != null && ce.score != null && Math.abs(ce.score - pe.score) > 0.5) {
+      changes.push(`${name}: 分数 ${pe.score} → ${ce.score}（${(ce.score - pe.score).toFixed(1)}）`);
+    }
+  }
+  return changes;
+}
+
+function renderLeaderboard() {
+  if (!LEADERBOARD_DATA) return;
+  const dates = Object.keys(LEADERBOARD_DATA).sort();
+  if (!dates.length) return;
+  const latest = dates[dates.length - 1];
+  const prev = dates.length > 1 ? dates[dates.length - 2] : null;
+  const snap = LEADERBOARD_DATA[latest];
+  let html = '';
+
+  // 更新日志（仅最近一次快照对比）
+  html += '<div class="card"><h2>📝 更新日志</h2>';
+  if (!prev) {
+    html += '<p class="note">基线已建立，暂无对比。次日起此处自动展示排名/分数变动。</p>';
+  } else {
+    const changes = leaderboardDiff(LEADERBOARD_DATA[prev], snap);
+    html += changes.length
+      ? '<ul style="margin-left:18px;line-height:1.9">' + changes.map(c => `<li>${esc(c)}</li>`).join('') + '</ul>'
+      : `<p class="note">${prev} → ${latest}：无变动。</p>`;
+  }
+  html += '</div>';
+
+  // 榜单表格（按排名升序，未收录排末尾）
+  const rows = Object.entries(snap.models || {}).map(([mid, e]) => ({ mid, name: modelInfo(mid).name, e }));
+  rows.sort((a, b) => (a.e?.rank ?? Infinity) - (b.e?.rank ?? Infinity));
+  html += '<div class="card"><h2>🏆 aihot 综合榜 · 追踪模型</h2>';
+  html += '<table><thead><tr><th>模型</th><th>发布日期</th><th>排名</th><th>变动</th><th>综合分</th><th>置信度</th></tr></thead><tbody>';
+  rows.forEach(({ name, e }) => {
+    if (!e) {
+      html += `<tr style="opacity:.5"><td>${esc(name)}</td><td colspan="5" class="note">未在榜单收录</td></tr>`;
+      return;
+    }
+    const rc = e.rankChange || 0;
+    const rcBadge = rc > 0 ? `<span class="tag tag-best">↑${rc}</span>`
+      : rc < 0 ? `<span class="tag tag-warn">↓${-rc}</span>` : '<span class="note">—</span>';
+    const confTag = e.confidence === 'HIGH' ? `<span class="tag tag-best">HIGH</span>`
+      : e.confidence === 'LOW' ? `<span class="tag tag-warn">LOW</span>`
+      : `<span class="note">${esc(e.confidence)}</span>`;
+    html += `<tr><td><strong>${esc(name)}</strong></td>`;
+    html += `<td class="note">${esc((e.releasedAt || '').slice(0, 10))}</td>`;
+    html += `<td><strong>#${e.rank}</strong></td><td>${rcBadge}</td>`;
+    html += `<td class="best">${e.score} <span class="note">±${e.uncertainty}</span></td>`;
+    html += `<td>${confTag}</td></tr>`;
+  });
+  html += '</tbody></table>';
+  html += `<div class="note">数据日期 ${latest} · 抓取于 ${esc(snap.fetchedAt)} · 来源 <a href="${esc(snap.source)}" target="_blank" style="color:var(--accent)">aihot 榜单 ↗</a> · 分数变动报警阈值 ±0.5</div>`;
+  html += '</div>';
+  document.getElementById('leaderboardContent').innerHTML = html;
+}
+
+// ============================================================
 // 初始化
 // ============================================================
 function renderConfig() {
@@ -565,6 +652,7 @@ function render() {
   renderScenario();
   renderConfig();
   if (HISTORY_DATA) renderHistory();
+  if (LEADERBOARD_DATA) renderLeaderboard();
 }
 
 function init() {
@@ -586,6 +674,7 @@ function init() {
 
   render();
   loadHistory();
+  loadLeaderboard();
 }
 
 </script>

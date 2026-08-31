@@ -1,0 +1,171 @@
+{
+  "summary": {
+    "projectName": "ai-sub",
+    "locale": "zh-CN",
+    "modelId": "agent-work-loop-v4",
+    "reportContractVersion": 26,
+    "overview": "项目缺少智能体指导文件和项目级配置资产，AI 智能体每次任务都需从零理解项目上下文，且无可复用的项目领域知识。当前处于 Bootstrap 阶段，建议建立基础导航和验证路线。",
+    "aiAgentPractice": {
+      "inspectedSurfaces": [
+        "Skills",
+        "Rules",
+        "Hooks",
+        "Commands",
+        "Custom Agents",
+        "MCP",
+        "Workflows",
+        "Memories",
+        "Plugins"
+      ],
+      "coverageRows": [
+        {
+          "surface": "Skills",
+          "scopes": [
+            "Global"
+          ],
+          "count": 5,
+          "paths": [
+            "~/.agents/skills/cavecrew/SKILL.md",
+            "~/.agents/skills/caveman/SKILL.md",
+            "~/.agents/skills/caveman-commit/SKILL.md",
+            "~/.agents/skills/caveman-compress/SKILL.md",
+            "~/.agents/skills/grill-me/SKILL.md"
+          ]
+        },
+        {
+          "surface": "Rules",
+          "scopes": [
+            "Project"
+          ],
+          "count": 0
+        },
+        {
+          "surface": "Hooks",
+          "scopes": [
+            "Project"
+          ],
+          "count": 0
+        },
+        {
+          "surface": "Commands",
+          "scopes": [
+            "Project"
+          ],
+          "count": 0
+        },
+        {
+          "surface": "Custom Agents",
+          "scopes": [
+            "Project"
+          ],
+          "count": 0
+        },
+        {
+          "surface": "MCP",
+          "scopes": [
+            "Project"
+          ],
+          "count": 0
+        },
+        {
+          "surface": "Workflows",
+          "scopes": [
+            "Project"
+          ],
+          "count": 0
+        },
+        {
+          "surface": "Memories",
+          "scopes": [
+            "Project"
+          ],
+          "count": 0
+        },
+        {
+          "surface": "Plugins",
+          "scopes": [
+            "Plugin"
+          ],
+          "count": 0
+        }
+      ]
+    },
+    "assignmentSummaries": [],
+    "dimensions": [
+      {
+        "id": "task-understanding",
+        "label": "任务理解",
+        "score": 45,
+        "summary": "无项目级指导文件，智能体需从源代码和文档自行推断项目上下文和范围边界。",
+        "findingRefs": [
+          "missing-agent-instruction-file",
+          "no-project-level-harness-assets"
+        ]
+      },
+      {
+        "id": "controlled-execution",
+        "label": "可控执行",
+        "score": 35,
+        "summary": "无项目级启动或操作指导，但单一脚本结构简单，配置模式清晰。",
+        "findingRefs": [
+          "missing-agent-instruction-file"
+        ]
+      },
+      {
+        "id": "change-validation",
+        "label": "改动验证",
+        "score": 25,
+        "summary": "无测试文件或自动化验证机制，变更正确性完全依赖手动检查。",
+        "findingRefs": []
+      },
+      {
+        "id": "reliable-delivery",
+        "label": "可靠交付",
+        "score": 40,
+        "summary": "无可见交付边界或回滚机制，但工作树干净，项目规模小。",
+        "findingRefs": []
+      },
+      {
+        "id": "learning-capture",
+        "label": "经验沉淀",
+        "score": 35,
+        "summary": "无项目级学习资产或知识积累机制，领域经验无法跨会话保留。",
+        "findingRefs": [
+          "no-project-level-harness-assets"
+        ]
+      }
+    ]
+  },
+  "findings": [
+    {
+      "id": "missing-agent-instruction-file",
+      "title": "项目缺少智能体指导文件，每次任务都从零开始理解上下文",
+      "severity": "Low",
+      "reason": "检查确认项目无 AGENTS.md 或等效的智能体指导文件。agentInstructions 状态为 missing，0 个已跟踪的指导文件。智能体缺少项目概览、启动路径、源文件角色和范围边界等基础指导信息，每次任务都必须从源代码和文档文件中自行推断项目结构。",
+      "expectedOutput": [
+        "Update the existing Document owner identified by the reviewed evidence and retain a focused validation result."
+      ],
+      "expectedArtifact": "Document",
+      "aiFixPrompt": "/better-harness fix this issue\n\n为项目创建一个根 AGENTS.md，包含项目概览、核心源文件角色、配置模式和范围边界。\n\n## Validation\n\n- 确认 AGENTS.md 存在于项目根目录且可被智能体读取\n- 确认文件包含项目描述、源文件角色和关键约束",
+      "dimensionRefs": [
+        "task-understanding",
+        "controlled-execution"
+      ]
+    },
+    {
+      "id": "no-project-level-harness-assets",
+      "title": "无项目级配置资产，智能体无法复用项目领域知识",
+      "severity": "Low",
+      "reason": "所有项目级 Harness 表面（Rules、Hooks、Commands、Custom Agents、MCP、Workflows、Memories）均为 0。智能体无法获取关于价格监控架构、非线性校准逻辑或数据流模式的可复用领域知识。每次会话都必须重新发现这些约束，增加了重复出错的风险。",
+      "expectedOutput": [
+        "Update the existing Rule owner identified by the reviewed evidence and retain a focused validation result."
+      ],
+      "expectedArtifact": "Rule",
+      "aiFixPrompt": "/better-harness fix this issue\n\n添加至少一个项目级资产（如项目 Rule 或 Skill），捕获价格监控系统的核心架构和关键不变量。\n\n## Validation\n\n- 确认项目级资产已配置并可被智能体检索\n- 确认资产内容包含价格监控架构的关键信息",
+      "dimensionRefs": [
+        "learning-capture",
+        "task-understanding"
+      ]
+    }
+  ]
+}

@@ -4,3 +4,5 @@ price_reports/
 price_state/
 monitor_config.local.json
 *.png
+price_check_cron.log
+leaderboard_check_cron.log
