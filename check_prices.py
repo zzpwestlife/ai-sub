@@ -12,6 +12,7 @@ AI 订阅价格监控脚本
   - apifun：    公开 API 拿分组倍率，推算实际价格（价格 = 官方美元价 × 倍率）
   - V3 API：    公开 API 拿基础倍率（分组倍率不公开，用快照对比检测变动）
   - 非线智能：  公开 /models 接口，直接返回人民币价格（无需登录）
+  - Cubence：   API 需认证，/v1/models 不含定价（暂无法自动监控）
 
 用法：
   python3 check_prices.py            # 正常检查
@@ -99,6 +100,15 @@ V3_MODELS = [
     "gemini-3.7-flash",
 ]
 
+# Cubence 上追踪的模型（页面 $ 即人民币；仅 6 个模型可用）
+CUBENCE_MODELS = [
+    "claude-sonnet-5", "claude-opus-5", "claude-fable-5",
+    "gpt-5.6-luna", "gpt-5.6-terra", "gpt-5.6-sol",
+    "grok-4.6",
+    "deepseek-v4-flash", "deepseek-v4-pro",
+    "glm-5.3",
+]
+
 
 def log(msg):
     if VERBOSE:
@@ -157,6 +167,8 @@ def verify_url(provider, model_id=None, or_id=None):
         return "https://api.v3.cm/panel"
     if provider == "非线智能":
         return "https://nonelinear.com/static/models.html"
+    if provider == "Cubence":
+        return "https://cubence.com/dashboard/model-plaza"
     return ""
 
 
@@ -241,7 +253,7 @@ def check_openrouter(data, cfg):
 
 
 def mode_price(values):
-    """取众数（出现次数最多的价格）。平票或全部唯一时取中位数，保证确定性。"""
+    """取众数（出现次数最多的价格）。平票时取最低价，避免产生虚拟价格。"""
     counter = Counter(values)
     max_count = counter.most_common(1)[0][1]
     if max_count == 1 and len(values) <= 2:
@@ -249,9 +261,9 @@ def mode_price(values):
         return min(values), max_count
     top = sorted(v for v, c in counter.items() if c == max_count)
     if len(top) > 1:
-        # 平票：取候选中位数，避免依赖接口返回顺序导致跨运行抖动
-        mid = len(top) // 2
-        best_val = top[mid] if len(top) % 2 else round((top[mid - 1] + top[mid]) / 2, 4)
+        # 平票：取最低价（最便宜档），避免产生实际不存在的虚拟价格；
+        # 也与 OpenRouter 默认反平方加权路由一致（大部分流量走最便宜的 provider）
+        best_val = top[0]
     else:
         best_val = top[0]
     return best_val, max_count
@@ -372,6 +384,36 @@ def check_nonelinear(data, cfg):
                         continue
                 diffs.append({"provider": "非线智能", "model": model_id, "field": field,
                               "local": f"¥{lv}", "remote": f"¥{rv}", "url": url})
+    return diffs
+
+
+# ---------------------------------------------------------------------------
+# Cubence（API 需认证，页面 $ 即人民币）
+# ---------------------------------------------------------------------------
+
+def check_cubence(data, cfg):
+    """Cubence API 需认证，定价不在 API 中返回。
+    页面 $ 即人民币（充值 30 RMB 显示 $30）。
+    价格数据来自 Model Plaza 页面截图（人工录入 data.json）。
+    当前 /v1/models 仅返回模型列表，不含定价，无法自动监控。
+    保留此函数作为占位，若 Cubence 未来开放定价 API 可在此补充。"""
+    diffs = []
+
+    # 读取 API Key（保留，以备未来 API 扩展）
+    secrets_file = BASE_DIR / "secrets.local.json"
+    api_key = None
+    if secrets_file.exists():
+        try:
+            with open(secrets_file) as f:
+                secrets = json.load(f)
+                api_key = secrets.get("cubence_api_key")
+        except Exception:
+            pass
+    if not api_key:
+        log("Cubence: 未配置 API Key，跳过")
+        return diffs
+
+    log("Cubence: /v1/models 不含定价数据，暂无法自动监控（需手动关注 Model Plaza）")
     return diffs
 
 
@@ -619,6 +661,7 @@ def main():
         ("apifun", lambda: check_apifun(data, cfg)),
         ("非线智能", lambda: check_nonelinear(data, cfg)),
         ("V3 API", lambda: check_v3(cfg)),
+        ("Cubence", lambda: check_cubence(data, cfg)),
     ]:
         try:
             diffs = fn()
