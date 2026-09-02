@@ -1,510 +1,1298 @@
 {
-  "2026-08-31": {
-    "fetchedAt": "2026-08-31 07:52",
-    "source": "https://aihot.virxact.com/leaderboard",
-    "models": {
-      "claude-sonnet-5": {
-        "rank": 19,
-        "previousRank": 19,
-        "rankChange": 0,
-        "score": 54.9,
-        "uncertainty": 4.7,
-        "confidence": "MEDIUM",
-        "releasedAt": "2026-06-30T00:00:00.000Z",
-        "components": {
-          "arena-text": {
-            "score": 89.62264151,
-            "coverage": 0.09,
-            "metricCount": 1
-          },
-          "deepswe-v1-1": {
-            "score": 40.38461538,
-            "coverage": 0.08,
-            "metricCount": 1
-          },
-          "taptap-maker": {
-            "score": 27.77777778,
-            "coverage": 0.08,
-            "metricCount": 1
-          },
-          "livebench-general": {
-            "score": 60.20408163,
-            "coverage": 0.14,
-            "metricCount": 1
-          },
-          "mercor-apex-agents": {
-            "score": 39.58333333,
-            "coverage": 0.035,
-            "metricCount": 1
-          },
-          "vals-finance-agent": {
-            "score": 77.45098039,
-            "coverage": 0.07,
-            "metricCount": 1
-          },
-          "artificial-analysis": {
-            "score": 96.47435897,
-            "coverage": 0.3,
-            "metricCount": 1
+  "aihot": {
+    "2026-08-31": {
+      "fetchedAt": "2026-08-31 07:52",
+      "source": "https://aihot.virxact.com/leaderboard",
+      "models": {
+        "claude-sonnet-5": {
+          "rank": 19,
+          "previousRank": 19,
+          "rankChange": 0,
+          "score": 54.9,
+          "uncertainty": 4.7,
+          "confidence": "MEDIUM",
+          "releasedAt": "2026-06-30T00:00:00.000Z",
+          "components": {
+            "arena-text": {
+              "score": 89.62264151,
+              "coverage": 0.09,
+              "metricCount": 1
+            },
+            "deepswe-v1-1": {
+              "score": 40.38461538,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "taptap-maker": {
+              "score": 27.77777778,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "livebench-general": {
+              "score": 60.20408163,
+              "coverage": 0.14,
+              "metricCount": 1
+            },
+            "mercor-apex-agents": {
+              "score": 39.58333333,
+              "coverage": 0.035,
+              "metricCount": 1
+            },
+            "vals-finance-agent": {
+              "score": 77.45098039,
+              "coverage": 0.07,
+              "metricCount": 1
+            },
+            "artificial-analysis": {
+              "score": 96.47435897,
+              "coverage": 0.3,
+              "metricCount": 1
+            }
           }
-        }
-      },
-      "claude-opus-5": {
-        "rank": 2,
-        "previousRank": 2,
-        "rankChange": 0,
-        "score": 85.9,
-        "uncertainty": 4.2,
-        "confidence": "MEDIUM",
-        "releasedAt": "2026-07-24T00:00:00.000Z",
-        "components": {
-          "arena-text": {
-            "score": 97.70889488,
-            "coverage": 0.09,
-            "metricCount": 1
-          },
-          "deepswe-v1-1": {
-            "score": 98.07692308,
-            "coverage": 0.08,
-            "metricCount": 1
-          },
-          "taptap-maker": {
-            "score": 94.44444444,
-            "coverage": 0.08,
-            "metricCount": 1
-          },
-          "livebench-general": {
-            "score": 92.85714286,
-            "coverage": 0.14,
-            "metricCount": 1
-          },
-          "mercor-apex-agents": {
-            "score": 97.91666667,
-            "coverage": 0.035,
-            "metricCount": 1
-          },
-          "vals-finance-agent": {
-            "score": 95.09803922,
-            "coverage": 0.07,
-            "metricCount": 1
-          },
-          "artificial-analysis": {
-            "score": 99.89316239,
-            "coverage": 0.3,
-            "metricCount": 1
+        },
+        "claude-opus-5": {
+          "rank": 2,
+          "previousRank": 2,
+          "rankChange": 0,
+          "score": 85.9,
+          "uncertainty": 4.2,
+          "confidence": "MEDIUM",
+          "releasedAt": "2026-07-24T00:00:00.000Z",
+          "components": {
+            "arena-text": {
+              "score": 97.70889488,
+              "coverage": 0.09,
+              "metricCount": 1
+            },
+            "deepswe-v1-1": {
+              "score": 98.07692308,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "taptap-maker": {
+              "score": 94.44444444,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "livebench-general": {
+              "score": 92.85714286,
+              "coverage": 0.14,
+              "metricCount": 1
+            },
+            "mercor-apex-agents": {
+              "score": 97.91666667,
+              "coverage": 0.035,
+              "metricCount": 1
+            },
+            "vals-finance-agent": {
+              "score": 95.09803922,
+              "coverage": 0.07,
+              "metricCount": 1
+            },
+            "artificial-analysis": {
+              "score": 99.89316239,
+              "coverage": 0.3,
+              "metricCount": 1
+            }
           }
-        }
-      },
-      "claude-fable-5": {
-        "rank": 1,
-        "previousRank": 1,
-        "rankChange": 0,
-        "score": 89.7,
-        "uncertainty": 3,
-        "confidence": "HIGH",
-        "releasedAt": "2026-06-09T00:00:00.000Z",
-        "components": {
-          "arena-text": {
-            "score": 99.86522911,
-            "coverage": 0.09,
-            "metricCount": 1
-          },
-          "deepswe-v1-1": {
-            "score": 90.38461538,
-            "coverage": 0.08,
-            "metricCount": 1
-          },
-          "taptap-maker": {
-            "score": 98.14814815,
-            "coverage": 0.08,
-            "metricCount": 1
-          },
-          "livebench-general": {
-            "score": 98.97959184,
-            "coverage": 0.14,
-            "metricCount": 1
-          },
-          "mercor-apex-agents": {
-            "score": 96.2797619,
-            "coverage": 0.07,
-            "metricCount": 2
-          },
-          "vals-finance-agent": {
-            "score": 89.21568627,
-            "coverage": 0.07,
-            "metricCount": 1
-          },
-          "artificial-analysis": {
-            "score": 99.67948718,
-            "coverage": 0.3,
-            "metricCount": 1
+        },
+        "claude-fable-5": {
+          "rank": 1,
+          "previousRank": 1,
+          "rankChange": 0,
+          "score": 89.7,
+          "uncertainty": 3,
+          "confidence": "HIGH",
+          "releasedAt": "2026-06-09T00:00:00.000Z",
+          "components": {
+            "arena-text": {
+              "score": 99.86522911,
+              "coverage": 0.09,
+              "metricCount": 1
+            },
+            "deepswe-v1-1": {
+              "score": 90.38461538,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "taptap-maker": {
+              "score": 98.14814815,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "livebench-general": {
+              "score": 98.97959184,
+              "coverage": 0.14,
+              "metricCount": 1
+            },
+            "mercor-apex-agents": {
+              "score": 96.2797619,
+              "coverage": 0.07,
+              "metricCount": 2
+            },
+            "vals-finance-agent": {
+              "score": 89.21568627,
+              "coverage": 0.07,
+              "metricCount": 1
+            },
+            "artificial-analysis": {
+              "score": 99.67948718,
+              "coverage": 0.3,
+              "metricCount": 1
+            }
           }
-        }
-      },
-      "gpt-5.6-luna": {
-        "rank": 20,
-        "previousRank": 20,
-        "rankChange": 0,
-        "score": 52.2,
-        "uncertainty": 5.4,
-        "confidence": "MEDIUM",
-        "releasedAt": "2026-07-09T00:00:00.000Z",
-        "components": {
-          "arena-text": {
-            "score": 85.8490566,
-            "coverage": 0.09,
-            "metricCount": 1
-          },
-          "deepswe-v1-1": {
-            "score": 75,
-            "coverage": 0.08,
-            "metricCount": 1
-          },
-          "taptap-maker": {
-            "score": 50,
-            "coverage": 0.08,
-            "metricCount": 1
-          },
-          "livebench-general": {
-            "score": 39.79591837,
-            "coverage": 0.14,
-            "metricCount": 1
-          },
-          "vals-finance-agent": {
-            "score": 85.29411765,
-            "coverage": 0.07,
-            "metricCount": 1
-          },
-          "artificial-analysis": {
-            "score": 95.19230769,
-            "coverage": 0.3,
-            "metricCount": 1
+        },
+        "gpt-5.6-luna": {
+          "rank": 20,
+          "previousRank": 20,
+          "rankChange": 0,
+          "score": 52.2,
+          "uncertainty": 5.4,
+          "confidence": "MEDIUM",
+          "releasedAt": "2026-07-09T00:00:00.000Z",
+          "components": {
+            "arena-text": {
+              "score": 85.8490566,
+              "coverage": 0.09,
+              "metricCount": 1
+            },
+            "deepswe-v1-1": {
+              "score": 75,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "taptap-maker": {
+              "score": 50,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "livebench-general": {
+              "score": 39.79591837,
+              "coverage": 0.14,
+              "metricCount": 1
+            },
+            "vals-finance-agent": {
+              "score": 85.29411765,
+              "coverage": 0.07,
+              "metricCount": 1
+            },
+            "artificial-analysis": {
+              "score": 95.19230769,
+              "coverage": 0.3,
+              "metricCount": 1
+            }
           }
-        }
-      },
-      "gpt-5.6-terra": {
-        "rank": 11,
-        "previousRank": 11,
-        "rankChange": 0,
-        "score": 70.8,
-        "uncertainty": 5,
-        "confidence": "MEDIUM",
-        "releasedAt": "2026-07-09T00:00:00.000Z",
-        "components": {
-          "arena-text": {
-            "score": 90.43126685,
-            "coverage": 0.09,
-            "metricCount": 1
-          },
-          "deepswe-v1-1": {
-            "score": 86.53846154,
-            "coverage": 0.08,
-            "metricCount": 1
-          },
-          "taptap-maker": {
-            "score": 68.51851852,
-            "coverage": 0.08,
-            "metricCount": 1
-          },
-          "livebench-general": {
-            "score": 76.53061224,
-            "coverage": 0.14,
-            "metricCount": 1
-          },
-          "vals-finance-agent": {
-            "score": 83.33333333,
-            "coverage": 0.07,
-            "metricCount": 1
-          },
-          "artificial-analysis": {
-            "score": 97.54273504,
-            "coverage": 0.3,
-            "metricCount": 1
+        },
+        "gpt-5.6-terra": {
+          "rank": 11,
+          "previousRank": 11,
+          "rankChange": 0,
+          "score": 70.8,
+          "uncertainty": 5,
+          "confidence": "MEDIUM",
+          "releasedAt": "2026-07-09T00:00:00.000Z",
+          "components": {
+            "arena-text": {
+              "score": 90.43126685,
+              "coverage": 0.09,
+              "metricCount": 1
+            },
+            "deepswe-v1-1": {
+              "score": 86.53846154,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "taptap-maker": {
+              "score": 68.51851852,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "livebench-general": {
+              "score": 76.53061224,
+              "coverage": 0.14,
+              "metricCount": 1
+            },
+            "vals-finance-agent": {
+              "score": 83.33333333,
+              "coverage": 0.07,
+              "metricCount": 1
+            },
+            "artificial-analysis": {
+              "score": 97.54273504,
+              "coverage": 0.3,
+              "metricCount": 1
+            }
           }
-        }
-      },
-      "gpt-5.6-sol": {
-        "rank": 3,
-        "previousRank": 3,
-        "rankChange": 0,
-        "score": 83.9,
-        "uncertainty": 3.7,
-        "confidence": "MEDIUM",
-        "releasedAt": "2026-07-09T00:00:00.000Z",
-        "components": {
-          "arena-text": {
-            "score": 96.36118598,
-            "coverage": 0.09,
-            "metricCount": 1
-          },
-          "deepswe-v1-1": {
-            "score": 94.23076923,
-            "coverage": 0.08,
-            "metricCount": 1
-          },
-          "taptap-maker": {
-            "score": 87.03703704,
-            "coverage": 0.08,
-            "metricCount": 1
-          },
-          "livebench-general": {
-            "score": 96.93877551,
-            "coverage": 0.14,
-            "metricCount": 1
-          },
-          "mercor-apex-agents": {
-            "score": 81.25,
-            "coverage": 0.035,
-            "metricCount": 1
-          },
-          "vals-finance-agent": {
-            "score": 75.49019608,
-            "coverage": 0.07,
-            "metricCount": 1
-          },
-          "artificial-analysis": {
-            "score": 99.46581197,
-            "coverage": 0.3,
-            "metricCount": 1
+        },
+        "gpt-5.6-sol": {
+          "rank": 3,
+          "previousRank": 3,
+          "rankChange": 0,
+          "score": 83.9,
+          "uncertainty": 3.7,
+          "confidence": "MEDIUM",
+          "releasedAt": "2026-07-09T00:00:00.000Z",
+          "components": {
+            "arena-text": {
+              "score": 96.36118598,
+              "coverage": 0.09,
+              "metricCount": 1
+            },
+            "deepswe-v1-1": {
+              "score": 94.23076923,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "taptap-maker": {
+              "score": 87.03703704,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "livebench-general": {
+              "score": 96.93877551,
+              "coverage": 0.14,
+              "metricCount": 1
+            },
+            "mercor-apex-agents": {
+              "score": 81.25,
+              "coverage": 0.035,
+              "metricCount": 1
+            },
+            "vals-finance-agent": {
+              "score": 75.49019608,
+              "coverage": 0.07,
+              "metricCount": 1
+            },
+            "artificial-analysis": {
+              "score": 99.46581197,
+              "coverage": 0.3,
+              "metricCount": 1
+            }
           }
-        }
-      },
-      "grok-4.6": {
-        "rank": 8,
-        "previousRank": 8,
-        "rankChange": 0,
-        "score": 74.3,
-        "uncertainty": 4.8,
-        "confidence": "MEDIUM",
-        "releasedAt": "2026-08-12T00:00:00.000Z",
-        "components": {
-          "arena-text": {
-            "score": 89.35309973,
-            "coverage": 0.09,
-            "metricCount": 1
-          },
-          "deepswe-v1-1": {
-            "score": 67.30769231,
-            "coverage": 0.08,
-            "metricCount": 1
-          },
-          "taptap-maker": {
-            "score": 90.74074074,
-            "coverage": 0.08,
-            "metricCount": 1
-          },
-          "livebench-general": {
-            "score": 82.65306122,
-            "coverage": 0.14,
-            "metricCount": 1
-          },
-          "mercor-apex-agents": {
-            "score": 85.41666667,
-            "coverage": 0.035,
-            "metricCount": 1
-          },
-          "vals-finance-agent": {
-            "score": 73.52941176,
-            "coverage": 0.07,
-            "metricCount": 1
-          },
-          "artificial-analysis": {
-            "score": 99.25213675,
-            "coverage": 0.3,
-            "metricCount": 1
+        },
+        "grok-4.6": {
+          "rank": 8,
+          "previousRank": 8,
+          "rankChange": 0,
+          "score": 74.3,
+          "uncertainty": 4.8,
+          "confidence": "MEDIUM",
+          "releasedAt": "2026-08-12T00:00:00.000Z",
+          "components": {
+            "arena-text": {
+              "score": 89.35309973,
+              "coverage": 0.09,
+              "metricCount": 1
+            },
+            "deepswe-v1-1": {
+              "score": 67.30769231,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "taptap-maker": {
+              "score": 90.74074074,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "livebench-general": {
+              "score": 82.65306122,
+              "coverage": 0.14,
+              "metricCount": 1
+            },
+            "mercor-apex-agents": {
+              "score": 85.41666667,
+              "coverage": 0.035,
+              "metricCount": 1
+            },
+            "vals-finance-agent": {
+              "score": 73.52941176,
+              "coverage": 0.07,
+              "metricCount": 1
+            },
+            "artificial-analysis": {
+              "score": 99.25213675,
+              "coverage": 0.3,
+              "metricCount": 1
+            }
           }
-        }
-      },
-      "deepseek-v4-flash": {
-        "rank": 27,
-        "previousRank": 27,
-        "rankChange": 0,
-        "score": 41.3,
-        "uncertainty": 5.4,
-        "confidence": "MEDIUM",
-        "releasedAt": "2026-07-31T00:00:00.000Z",
-        "components": {
-          "arena-text": {
-            "score": 79.64959569,
-            "coverage": 0.09,
-            "metricCount": 1
-          },
-          "taptap-maker": {
-            "score": 35.18518519,
-            "coverage": 0.08,
-            "metricCount": 1
-          },
-          "livebench-general": {
-            "score": 45.91836735,
-            "coverage": 0.14,
-            "metricCount": 1
-          },
-          "mercor-apex-agents": {
-            "score": 60.41666667,
-            "coverage": 0.035,
-            "metricCount": 1
-          },
-          "vals-finance-agent": {
-            "score": 59.80392157,
-            "coverage": 0.07,
-            "metricCount": 1
-          },
-          "artificial-analysis": {
-            "score": 94.55128205,
-            "coverage": 0.3,
-            "metricCount": 1
+        },
+        "deepseek-v4-flash": {
+          "rank": 27,
+          "previousRank": 27,
+          "rankChange": 0,
+          "score": 41.3,
+          "uncertainty": 5.4,
+          "confidence": "MEDIUM",
+          "releasedAt": "2026-07-31T00:00:00.000Z",
+          "components": {
+            "arena-text": {
+              "score": 79.64959569,
+              "coverage": 0.09,
+              "metricCount": 1
+            },
+            "taptap-maker": {
+              "score": 35.18518519,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "livebench-general": {
+              "score": 45.91836735,
+              "coverage": 0.14,
+              "metricCount": 1
+            },
+            "mercor-apex-agents": {
+              "score": 60.41666667,
+              "coverage": 0.035,
+              "metricCount": 1
+            },
+            "vals-finance-agent": {
+              "score": 59.80392157,
+              "coverage": 0.07,
+              "metricCount": 1
+            },
+            "artificial-analysis": {
+              "score": 94.55128205,
+              "coverage": 0.3,
+              "metricCount": 1
+            }
           }
-        }
-      },
-      "deepseek-v4-pro": {
-        "rank": 17,
-        "previousRank": 17,
-        "rankChange": 0,
-        "score": 57.7,
-        "uncertainty": 5.8,
-        "confidence": "MEDIUM",
-        "releasedAt": "2026-08-13T00:00:00.000Z",
-        "components": {
-          "arena-text": {
-            "score": 89.89218329,
-            "coverage": 0.09,
-            "metricCount": 1
-          },
-          "taptap-maker": {
-            "score": 50,
-            "coverage": 0.08,
-            "metricCount": 1
-          },
-          "livebench-general": {
-            "score": 74.48979592,
-            "coverage": 0.14,
-            "metricCount": 1
-          },
-          "vals-finance-agent": {
-            "score": 63.7254902,
-            "coverage": 0.07,
-            "metricCount": 1
-          },
-          "artificial-analysis": {
-            "score": 96.04700855,
-            "coverage": 0.3,
-            "metricCount": 1
+        },
+        "deepseek-v4-pro": {
+          "rank": 17,
+          "previousRank": 17,
+          "rankChange": 0,
+          "score": 57.7,
+          "uncertainty": 5.8,
+          "confidence": "MEDIUM",
+          "releasedAt": "2026-08-13T00:00:00.000Z",
+          "components": {
+            "arena-text": {
+              "score": 89.89218329,
+              "coverage": 0.09,
+              "metricCount": 1
+            },
+            "taptap-maker": {
+              "score": 50,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "livebench-general": {
+              "score": 74.48979592,
+              "coverage": 0.14,
+              "metricCount": 1
+            },
+            "vals-finance-agent": {
+              "score": 63.7254902,
+              "coverage": 0.07,
+              "metricCount": 1
+            },
+            "artificial-analysis": {
+              "score": 96.04700855,
+              "coverage": 0.3,
+              "metricCount": 1
+            }
           }
-        }
-      },
-      "gemini-3.7-flash": {
-        "rank": 6,
-        "previousRank": 6,
-        "rankChange": 0,
-        "score": 75,
-        "uncertainty": 4.9,
-        "confidence": "MEDIUM",
-        "releasedAt": "2026-08-13T00:00:00.000Z",
-        "components": {
-          "arena-text": {
-            "score": 98.51752022,
-            "coverage": 0.09,
-            "metricCount": 1
-          },
-          "deepswe-v1-1": {
-            "score": 63.46153846,
-            "coverage": 0.08,
-            "metricCount": 1
-          },
-          "taptap-maker": {
-            "score": 83.33333333,
-            "coverage": 0.08,
-            "metricCount": 1
-          },
-          "livebench-general": {
-            "score": 86.73469388,
-            "coverage": 0.14,
-            "metricCount": 1
-          },
-          "vals-finance-agent": {
-            "score": 97.05882353,
-            "coverage": 0.07,
-            "metricCount": 1
-          },
-          "artificial-analysis": {
-            "score": 97.11538462,
-            "coverage": 0.3,
-            "metricCount": 1
+        },
+        "gemini-3.7-flash": {
+          "rank": 6,
+          "previousRank": 6,
+          "rankChange": 0,
+          "score": 75,
+          "uncertainty": 4.9,
+          "confidence": "MEDIUM",
+          "releasedAt": "2026-08-13T00:00:00.000Z",
+          "components": {
+            "arena-text": {
+              "score": 98.51752022,
+              "coverage": 0.09,
+              "metricCount": 1
+            },
+            "deepswe-v1-1": {
+              "score": 63.46153846,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "taptap-maker": {
+              "score": 83.33333333,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "livebench-general": {
+              "score": 86.73469388,
+              "coverage": 0.14,
+              "metricCount": 1
+            },
+            "vals-finance-agent": {
+              "score": 97.05882353,
+              "coverage": 0.07,
+              "metricCount": 1
+            },
+            "artificial-analysis": {
+              "score": 97.11538462,
+              "coverage": 0.3,
+              "metricCount": 1
+            }
           }
-        }
-      },
-      "glm-5.3-flash": {
-        "rank": 15,
-        "previousRank": 15,
-        "rankChange": 0,
-        "score": 59.9,
-        "uncertainty": 5.5,
-        "confidence": "MEDIUM",
-        "releasedAt": "2026-08-26T00:00:00.000Z",
-        "components": {
-          "arena-text": {
-            "score": 91.50943396,
-            "coverage": 0.09,
-            "metricCount": 1
-          },
-          "deepswe-v1-1": {
-            "score": 59.61538462,
-            "coverage": 0.08,
-            "metricCount": 1
-          },
-          "taptap-maker": {
-            "score": 64.81481481,
-            "coverage": 0.08,
-            "metricCount": 1
-          },
-          "livebench-general": {
-            "score": 27.55102041,
-            "coverage": 0.14,
-            "metricCount": 1
-          },
-          "artificial-analysis": {
-            "score": 98.18376068,
-            "coverage": 0.3,
-            "metricCount": 1
+        },
+        "glm-5.3-flash": {
+          "rank": 15,
+          "previousRank": 15,
+          "rankChange": 0,
+          "score": 59.9,
+          "uncertainty": 5.5,
+          "confidence": "MEDIUM",
+          "releasedAt": "2026-08-26T00:00:00.000Z",
+          "components": {
+            "arena-text": {
+              "score": 91.50943396,
+              "coverage": 0.09,
+              "metricCount": 1
+            },
+            "deepswe-v1-1": {
+              "score": 59.61538462,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "taptap-maker": {
+              "score": 64.81481481,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "livebench-general": {
+              "score": 27.55102041,
+              "coverage": 0.14,
+              "metricCount": 1
+            },
+            "artificial-analysis": {
+              "score": 98.18376068,
+              "coverage": 0.3,
+              "metricCount": 1
+            }
           }
-        }
-      },
-      "glm-5.3": {
-        "rank": 7,
-        "previousRank": 7,
-        "rankChange": 0,
-        "score": 74.9,
-        "uncertainty": 5.1,
-        "confidence": "MEDIUM",
-        "releasedAt": "2026-08-18T00:00:00.000Z",
-        "components": {
-          "arena-text": {
-            "score": 96.90026954,
-            "coverage": 0.09,
-            "metricCount": 1
-          },
-          "deepswe-v1-1": {
-            "score": 82.69230769,
-            "coverage": 0.08,
-            "metricCount": 1
-          },
-          "taptap-maker": {
-            "score": 79.62962963,
-            "coverage": 0.08,
-            "metricCount": 1
-          },
-          "livebench-general": {
-            "score": 62.24489796,
-            "coverage": 0.14,
-            "metricCount": 1
-          },
-          "artificial-analysis": {
-            "score": 98.82478632,
-            "coverage": 0.3,
-            "metricCount": 1
+        },
+        "glm-5.3": {
+          "rank": 7,
+          "previousRank": 7,
+          "rankChange": 0,
+          "score": 74.9,
+          "uncertainty": 5.1,
+          "confidence": "MEDIUM",
+          "releasedAt": "2026-08-18T00:00:00.000Z",
+          "components": {
+            "arena-text": {
+              "score": 96.90026954,
+              "coverage": 0.09,
+              "metricCount": 1
+            },
+            "deepswe-v1-1": {
+              "score": 82.69230769,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "taptap-maker": {
+              "score": 79.62962963,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "livebench-general": {
+              "score": 62.24489796,
+              "coverage": 0.14,
+              "metricCount": 1
+            },
+            "artificial-analysis": {
+              "score": 98.82478632,
+              "coverage": 0.3,
+              "metricCount": 1
+            }
           }
         }
       }
+    },
+    "2026-09-02": {
+      "fetchedAt": "2026-09-02 07:51",
+      "source": "https://aihot.virxact.com/leaderboard",
+      "models": {
+        "claude-sonnet-5": {
+          "rank": 20,
+          "previousRank": 20,
+          "rankChange": 0,
+          "score": 54.3,
+          "uncertainty": 4.6,
+          "confidence": "HIGH",
+          "releasedAt": "2026-06-30T00:00:00.000Z",
+          "components": {
+            "arena-text": {
+              "score": 89.62264151,
+              "coverage": 0.09,
+              "metricCount": 1
+            },
+            "arena-webdev": {
+              "score": 79.90654206,
+              "coverage": 0.05,
+              "metricCount": 1
+            },
+            "deepswe-v1-1": {
+              "score": 40.38461538,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "taptap-maker": {
+              "score": 27.77777778,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "livebench-general": {
+              "score": 59.80392157,
+              "coverage": 0.14,
+              "metricCount": 1
+            },
+            "mercor-apex-agents": {
+              "score": 38,
+              "coverage": 0.035,
+              "metricCount": 1
+            },
+            "vals-finance-agent": {
+              "score": 73.14814815,
+              "coverage": 0.07,
+              "metricCount": 1
+            },
+            "artificial-analysis": {
+              "score": 95.47368421,
+              "coverage": 0.3,
+              "metricCount": 1
+            }
+          }
+        },
+        "claude-opus-5": {
+          "rank": 2,
+          "previousRank": 2,
+          "rankChange": 0,
+          "score": 86.4,
+          "uncertainty": 4.1,
+          "confidence": "HIGH",
+          "releasedAt": "2026-07-24T00:00:00.000Z",
+          "components": {
+            "arena-text": {
+              "score": 97.70889488,
+              "coverage": 0.09,
+              "metricCount": 1
+            },
+            "arena-webdev": {
+              "score": 99.53271028,
+              "coverage": 0.05,
+              "metricCount": 1
+            },
+            "deepswe-v1-1": {
+              "score": 98.07692308,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "taptap-maker": {
+              "score": 94.44444444,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "livebench-general": {
+              "score": 91.17647059,
+              "coverage": 0.14,
+              "metricCount": 1
+            },
+            "mercor-apex-agents": {
+              "score": 94,
+              "coverage": 0.035,
+              "metricCount": 1
+            },
+            "vals-finance-agent": {
+              "score": 93.51851852,
+              "coverage": 0.07,
+              "metricCount": 1
+            },
+            "artificial-analysis": {
+              "score": 99.47368421,
+              "coverage": 0.3,
+              "metricCount": 1
+            }
+          }
+        },
+        "claude-fable-5": {
+          "rank": 1,
+          "previousRank": 1,
+          "rankChange": 0,
+          "score": 89.4,
+          "uncertainty": 3,
+          "confidence": "HIGH",
+          "releasedAt": "2026-06-09T00:00:00.000Z",
+          "components": {
+            "arena-text": {
+              "score": 99.86522911,
+              "coverage": 0.09,
+              "metricCount": 1
+            },
+            "arena-webdev": {
+              "score": 94.85981308,
+              "coverage": 0.05,
+              "metricCount": 1
+            },
+            "deepswe-v1-1": {
+              "score": 90.38461538,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "taptap-maker": {
+              "score": 98.14814815,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "livebench-general": {
+              "score": 97.05882353,
+              "coverage": 0.14,
+              "metricCount": 1
+            },
+            "mercor-apex-agents": {
+              "score": 94.4047619,
+              "coverage": 0.07,
+              "metricCount": 2
+            },
+            "vals-finance-agent": {
+              "score": 86.11111111,
+              "coverage": 0.07,
+              "metricCount": 1
+            },
+            "artificial-analysis": {
+              "score": 99.05263158,
+              "coverage": 0.3,
+              "metricCount": 1
+            }
+          }
+        },
+        "gpt-5.6-luna": {
+          "rank": 21,
+          "previousRank": 21,
+          "rankChange": 0,
+          "score": 51.5,
+          "uncertainty": 5.3,
+          "confidence": "MEDIUM",
+          "releasedAt": "2026-07-09T00:00:00.000Z",
+          "components": {
+            "arena-text": {
+              "score": 85.8490566,
+              "coverage": 0.09,
+              "metricCount": 1
+            },
+            "arena-webdev": {
+              "score": 75.23364486,
+              "coverage": 0.05,
+              "metricCount": 1
+            },
+            "deepswe-v1-1": {
+              "score": 75,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "taptap-maker": {
+              "score": 50,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "livebench-general": {
+              "score": 40.19607843,
+              "coverage": 0.14,
+              "metricCount": 1
+            },
+            "vals-finance-agent": {
+              "score": 80.55555556,
+              "coverage": 0.07,
+              "metricCount": 1
+            },
+            "artificial-analysis": {
+              "score": 94.21052632,
+              "coverage": 0.3,
+              "metricCount": 1
+            }
+          }
+        },
+        "gpt-5.6-terra": {
+          "rank": 12,
+          "previousRank": 12,
+          "rankChange": 0,
+          "score": 69.6,
+          "uncertainty": 4.9,
+          "confidence": "HIGH",
+          "releasedAt": "2026-07-09T00:00:00.000Z",
+          "components": {
+            "arena-text": {
+              "score": 90.43126685,
+              "coverage": 0.09,
+              "metricCount": 1
+            },
+            "arena-webdev": {
+              "score": 76.1682243,
+              "coverage": 0.05,
+              "metricCount": 1
+            },
+            "deepswe-v1-1": {
+              "score": 86.53846154,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "taptap-maker": {
+              "score": 68.51851852,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "livebench-general": {
+              "score": 75.49019608,
+              "coverage": 0.14,
+              "metricCount": 1
+            },
+            "vals-finance-agent": {
+              "score": 78.7037037,
+              "coverage": 0.07,
+              "metricCount": 1
+            },
+            "artificial-analysis": {
+              "score": 96.52631579,
+              "coverage": 0.3,
+              "metricCount": 1
+            }
+          }
+        },
+        "gpt-5.6-sol": {
+          "rank": 3,
+          "previousRank": 3,
+          "rankChange": 0,
+          "score": 83.7,
+          "uncertainty": 3.6,
+          "confidence": "HIGH",
+          "releasedAt": "2026-07-09T00:00:00.000Z",
+          "components": {
+            "arena-text": {
+              "score": 96.36118598,
+              "coverage": 0.09,
+              "metricCount": 1
+            },
+            "arena-webdev": {
+              "score": 92.99065421,
+              "coverage": 0.05,
+              "metricCount": 1
+            },
+            "deepswe-v1-1": {
+              "score": 94.23076923,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "taptap-maker": {
+              "score": 87.03703704,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "livebench-general": {
+              "score": 95.09803922,
+              "coverage": 0.14,
+              "metricCount": 1
+            },
+            "mercor-apex-agents": {
+              "score": 78,
+              "coverage": 0.035,
+              "metricCount": 1
+            },
+            "vals-finance-agent": {
+              "score": 71.2962963,
+              "coverage": 0.07,
+              "metricCount": 1
+            },
+            "artificial-analysis": {
+              "score": 98.84210526,
+              "coverage": 0.3,
+              "metricCount": 1
+            }
+          }
+        },
+        "grok-4.6": {
+          "rank": 7,
+          "previousRank": 7,
+          "rankChange": 0,
+          "score": 74.7,
+          "uncertainty": 4.7,
+          "confidence": "HIGH",
+          "releasedAt": "2026-08-12T00:00:00.000Z",
+          "components": {
+            "arena-text": {
+              "score": 89.35309973,
+              "coverage": 0.09,
+              "metricCount": 1
+            },
+            "arena-webdev": {
+              "score": 95.79439252,
+              "coverage": 0.05,
+              "metricCount": 1
+            },
+            "deepswe-v1-1": {
+              "score": 67.30769231,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "taptap-maker": {
+              "score": 90.74074074,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "livebench-general": {
+              "score": 81.37254902,
+              "coverage": 0.14,
+              "metricCount": 1
+            },
+            "mercor-apex-agents": {
+              "score": 82,
+              "coverage": 0.035,
+              "metricCount": 1
+            },
+            "vals-finance-agent": {
+              "score": 69.44444444,
+              "coverage": 0.07,
+              "metricCount": 1
+            },
+            "artificial-analysis": {
+              "score": 98.42105263,
+              "coverage": 0.3,
+              "metricCount": 1
+            }
+          }
+        },
+        "deepseek-v4-flash": {
+          "rank": 27,
+          "previousRank": 27,
+          "rankChange": 0,
+          "score": 42.9,
+          "uncertainty": 5.4,
+          "confidence": "MEDIUM",
+          "releasedAt": "2026-07-31T00:00:00.000Z",
+          "components": {
+            "arena-text": {
+              "score": 79.64959569,
+              "coverage": 0.09,
+              "metricCount": 1
+            },
+            "arena-webdev": {
+              "score": 86.44859813,
+              "coverage": 0.05,
+              "metricCount": 1
+            },
+            "taptap-maker": {
+              "score": 35.18518519,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "livebench-general": {
+              "score": 46.07843137,
+              "coverage": 0.14,
+              "metricCount": 1
+            },
+            "mercor-apex-agents": {
+              "score": 58,
+              "coverage": 0.035,
+              "metricCount": 1
+            },
+            "vals-finance-agent": {
+              "score": 56.48148148,
+              "coverage": 0.07,
+              "metricCount": 1
+            },
+            "artificial-analysis": {
+              "score": 93.57894737,
+              "coverage": 0.3,
+              "metricCount": 1
+            }
+          }
+        },
+        "deepseek-v4-pro": {
+          "rank": 17,
+          "previousRank": 17,
+          "rankChange": 0,
+          "score": 58.7,
+          "uncertainty": 5.6,
+          "confidence": "MEDIUM",
+          "releasedAt": "2026-08-13T00:00:00.000Z",
+          "components": {
+            "arena-text": {
+              "score": 89.89218329,
+              "coverage": 0.09,
+              "metricCount": 1
+            },
+            "arena-webdev": {
+              "score": 87.38317757,
+              "coverage": 0.05,
+              "metricCount": 1
+            },
+            "taptap-maker": {
+              "score": 50,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "livebench-general": {
+              "score": 73.52941176,
+              "coverage": 0.14,
+              "metricCount": 1
+            },
+            "vals-finance-agent": {
+              "score": 60.18518519,
+              "coverage": 0.07,
+              "metricCount": 1
+            },
+            "artificial-analysis": {
+              "score": 95.05263158,
+              "coverage": 0.3,
+              "metricCount": 1
+            }
+          }
+        },
+        "gemini-3.7-flash": {
+          "rank": 5,
+          "previousRank": 5,
+          "rankChange": 0,
+          "score": 75.5,
+          "uncertainty": 4.7,
+          "confidence": "HIGH",
+          "releasedAt": "2026-08-13T00:00:00.000Z",
+          "components": {
+            "arena-text": {
+              "score": 98.51752022,
+              "coverage": 0.09,
+              "metricCount": 1
+            },
+            "arena-webdev": {
+              "score": 89.25233645,
+              "coverage": 0.05,
+              "metricCount": 1
+            },
+            "deepswe-v1-1": {
+              "score": 63.46153846,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "taptap-maker": {
+              "score": 83.33333333,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "livebench-general": {
+              "score": 85.29411765,
+              "coverage": 0.14,
+              "metricCount": 1
+            },
+            "vals-finance-agent": {
+              "score": 97.22222222,
+              "coverage": 0.07,
+              "metricCount": 1
+            },
+            "artificial-analysis": {
+              "score": 96.10526316,
+              "coverage": 0.3,
+              "metricCount": 1
+            }
+          }
+        },
+        "glm-5.3-flash": {
+          "rank": 15,
+          "previousRank": 15,
+          "rankChange": 0,
+          "score": 63.4,
+          "uncertainty": 5.1,
+          "confidence": "MEDIUM",
+          "releasedAt": "2026-08-26T00:00:00.000Z",
+          "components": {
+            "arena-text": {
+              "score": 91.50943396,
+              "coverage": 0.09,
+              "metricCount": 1
+            },
+            "arena-webdev": {
+              "score": 91.12149533,
+              "coverage": 0.05,
+              "metricCount": 1
+            },
+            "deepswe-v1-1": {
+              "score": 59.61538462,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "taptap-maker": {
+              "score": 64.81481481,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "livebench-general": {
+              "score": 28.43137255,
+              "coverage": 0.14,
+              "metricCount": 1
+            },
+            "vals-finance-agent": {
+              "score": 89.81481481,
+              "coverage": 0.07,
+              "metricCount": 1
+            },
+            "artificial-analysis": {
+              "score": 97.15789474,
+              "coverage": 0.3,
+              "metricCount": 1
+            }
+          }
+        },
+        "glm-5.3": {
+          "rank": 6,
+          "previousRank": 6,
+          "rankChange": 0,
+          "score": 75.4,
+          "uncertainty": 4.7,
+          "confidence": "HIGH",
+          "releasedAt": "2026-08-18T00:00:00.000Z",
+          "components": {
+            "arena-text": {
+              "score": 96.90026954,
+              "coverage": 0.09,
+              "metricCount": 1
+            },
+            "arena-webdev": {
+              "score": 92.05607477,
+              "coverage": 0.05,
+              "metricCount": 1
+            },
+            "deepswe-v1-1": {
+              "score": 82.69230769,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "taptap-maker": {
+              "score": 79.62962963,
+              "coverage": 0.08,
+              "metricCount": 1
+            },
+            "livebench-general": {
+              "score": 61.76470588,
+              "coverage": 0.14,
+              "metricCount": 1
+            },
+            "vals-finance-agent": {
+              "score": 82.40740741,
+              "coverage": 0.07,
+              "metricCount": 1
+            },
+            "artificial-analysis": {
+              "score": 98,
+              "coverage": 0.3,
+              "metricCount": 1
+            }
+          }
+        }
+      }
+    }
+  },
+  "aihubmix": {
+    "2026-09-02": {
+      "fetchedAt": "2026-09-02 07:51",
+      "source": "https://aihubmix.com/api/router/leaderboard",
+      "text.overall": [
+        {
+          "rank": 1,
+          "model": "claude-fable-5",
+          "vendor": "anthropic",
+          "score": 87.9,
+          "priceIn": 5.5,
+          "priceOut": 5,
+          "ttftMs": 2408
+        },
+        {
+          "rank": 2,
+          "model": "claude-opus-5",
+          "vendor": "anthropic",
+          "score": 83.4,
+          "priceIn": 2.5,
+          "priceOut": 5,
+          "ttftMs": 1419
+        },
+        {
+          "rank": 3,
+          "model": "gemini-3.7-flash",
+          "vendor": "google",
+          "score": 82.9,
+          "priceIn": 0.375,
+          "priceOut": 5,
+          "ttftMs": 4094
+        },
+        {
+          "rank": 4,
+          "model": "kimi-k3",
+          "vendor": "moonshot ai",
+          "score": 81.6,
+          "priceIn": 1.5,
+          "priceOut": 5,
+          "ttftMs": 3775
+        },
+        {
+          "rank": 5,
+          "model": "gpt-5.6-sol",
+          "vendor": "openai",
+          "score": 80.6,
+          "priceIn": 2,
+          "priceOut": 5,
+          "ttftMs": 6382
+        },
+        {
+          "rank": 6,
+          "model": "qwen3.8-max",
+          "vendor": "qwen",
+          "score": 79.8,
+          "priceIn": 0.845,
+          "priceOut": 3,
+          "ttftMs": 2591
+        },
+        {
+          "rank": 7,
+          "model": "glm-5.3-flash",
+          "vendor": "z.ai",
+          "score": 77,
+          "priceIn": 0.05634,
+          "priceOut": 3.5,
+          "ttftMs": 4064
+        },
+        {
+          "rank": 8,
+          "model": "claude-sonnet-5",
+          "vendor": "anthropic",
+          "score": 74.7,
+          "priceIn": 1,
+          "priceOut": 5,
+          "ttftMs": 1047
+        },
+        {
+          "rank": 9,
+          "model": "deepseek-v4-pro-0813",
+          "vendor": "deepseek",
+          "score": 73.7,
+          "priceIn": 0.3459,
+          "priceOut": 3,
+          "ttftMs": 1314
+        },
+        {
+          "rank": 10,
+          "model": "qwen3.8-flash",
+          "vendor": "qwen",
+          "score": 67.4,
+          "priceIn": 0.0563,
+          "priceOut": 3.375,
+          "ttftMs": 6753
+        },
+        {
+          "rank": 11,
+          "model": "deepseek-v4-flash-0731",
+          "vendor": "deepseek",
+          "score": 67.3,
+          "priceIn": 0.071,
+          "priceOut": 2,
+          "ttftMs": 1401
+        }
+      ],
+      "text.coding": [
+        {
+          "rank": 1,
+          "model": "claude-fable-5",
+          "vendor": "anthropic",
+          "score": 100,
+          "priceIn": 5.5,
+          "priceOut": 5,
+          "ttftMs": 2408
+        },
+        {
+          "rank": 2,
+          "model": "claude-opus-5",
+          "vendor": "anthropic",
+          "score": 95.1,
+          "priceIn": 2.5,
+          "priceOut": 5,
+          "ttftMs": 1419
+        },
+        {
+          "rank": 3,
+          "model": "kimi-k3",
+          "vendor": "moonshot ai",
+          "score": 94.6,
+          "priceIn": 1.5,
+          "priceOut": 5,
+          "ttftMs": 3775
+        },
+        {
+          "rank": 4,
+          "model": "glm-5.3-flash",
+          "vendor": "z.ai",
+          "score": 94.5,
+          "priceIn": 0.05634,
+          "priceOut": 3.5,
+          "ttftMs": 4064
+        },
+        {
+          "rank": 5,
+          "model": "gpt-5.6-sol",
+          "vendor": "openai",
+          "score": 93.7,
+          "priceIn": 2,
+          "priceOut": 5,
+          "ttftMs": 6382
+        },
+        {
+          "rank": 6,
+          "model": "claude-sonnet-5",
+          "vendor": "anthropic",
+          "score": 91.9,
+          "priceIn": 1,
+          "priceOut": 5,
+          "ttftMs": 1047
+        },
+        {
+          "rank": 7,
+          "model": "gemini-3.7-flash",
+          "vendor": "google",
+          "score": 91.7,
+          "priceIn": 0.375,
+          "priceOut": 5,
+          "ttftMs": 4094
+        },
+        {
+          "rank": 8,
+          "model": "qwen3.8-max",
+          "vendor": "qwen",
+          "score": 91.4,
+          "priceIn": 0.845,
+          "priceOut": 3,
+          "ttftMs": 2591
+        },
+        {
+          "rank": 9,
+          "model": "deepseek-v4-pro-0813",
+          "vendor": "deepseek",
+          "score": 86.3,
+          "priceIn": 0.3459,
+          "priceOut": 3,
+          "ttftMs": 1314
+        },
+        {
+          "rank": 10,
+          "model": "qwen3.8-flash",
+          "vendor": "qwen",
+          "score": 85.1,
+          "priceIn": 0.0563,
+          "priceOut": 3.375,
+          "ttftMs": 6753
+        },
+        {
+          "rank": 11,
+          "model": "deepseek-v4-flash-0731",
+          "vendor": "deepseek",
+          "score": 80.8,
+          "priceIn": 0.071,
+          "priceOut": 2,
+          "ttftMs": 1401
+        }
+      ]
     }
   }
 }

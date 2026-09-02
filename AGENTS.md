@@ -2,22 +2,29 @@
 
 ## 项目概览
 
-监控多个 AI API 提供商的模型定价变动。每天从各提供商拉取价格，与本地 `data.json` 对比，发现变动时生成报告并弹出 macOS 通知。**不会自动修改 data.json**，由人工确认后手动更新。
+监控多个 AI API 提供商的模型定价变动，以及多个榜单的排名/分数变动。每天拉取最新数据，与本地快照对比，发现变动时生成报告并弹出 macOS 通知。**不会自动修改 data.json**，由人工确认后手动更新。
 
-监控的提供商：
+**价格监控**的提供商：
 - **OpenRouter**：公开 API，精确美元价格
 - **apifun**：公开 API 拿分组倍率，推算实际价格（价格 = 官方美元价 × 倍率）
 - **V3 API**：公开 API 拿基础倍率（分组倍率不公开，用快照对比检测变动）
 - **非线智能**：公开 /models 接口，直接返回人民币价格
+- **AIHubMix**：公开 API，从 ratio 还原美元价格
+
+**榜单追踪**的来源：
+- **aihot 综合榜**：追踪 data.json 中 12 个模型的排名/得分（Next.js SSR payload）
+- **aihubmix 排行榜**：追踪 Overall + Coding 两个榜单的全量模型（公开 JSON API，含价格/延迟）
 
 ## 核心源文件
 
 | 文件 | 角色 | 说明 |
 |------|------|------|
-| `check_prices.py` | 主脚本（唯一源文件） | 价格拉取、对比、报告生成、macOS 通知 |
+| `check_prices.py` | 价格监控主脚本 | 价格拉取、对比、报告生成、macOS 通知 |
+| `check_leaderboard.py` | 榜单追踪脚本 | aihot + aihubmix 榜单抓取、diff、通知 |
 | `index.html` | 看板页面 | 价格对比可视化，综合单价排序渲染 |
-| `data.json` | 核心数据 | 各提供商模型定价 + openrouterRefMin 最低参考价 |
-| `price_history.json` | 历史记录 | 价格变动时间线，损坏时中止执行而非静默清空 |
+| `data.json` | 核心价格数据 | 各提供商模型定价 + openrouterRefMin 最低参考价 |
+| `leaderboard_data.json` | 榜单快照数据 | aihot + aihubmix 每日快照（命名空间格式） |
+| `price_history.json` | 价格历史记录 | 价格变动时间线，损坏时中止执行而非静默清空 |
 | `monitor_config.local.json` | 本地配置 | 代理、汇率、变动阈值（已 gitignore） |
 | `secrets.local.json` | 密钥 | API 密钥等敏感信息（已 gitignore） |
 | `价格监控指南.md` | 操作文档 | 详细使用说明 |

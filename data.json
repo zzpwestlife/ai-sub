@@ -1,5 +1,5 @@
 {
-  "updateDate": "2026-09-01",
+  "updateDate": "2026-09-02",
   "providers": [
     {
       "id": "anthropic",
@@ -835,6 +835,114 @@
       "notes": "限时5折(官方¥0.80/¥2.80)"
     },
     {
+      "model": "claude-sonnet-5",
+      "provider": "aihubmix",
+      "input": 14.0,
+      "output": 70.0,
+      "cacheWrite": null,
+      "cacheRead": 14.0,
+      "notes": "同官方价($2/$10)"
+    },
+    {
+      "model": "claude-opus-5",
+      "provider": "aihubmix",
+      "input": 35.0,
+      "output": 175.0,
+      "cacheWrite": null,
+      "cacheRead": 3.5,
+      "notes": "同官方价($5/$25)"
+    },
+    {
+      "model": "claude-fable-5",
+      "provider": "aihubmix",
+      "input": 77.0,
+      "output": 385.0,
+      "cacheWrite": null,
+      "cacheRead": 7.7,
+      "notes": "同官方价($11/$55)"
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "provider": "aihubmix",
+      "input": 1.4,
+      "output": 8.4,
+      "cacheWrite": null,
+      "cacheRead": 0.14,
+      "notes": "同官方价($0.2/$1.2)"
+    },
+    {
+      "model": "gpt-5.6-terra",
+      "provider": "aihubmix",
+      "input": 14.0,
+      "output": 84.0,
+      "cacheWrite": null,
+      "cacheRead": 1.4,
+      "notes": "同官方价($2/$12)"
+    },
+    {
+      "model": "gpt-5.6-sol",
+      "provider": "aihubmix",
+      "input": 28.0,
+      "output": 140.0,
+      "cacheWrite": null,
+      "cacheRead": 28.0,
+      "notes": "同官方价($4/$20)"
+    },
+    {
+      "model": "grok-4.6",
+      "provider": "aihubmix",
+      "input": 14.0,
+      "output": 42.0,
+      "cacheWrite": null,
+      "cacheRead": 3.5,
+      "notes": "同官方价($2/$6)"
+    },
+    {
+      "model": "deepseek-v4-flash",
+      "provider": "aihubmix",
+      "input": 0.994,
+      "output": 1.988,
+      "cacheWrite": null,
+      "cacheRead": 0.1988,
+      "notes": "同官方价($0.142/$0.284)"
+    },
+    {
+      "model": "deepseek-v4-pro",
+      "provider": "aihubmix",
+      "input": 11.83,
+      "output": 23.66,
+      "cacheWrite": null,
+      "cacheRead": 0.9819,
+      "notes": "同官方价($1.69/$3.38)"
+    },
+    {
+      "model": "gemini-3.7-flash",
+      "provider": "aihubmix",
+      "input": 5.25,
+      "output": 26.25,
+      "cacheWrite": null,
+      "cacheRead": 0.525,
+      "notes": "同官方价($0.75/$3.75)"
+    },
+    {
+      "model": "glm-5.3-flash",
+      "provider": "aihubmix",
+      "input": 0.3944,
+      "output": 1.3803,
+      "cacheWrite": null,
+      "cacheRead": 0.0986,
+      "notes": "限时5折($0.11268/$0.39438 原价)"
+    },
+    {
+      "model": "glm-5.3",
+      "provider": "aihubmix",
+      "input": 7.0988,
+      "output": 24.8459,
+      "cacheWrite": null,
+      "cacheRead": 1.7747,
+      "notes": "限时9折($1.1268/$3.9438 原价)"
+    },
+    {
       "model": "glm-5.3-flash",
       "provider": "openrouter",
       "input": 1.05,
@@ -1048,8 +1156,21 @@
       "balance": 36,
       "currency": "CNY",
       "role": "少用",
-      "models": [],
-      "notes": "价格未确认,很少使用"
+      "models": [
+        "claude-sonnet-5",
+        "claude-opus-5",
+        "claude-fable-5",
+        "gpt-5.6-luna",
+        "gpt-5.6-terra",
+        "gpt-5.6-sol",
+        "grok-4.6",
+        "deepseek-v4-flash",
+        "deepseek-v4-pro",
+        "gemini-3.7-flash",
+        "glm-5.3-flash",
+        "glm-5.3"
+      ],
+      "notes": "价格已接入自动监控(2026-09-02);很少使用"
     },
     {
       "provider": "openrouter",

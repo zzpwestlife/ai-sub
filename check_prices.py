@@ -92,6 +92,14 @@ NONELINEAR_MODELS = [
     "gemini-3.7-flash", "glm-5.3-flash", "glm-5.3",
 ]
 
+# AIHubMix 上追踪的模型名（模型 ID 与 data.json 一致，无需单独映射）
+AIHUBMIX_MODELS = [
+    "claude-sonnet-5", "claude-opus-5", "claude-fable-5",
+    "gpt-5.6-luna", "gpt-5.6-terra", "gpt-5.6-sol",
+    "grok-4.6", "deepseek-v4-flash", "deepseek-v4-pro",
+    "gemini-3.7-flash", "glm-5.3-flash", "glm-5.3",
+]
+
 # V3 上追踪的模型名（V3 用带日期后缀的版本号）
 V3_MODELS = [
     "claude-sonnet-5", "claude-opus-5", "claude-fable-5",
@@ -167,6 +175,8 @@ def verify_url(provider, model_id=None, or_id=None):
         return "https://api.v3.cm/panel"
     if provider == "非线智能":
         return "https://nonelinear.com/static/models.html"
+    if provider == "AIHubMix":
+        return "https://aihubmix.com/models"
     if provider == "Cubence":
         return "https://cubence.com/dashboard/model-plaza"
     return ""
@@ -418,6 +428,60 @@ def check_cubence(data, cfg):
 
 
 # ---------------------------------------------------------------------------
+# AIHubMix（公开 /call 接口，价格需从内部 ratio 还原）
+# ---------------------------------------------------------------------------
+
+def check_aihubmix(data, cfg):
+    """拉取 AIHubMix 模型价格。接口返回内部 ratio 而非直接价格，
+    页面价还原公式（2026-09-02 与页面逐一核对验证）：
+      input($/M)  = 2 × model_ratio × (1 - promotion.off_percent/100)
+      output($/M) = input × completion_ratio
+      cache($/M)  = input × cache_ratio
+    再 × 汇率折人民币与 data.json 对比。注意 model_ratio 是页面输入价的 1/2。"""
+    diffs = []
+    log("拉取 AIHubMix 模型价格 ...")
+    raw = http_get_json(
+        "https://aihubmix.com/call/mdl_info_pagination?p=0&num=900&merge_versions=1",
+        proxy=cfg.get("proxy"))
+    if not raw.get("success"):
+        raise ValueError(f"接口返回 success=False: {raw.get('message')}")
+    rows = {r["model"]: r for r in raw.get("data", [])}
+    if not rows:
+        raise ValueError("接口返回空列表（疑似改版）")
+    fx = cfg["fx_rate"]
+    url = verify_url("AIHubMix")
+
+    hm_entries = {p["model"]: p for p in data["prices"] if p["provider"] == "aihubmix"}
+
+    for model_id in AIHUBMIX_MODELS:
+        local = hm_entries.get(model_id)
+        if not local:
+            continue
+        row = rows.get(model_id)
+        if row is None:
+            diffs.append({"provider": "AIHubMix", "model": model_id, "field": "-",
+                          "local": "-", "remote": "模型在 AIHubMix 上不存在", "url": url})
+            continue
+        mr = row.get("model_ratio") or 0
+        promo = ((row.get("promotion") or {}).get("off_percent") or 0) / 100
+        usd_in = 2 * mr * (1 - promo)
+        expected = {
+            "input": round(usd_in * fx, 4),
+            "output": round(usd_in * (row.get("completion_ratio") or 0) * fx, 4),
+            "cacheRead": round(usd_in * (row.get("cache_ratio") or 0) * fx, 4),
+        }
+        for field, ev in expected.items():
+            lv = local.get(field)
+            if lv is None or ev == 0:
+                continue
+            if is_changed(lv, ev, cfg):
+                promo_tag = f"（{int(promo * 100)}% off）" if promo else ""
+                diffs.append({"provider": "AIHubMix", "model": model_id, "field": field,
+                              "local": f"¥{lv}", "remote": f"¥{ev}{promo_tag}", "url": url})
+    return diffs
+
+
+# ---------------------------------------------------------------------------
 # V3 API（基础倍率，快照对比）
 # ---------------------------------------------------------------------------
 
@@ -660,6 +724,7 @@ def main():
         ("OpenRouter", lambda: check_openrouter(data, cfg)),
         ("apifun", lambda: check_apifun(data, cfg)),
         ("非线智能", lambda: check_nonelinear(data, cfg)),
+        ("AIHubMix", lambda: check_aihubmix(data, cfg)),
         ("V3 API", lambda: check_v3(cfg)),
         ("Cubence", lambda: check_cubence(data, cfg)),
     ]:

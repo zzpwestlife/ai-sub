@@ -1,6 +1,21 @@
+---
+description: 修改 check_prices.py 或 index.html 时自动应用。包含价格监控系统的核心架构不变量、数据写入保护和验证流程。
+globs: "*.py, *.html"
+---
+
 # 价格监控系统规则
 
 修改 `check_prices.py` 或 `index.html` 时必须遵守以下不变量。
+
+## 项目架构概览
+
+- **唯一源文件**：`check_prices.py`（价格拉取、对比、报告生成、macOS 通知）
+- **看板页面**：`index.html`（价格对比可视化，综合单价排序渲染）
+- **核心数据**：`data.json`（各提供商模型定价 + openrouterRefMin 最低参考价）
+- **历史记录**：`price_history.json`（价格变动时间线）
+- **本地配置**：`monitor_config.local.json`、`secrets.local.json`（已 gitignore）
+- **监控提供商**：OpenRouter（精确美元价）、apifun（分组倍率推算）、V3 API（快照对比）、非线智能（人民币直出）、AIHubMix（美元价从 ratio 还原）
+- **技术栈**：纯 Python 标准库，无第三方依赖
 
 ## 价格基线
 
@@ -29,6 +44,12 @@
 - `data.json` 仅在内容实际变化时写入（写入前 diff 对比）。
 - V3 快照空响应不覆盖，防止下次全量误报。
 - `price_history.json` 损坏时中止执行，不静默清空。
+
+## 范围边界
+
+- 修改价格逻辑：先改 `check_prices.py`，再同步更新 `index.html` 渲染（如适用）。
+- 不要直接编辑 `data.json` 的价格数据（应由脚本检测 + 人工确认）。
+- 不要将 `.local.json` 文件提交到 git。
 
 ## 验证
 

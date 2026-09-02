@@ -385,5 +385,239 @@
     "from": "-",
     "to": "-",
     "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-09-02 07:42",
+    "provider": "openrouter",
+    "model": "deepseek-v4-flash",
+    "field": "output",
+    "from": 1.96,
+    "to": 1.26,
+    "note": "接入 AIHubMix 监控(12模型)"
+  },
+  {
+    "time": "2026-09-02 07:42",
+    "provider": "openrouter",
+    "model": "gemini-3.7-flash",
+    "field": "input",
+    "from": 5.25,
+    "to": 2.625,
+    "note": "接入 AIHubMix 监控(12模型)"
+  },
+  {
+    "time": "2026-09-02 07:42",
+    "provider": "openrouter",
+    "model": "gemini-3.7-flash",
+    "field": "output",
+    "from": 26.25,
+    "to": 13.125,
+    "note": "接入 AIHubMix 监控(12模型)"
+  },
+  {
+    "time": "2026-09-02 07:42",
+    "provider": "openrouter",
+    "model": "gemini-3.7-flash",
+    "field": "cacheRead",
+    "from": 0.525,
+    "to": 0.2625,
+    "note": "接入 AIHubMix 监控(12模型)"
+  },
+  {
+    "time": "2026-09-02 07:42",
+    "provider": "aihubmix",
+    "model": "claude-sonnet-5",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "接入 AIHubMix 监控(12模型)"
+  },
+  {
+    "time": "2026-09-02 07:42",
+    "provider": "aihubmix",
+    "model": "claude-opus-5",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "接入 AIHubMix 监控(12模型)"
+  },
+  {
+    "time": "2026-09-02 07:42",
+    "provider": "aihubmix",
+    "model": "claude-fable-5",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "接入 AIHubMix 监控(12模型)"
+  },
+  {
+    "time": "2026-09-02 07:42",
+    "provider": "aihubmix",
+    "model": "gpt-5.6-luna",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "接入 AIHubMix 监控(12模型)"
+  },
+  {
+    "time": "2026-09-02 07:42",
+    "provider": "aihubmix",
+    "model": "gpt-5.6-terra",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "接入 AIHubMix 监控(12模型)"
+  },
+  {
+    "time": "2026-09-02 07:42",
+    "provider": "aihubmix",
+    "model": "gpt-5.6-sol",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "接入 AIHubMix 监控(12模型)"
+  },
+  {
+    "time": "2026-09-02 07:42",
+    "provider": "aihubmix",
+    "model": "grok-4.6",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "接入 AIHubMix 监控(12模型)"
+  },
+  {
+    "time": "2026-09-02 07:42",
+    "provider": "aihubmix",
+    "model": "deepseek-v4-flash",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "接入 AIHubMix 监控(12模型)"
+  },
+  {
+    "time": "2026-09-02 07:42",
+    "provider": "aihubmix",
+    "model": "deepseek-v4-pro",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "接入 AIHubMix 监控(12模型)"
+  },
+  {
+    "time": "2026-09-02 07:42",
+    "provider": "aihubmix",
+    "model": "gemini-3.7-flash",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "接入 AIHubMix 监控(12模型)"
+  },
+  {
+    "time": "2026-09-02 07:42",
+    "provider": "aihubmix",
+    "model": "glm-5.3-flash",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "接入 AIHubMix 监控(12模型)"
+  },
+  {
+    "time": "2026-09-02 07:42",
+    "provider": "aihubmix",
+    "model": "glm-5.3",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "接入 AIHubMix 监控(12模型)"
+  },
+  {
+    "time": "2026-09-02 07:42",
+    "provider": "cubence",
+    "model": "claude-sonnet-5",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "接入 AIHubMix 监控(12模型)"
+  },
+  {
+    "time": "2026-09-02 07:42",
+    "provider": "cubence",
+    "model": "claude-opus-5",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "接入 AIHubMix 监控(12模型)"
+  },
+  {
+    "time": "2026-09-02 07:42",
+    "provider": "cubence",
+    "model": "claude-fable-5",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "接入 AIHubMix 监控(12模型)"
+  },
+  {
+    "time": "2026-09-02 07:42",
+    "provider": "cubence",
+    "model": "gpt-5.6-luna",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "接入 AIHubMix 监控(12模型)"
+  },
+  {
+    "time": "2026-09-02 07:42",
+    "provider": "cubence",
+    "model": "gpt-5.6-terra",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "接入 AIHubMix 监控(12模型)"
+  },
+  {
+    "time": "2026-09-02 07:42",
+    "provider": "cubence",
+    "model": "gpt-5.6-sol",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "接入 AIHubMix 监控(12模型)"
+  },
+  {
+    "time": "2026-09-02 07:42",
+    "provider": "cubence",
+    "model": "grok-4.6",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "接入 AIHubMix 监控(12模型)"
+  },
+  {
+    "time": "2026-09-02 07:42",
+    "provider": "cubence",
+    "model": "deepseek-v4-flash",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "接入 AIHubMix 监控(12模型)"
+  },
+  {
+    "time": "2026-09-02 07:42",
+    "provider": "cubence",
+    "model": "deepseek-v4-pro",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "接入 AIHubMix 监控(12模型)"
+  },
+  {
+    "time": "2026-09-02 07:42",
+    "provider": "cubence",
+    "model": "glm-5.3",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "接入 AIHubMix 监控(12模型)"
   }
 ]
