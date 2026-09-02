@@ -49,6 +49,7 @@ NOTE_ARG = sys.argv[sys.argv.index("--note") + 1] if "--note" in sys.argv else "
 
 DEFAULT_CONFIG = {
     "proxy": "",            # 如 "http://127.0.0.1:7897"，留空则不使用
+    "no_proxy_providers": ["OpenRouter", "apifun", "非线智能"],  # 不需要代理的提供商（直连更快）
     "fx_rate": 7.0,         # 美元兑人民币汇率
     "change_threshold_pct": 0.5,  # 价格变动超过该百分比才算变动（防舍入噪音）
 }
@@ -125,6 +126,20 @@ def log(msg):
 
 def load_config():
     cfg = dict(DEFAULT_CONFIG)
+    # 优先从环境变量读取（方便多电脑部署）
+    if os.environ.get("AI_SUB_PROXY"):
+        cfg["proxy"] = os.environ["AI_SUB_PROXY"]
+    if os.environ.get("AI_SUB_FX_RATE"):
+        try:
+            cfg["fx_rate"] = float(os.environ["AI_SUB_FX_RATE"])
+        except ValueError:
+            pass
+    if os.environ.get("AI_SUB_THRESHOLD"):
+        try:
+            cfg["change_threshold_pct"] = float(os.environ["AI_SUB_THRESHOLD"])
+        except ValueError:
+            pass
+    # 本地配置文件覆盖环境变量
     if CONFIG_FILE.exists():
         try:
             with open(CONFIG_FILE) as f:
@@ -135,7 +150,9 @@ def load_config():
 
 
 def http_get_json(url, proxy=None, timeout=30, headers=None):
-    """请求 JSON；先直连，失败且配置了代理则走代理重试。"""
+    """请求 JSON；根据 provider 决定直连或走代理。
+    proxy=None 时强制直连（用于 no_proxy_providers 列表中的提供商）。
+    proxy 为字符串时先直连，失败则走代理重试。"""
     hdrs = {"User-Agent": "Mozilla/5.0 (ai-sub price monitor)"}
     if headers:
         hdrs.update(headers)
@@ -151,14 +168,20 @@ def http_get_json(url, proxy=None, timeout=30, headers=None):
         with opener.open(req, timeout=timeout) as resp:
             return json.loads(resp.read().decode("utf-8"))
 
-    try:
+    if proxy is None:
+        # 强制直连（no_proxy_providers）
         return do_fetch(False)
-    except (urllib.error.URLError, OSError, TimeoutError) as e:
-        # 仅网络层异常才走代理重试；404/解析错误等重试也必然失败，直接上抛
-        if proxy:
+    elif proxy:
+        # 有代理配置：先直连，失败则走代理
+        try:
+            return do_fetch(False)
+        except (urllib.error.URLError, OSError, TimeoutError) as e:
+            # 仅网络层异常才走代理重试；404/解析错误等重试也必然失败，直接上抛
             log(f"直连失败({e})，尝试代理 {proxy} ...")
             return do_fetch(True)
-        raise
+    else:
+        # 无代理配置：纯直连
+        return do_fetch(False)
 
 
 # ---------------------------------------------------------------------------
@@ -182,14 +205,15 @@ def verify_url(provider, model_id=None, or_id=None):
     return ""
 
 
-def check_openrouter(data, cfg):
+def check_openrouter(data, cfg, use_proxy=True):
     """对比 OpenRouter 实际价格与 data.json 记录。
     策略：拉取每个模型的全部 provider 价格，取出现次数最多的价格（众数）
     作为数据库基准（代表最可能被路由到的价格档位）。
     """
     diffs = []
     log("拉取 OpenRouter 价格（含全部 provider）...")
-    raw = http_get_json("https://openrouter.ai/api/v1/models", proxy=cfg.get("proxy"))
+    proxy = cfg.get("proxy") if use_proxy else None
+    raw = http_get_json("https://openrouter.ai/api/v1/models", proxy=proxy)
     existing = {m["id"] for m in raw.get("data", [])}
     fx = cfg["fx_rate"]
 
@@ -203,7 +227,7 @@ def check_openrouter(data, cfg):
             continue
         try:
             ep_raw = http_get_json(f"https://openrouter.ai/api/v1/models/{or_id}/endpoints",
-                                   proxy=cfg.get("proxy"))
+                                   proxy=proxy)
         except Exception as e:
             diffs.append({"provider": "OpenRouter", "model": model_id, "field": "-",
                           "local": "-", "remote": f"endpoints 接口失败: {e}", "url": url})
@@ -283,16 +307,15 @@ def mode_price(values):
 # apifun
 # ---------------------------------------------------------------------------
 
-def check_apifun(data, cfg):
+def check_apifun(data, cfg, use_proxy=True):
     """拉取 apifun 分组倍率，推算价格并与 data.json 对比。
     定价规则：CNY 价格 = 官方美元价 × 分组倍率（倍率已隐含汇率折算）
     DeepSeek 例外：官方价本身是人民币，直接 × 倍率。
     """
     diffs = []
     log("拉取 apifun 分组倍率 ...")
-    raw = http_get_json(
-        "https://apikey.fun/api/v1/pricing/groups?timezone=Asia%2FShanghai",
-        proxy=cfg.get("proxy"))
+    proxy = cfg.get("proxy") if use_proxy else None
+    raw = http_get_json("https://apikey.fun/api/v1/pricing/groups", proxy=proxy)
     groups = {g["name"]: g for g in raw.get("data", [])}
     fx = cfg["fx_rate"]
 
@@ -348,15 +371,15 @@ def check_apifun(data, cfg):
 # 非线智能（公开 /models 接口，直接返回人民币价格）
 # ---------------------------------------------------------------------------
 
-def check_nonelinear(data, cfg):
+def check_nonelinear(data, cfg, use_proxy=True):
     """拉取非线智能模型广场数据，直接与 data.json 中的人民币价格对比。
     行结构：[模型, 机构, 开源, 缓存命中价, 输入价, 输出价, ...]；'/' 表示无该价格。
     峰谷口径：部分模型（DeepSeek 等）线上挂峰值价 = 官方空闲价 × 2，
     data.json 记的是空闲价，峰谷切换会导致恰好 2 倍/0.5 倍的差异，识别后跳过。"""
     diffs = []
     log("拉取非线智能模型价格 ...")
-    raw = http_get_json("https://nonelinear.com/models?offset=0&limit=1000",
-                        proxy=cfg.get("proxy"))
+    proxy = cfg.get("proxy") if use_proxy else None
+    raw = http_get_json("https://nonelinear.com/models?offset=0&limit=1000", proxy=proxy)
     rows = {r[0]: r for r in raw.get("data", [])}
     url = verify_url("非线智能")
 
@@ -401,7 +424,7 @@ def check_nonelinear(data, cfg):
 # Cubence（API 需认证，页面 $ 即人民币）
 # ---------------------------------------------------------------------------
 
-def check_cubence(data, cfg):
+def check_cubence(data, cfg, use_proxy=True):
     """Cubence API 需认证，定价不在 API 中返回。
     页面 $ 即人民币（充值 30 RMB 显示 $30）。
     价格数据来自 Model Plaza 页面截图（人工录入 data.json）。
@@ -431,7 +454,7 @@ def check_cubence(data, cfg):
 # AIHubMix（公开 /call 接口，价格需从内部 ratio 还原）
 # ---------------------------------------------------------------------------
 
-def check_aihubmix(data, cfg):
+def check_aihubmix(data, cfg, use_proxy=True):
     """拉取 AIHubMix 模型价格。接口返回内部 ratio 而非直接价格，
     页面价还原公式（2026-09-02 与页面逐一核对验证）：
       input($/M)  = 2 × model_ratio × (1 - promotion.off_percent/100)
@@ -440,9 +463,10 @@ def check_aihubmix(data, cfg):
     再 × 汇率折人民币与 data.json 对比。注意 model_ratio 是页面输入价的 1/2。"""
     diffs = []
     log("拉取 AIHubMix 模型价格 ...")
+    proxy = cfg.get("proxy") if use_proxy else None
     raw = http_get_json(
         "https://aihubmix.com/call/mdl_info_pagination?p=0&num=900&merge_versions=1",
-        proxy=cfg.get("proxy"))
+        proxy=proxy)
     if not raw.get("success"):
         raise ValueError(f"接口返回 success=False: {raw.get('message')}")
     rows = {r["model"]: r for r in raw.get("data", [])}
@@ -485,12 +509,13 @@ def check_aihubmix(data, cfg):
 # V3 API（基础倍率，快照对比）
 # ---------------------------------------------------------------------------
 
-def check_v3(cfg):
+def check_v3(cfg, use_proxy=True):
     """拉取 V3 基础倍率，与上次快照对比。分组倍率不公开，无法算出最终价格，
     因此只检测倍率本身是否变动。"""
     diffs = []
     log("拉取 V3 API 基础倍率 ...")
-    raw = http_get_json("https://api.v3.cm/api/pricing", proxy=cfg.get("proxy"))
+    proxy = cfg.get("proxy") if use_proxy else None
+    raw = http_get_json("https://api.v3.cm/api/pricing", proxy=proxy)
     items = raw if isinstance(raw, list) else raw.get("data", [])
     remote = {}
     for it in items:
@@ -720,13 +745,16 @@ def main():
 
     all_diffs, errors = [], []
 
+    # 按提供商决定是否需要代理（no_proxy_providers 列表中的直连，其他走代理）
+    no_proxy = cfg.get("no_proxy_providers", [])
+
     for name, fn in [
-        ("OpenRouter", lambda: check_openrouter(data, cfg)),
-        ("apifun", lambda: check_apifun(data, cfg)),
-        ("非线智能", lambda: check_nonelinear(data, cfg)),
-        ("AIHubMix", lambda: check_aihubmix(data, cfg)),
-        ("V3 API", lambda: check_v3(cfg)),
-        ("Cubence", lambda: check_cubence(data, cfg)),
+        ("OpenRouter", lambda: check_openrouter(data, cfg, use_proxy=("OpenRouter" not in no_proxy))),
+        ("apifun", lambda: check_apifun(data, cfg, use_proxy=("apifun" not in no_proxy))),
+        ("非线智能", lambda: check_nonelinear(data, cfg, use_proxy=("非线智能" not in no_proxy))),
+        ("AIHubMix", lambda: check_aihubmix(data, cfg, use_proxy=("AIHubMix" not in no_proxy))),
+        ("V3 API", lambda: check_v3(cfg, use_proxy=("V3 API" not in no_proxy))),
+        ("Cubence", lambda: check_cubence(data, cfg, use_proxy=("Cubence" not in no_proxy))),
     ]:
         try:
             diffs = fn()

@@ -53,13 +53,31 @@ python3 -m http.server 8080
 
 ## 配置说明
 
-### monitor_config.local.json
+### monitor_config.local.json（已 gitignore）
+
+**首次使用**：复制示例文件并修改
+```bash
+cp monitor_config.local.json.example monitor_config.local.json
+# 编辑 monitor_config.local.json，根据实际代理端口调整
 
 | 字段 | 类型 | 默认值 | 说明 |
 |:----:|:----:|:------:|:----:|
-| `proxy` | string | `""` | HTTP 代理地址（V3 API 必需），留空则直连 |
+| `proxy` | string | `""` | HTTP 代理地址（V3 API、AIHubMix 必需），留空则直连 |
+| `no_proxy_providers` | array | `["OpenRouter", "apifun", "非线智能"]` | 不需要代理的提供商列表（直连更快） |
 | `fx_rate` | float | `7.0` | 美元兑人民币汇率 |
 | `change_threshold_pct` | float | `0.5` | 变动判定阈值（%） |
+
+**多电脑部署**：每台电脑的代理端口可能不同，有两种方式配置：
+
+1. **本地配置文件**（推荐）：在每台电脑上创建自己的 `monitor_config.local.json`
+2. **环境变量**（适合容器化/自动化部署）：
+   ```bash
+   export AI_SUB_PROXY="http://127.0.0.1:8118"
+   export AI_SUB_FX_RATE="7.0"
+   export AI_SUB_THRESHOLD="0.5"
+   python3 check_prices.py
+   ```
+   本地配置文件会覆盖环境变量的设置。
 
 变动判定逻辑：相对差异 > 阈值 **且** 绝对差异 > ¥0.005，双重条件避免误报。
 

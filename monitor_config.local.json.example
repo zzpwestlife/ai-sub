@@ -1,0 +1,6 @@
+{
+  "proxy": "http://127.0.0.1:8118",
+  "no_proxy_providers": ["OpenRouter", "apifun", "非线智能"],
+  "fx_rate": 7.0,
+  "change_threshold_pct": 0.5
+}

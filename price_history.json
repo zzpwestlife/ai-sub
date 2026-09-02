@@ -619,5 +619,113 @@
     "from": "-",
     "to": "-",
     "note": "接入 AIHubMix 监控(12模型)"
+  },
+  {
+    "time": "2026-09-02 08:46",
+    "provider": "aihubmix",
+    "model": "claude-sonnet-5",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-09-02 08:46",
+    "provider": "aihubmix",
+    "model": "claude-opus-5",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-09-02 08:46",
+    "provider": "aihubmix",
+    "model": "claude-fable-5",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-09-02 08:46",
+    "provider": "aihubmix",
+    "model": "gpt-5.6-luna",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-09-02 08:46",
+    "provider": "aihubmix",
+    "model": "gpt-5.6-terra",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-09-02 08:46",
+    "provider": "aihubmix",
+    "model": "gpt-5.6-sol",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-09-02 08:46",
+    "provider": "aihubmix",
+    "model": "grok-4.6",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-09-02 08:46",
+    "provider": "aihubmix",
+    "model": "deepseek-v4-flash",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-09-02 08:46",
+    "provider": "aihubmix",
+    "model": "deepseek-v4-pro",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-09-02 08:46",
+    "provider": "aihubmix",
+    "model": "gemini-3.7-flash",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-09-02 08:46",
+    "provider": "aihubmix",
+    "model": "glm-5.3-flash",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-09-02 08:46",
+    "provider": "aihubmix",
+    "model": "glm-5.3",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
   }
 ]
