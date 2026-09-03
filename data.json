@@ -185,10 +185,10 @@
       "cacheRead": 0.525
     },
     "gemini-3.8-flash": {
-      "input": 2.625,
-      "output": 13.125,
-      "cacheWrite": 0,
-      "cacheRead": 0.2625
+"input": 10.5,
+"output": 52.5,
+"cacheWrite": 0,
+"cacheRead": 1.05
     },
     "glm-5.3-flash": {
       "input": 0.8,
@@ -268,7 +268,7 @@
       "id": "gemini-3.8-flash",
       "name": "Gemini 3.8 Flash",
       "category": "Gemini",
-      "desc": "多模态轻量/1M上下文"
+"desc": "多模态轻量/1M上下文 (新版)"
     },
     {
       "id": "glm-5.3-flash",
@@ -844,6 +844,24 @@
       "output": 26.25,
       "cacheWrite": null,
       "cacheRead": 0.525,
+      "notes": "同官方价"
+    },
+    {
+      "model": "gemini-3.8-flash",
+      "provider": "openrouter",
+      "input": 2.625,
+      "output": 13.125,
+      "cacheWrite": null,
+      "cacheRead": 0.2625,
+      "notes": "众数 输入2/6 输出2/6 缓存2/6"
+    },
+    {
+      "model": "gemini-3.8-flash",
+      "provider": "nonelinear",
+      "input": 10.5,
+      "output": 52.5,
+      "cacheWrite": null,
+      "cacheRead": 1.05,
       "notes": "同官方价"
     },
     {
