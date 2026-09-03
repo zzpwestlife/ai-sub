@@ -1,5 +1,5 @@
 {
-  "updateDate": "2026-09-02",
+  "updateDate": "2026-09-03",
   "providers": [
     {
       "id": "anthropic",
@@ -184,6 +184,12 @@
       "cacheWrite": 0,
       "cacheRead": 0.525
     },
+    "gemini-3.8-flash": {
+      "input": 2.625,
+      "output": 13.125,
+      "cacheWrite": 0,
+      "cacheRead": 0.2625
+    },
     "glm-5.3-flash": {
       "input": 0.8,
       "output": 2.8,
@@ -257,6 +263,12 @@
       "name": "Gemini 3.7 Flash",
       "category": "Gemini",
       "desc": "多模态轻量"
+    },
+    {
+      "id": "gemini-3.8-flash",
+      "name": "Gemini 3.8 Flash",
+      "category": "Gemini",
+      "desc": "多模态轻量/1M上下文"
     },
     {
       "id": "glm-5.3-flash",
@@ -790,6 +802,24 @@
       "notes": "众数 输入2/6 输出2/6 缓存2/6"
     },
     {
+      "model": "gemini-3.8-flash",
+      "provider": "openrouter",
+      "input": 2.625,
+      "output": 13.125,
+      "cacheWrite": null,
+      "cacheRead": 0.2625,
+      "notes": "众数 输入6/6 输出6/6 缓存6/6"
+    },
+    {
+      "model": "gemini-3.8-flash",
+      "provider": "v3api",
+      "input": 1.05,
+      "output": 5.25,
+      "cacheWrite": null,
+      "cacheRead": null,
+      "notes": "同gemini_cli分组,0.4x(估算)"
+    },
+    {
       "model": "gemini-3.7-flash",
       "provider": "v3api",
       "input": 2.1,
@@ -1167,6 +1197,7 @@
         "deepseek-v4-flash",
         "deepseek-v4-pro",
         "gemini-3.7-flash",
+        "gemini-3.8-flash",
         "glm-5.3-flash",
         "glm-5.3"
       ],
@@ -1335,6 +1366,11 @@
       "cacheRead": 0.154
     },
     "gemini-3.7-flash": {
+      "input": 2.625,
+      "output": 13.125,
+      "cacheRead": 0.2625
+    },
+    "gemini-3.8-flash": {
       "input": 2.625,
       "output": 13.125,
       "cacheRead": 0.2625

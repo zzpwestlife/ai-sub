@@ -727,5 +727,23 @@
     "from": "-",
     "to": "-",
     "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-09-03 07:40",
+    "provider": "openrouter",
+    "model": "gemini-3.8-flash",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新增 gemini-3.8-flash 监控"
+  },
+  {
+    "time": "2026-09-03 07:42",
+    "provider": "v3api",
+    "model": "gemini-3.8-flash",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新增 gemini-3.8-flash 监控"
   }
 ]
