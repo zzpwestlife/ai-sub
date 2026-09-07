@@ -1161,6 +1161,15 @@
       "cacheWrite": null,
       "cacheRead": null,
       "notes": "不支持缓存"
+    },
+    {
+      "model": "gpt-6-astra",
+      "provider": "v3api",
+      "input": 21.0,
+      "output": 105.0,
+      "cacheWrite": 26.25,
+      "cacheRead": 2.1,
+      "notes": "codex分组 0.3x倍率"
     }
   ],
   "subscriptions": [
@@ -1233,7 +1242,8 @@
         "gpt-5.6-luna",
         "gpt-5.6-terra",
         "gpt-5.6-sol",
-        "deepseek-v4-flash"
+        "deepseek-v4-flash",
+        "gpt-6-astra"
       ],
       "notes": "全面偏贵,消耗完余额再弃用"
     },
