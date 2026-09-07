@@ -506,11 +506,11 @@
     {
       "model": "gpt-5.6-terra",
       "provider": "apifun",
-      "input": 1.2,
-      "output": 7.2,
+      "input": 1.0,
+      "output": 6.0,
       "cacheWrite": null,
-      "cacheRead": 0.12,
-      "notes": "外接版,支持生图,>272K价格翻倍"
+      "cacheRead": 0.1,
+      "notes": "仅限Codex 0.5x组(实测账单价);外接版0.6x/生图1x另计,>272K价格翻倍"
     },
     {
       "model": "gpt-5.6-terra",
@@ -560,11 +560,11 @@
     {
       "model": "gpt-5.6-sol",
       "provider": "apifun",
-      "input": 3.0,
-      "output": 18.0,
+      "input": 2.5,
+      "output": 15.0,
       "cacheWrite": null,
-      "cacheRead": 0.3,
-      "notes": "外接版,支持生图,>272K价格翻倍"
+      "cacheRead": 0.25,
+      "notes": "仅限Codex 0.5x组(实测账单价);外接版0.6x另计,>272K价格翻倍"
     },
     {
       "model": "gpt-5.6-sol",
@@ -1129,11 +1129,11 @@
     {
       "model": "gpt-6-astra",
       "provider": "apifun",
-      "input": 6.0,
-      "output": 30.0,
+      "input": 5.0,
+      "output": 25.0,
       "cacheWrite": null,
-      "cacheRead": 0.6,
-      "notes": "外接版0.6x,另有仅限Codex0.5x与生图1x分组,>272K价格翻倍"
+      "cacheRead": 0.5,
+      "notes": "仅限Codex 0.5x组(实测账单价);外接版0.6x/生图1x另计,>272K价格翻倍"
     },
     {
       "model": "gpt-6-astra",

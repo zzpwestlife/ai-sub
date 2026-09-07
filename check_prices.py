@@ -75,7 +75,8 @@ OPENROUTER_MODEL_MAP = {
 # apifun 分组名 → 负责的模型（与用户当前使用的分组一致）
 APIFUN_GROUP_MODELS = {
     "Claude Plus（精品）": ["claude-sonnet-5", "claude-opus-5", "claude-fable-5"],
-    "Codex Pro（外接版）": ["gpt-5.6-luna", "gpt-5.6-terra", "gpt-5.6-sol", "gpt-6-astra"],
+    "Codex Pro（外接版）": ["gpt-5.6-luna"],
+    "Codex Pro（仅限Codex）": ["gpt-5.6-terra", "gpt-5.6-sol", "gpt-6-astra"],
     "Grok 企业版": ["grok-4.6"],
     "DeepSeek（云厂商渠道）": ["deepseek-v4-flash", "deepseek-v4-pro"],
     "智谱 Zhipu（特价渠道）": ["glm-5.3-flash", "glm-5.3"],
