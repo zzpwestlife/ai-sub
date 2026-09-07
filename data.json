@@ -1128,6 +1128,15 @@
     },
     {
       "model": "gpt-6-astra",
+      "provider": "apifun",
+      "input": 6.0,
+      "output": 30.0,
+      "cacheWrite": null,
+      "cacheRead": 0.6,
+      "notes": "外接版0.6x,另有仅限Codex0.5x与生图1x分组,>272K价格翻倍"
+    },
+    {
+      "model": "gpt-6-astra",
       "provider": "openrouter",
       "input": 70.0,
       "output": 350.0,
@@ -1187,7 +1196,8 @@
         "gpt-5.6-sol",
         "deepseek-v4-pro",
         "glm-5.3-flash",
-        "glm-5.3"
+        "glm-5.3",
+        "gpt-6-astra"
       ],
       "notes": "覆盖最广,支持缓存"
     },
