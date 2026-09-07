@@ -69,6 +69,7 @@ OPENROUTER_MODEL_MAP = {
     "gemini-3.8-flash": "google/gemini-3.8-flash",
     "glm-5.3-flash": "z-ai/glm-5.3-flash",
     "glm-5.3": "z-ai/glm-5.3",
+    "gpt-6-astra": "openai/gpt-6-astra",
 }
 
 # apifun 分组名 → 负责的模型（与用户当前使用的分组一致）
@@ -76,8 +77,8 @@ APIFUN_GROUP_MODELS = {
     "Claude Plus（精品）": ["claude-sonnet-5", "claude-opus-5", "claude-fable-5"],
     "Codex Pro（外接版）": ["gpt-5.6-luna", "gpt-5.6-terra", "gpt-5.6-sol"],
     "Grok 企业版": ["grok-4.6"],
-    "DeepSeek（自部署精选）": ["deepseek-v4-flash", "deepseek-v4-pro"],
-    "智谱 Zhipu（满血模型）": ["glm-5.3-flash", "glm-5.3"],
+    "DeepSeek（云厂商渠道）": ["deepseek-v4-flash", "deepseek-v4-pro"],
+    "智谱 Zhipu（特价渠道）": ["glm-5.3-flash", "glm-5.3"],
     "Gemini （特价测试）": ["gemini-3.7-flash", "gemini-3.8-flash"],
 }
 
@@ -92,6 +93,7 @@ NONELINEAR_MODELS = [
     "gpt-5.6-luna", "gpt-5.6-terra", "gpt-5.6-sol",
     "grok-4.6", "deepseek-v4-flash", "deepseek-v4-pro",
     "gemini-3.7-flash", "gemini-3.8-flash", "glm-5.3-flash", "glm-5.3",
+    "gpt-6-astra",
 ]
 
 # AIHubMix 上追踪的模型名（模型 ID 与 data.json 一致，无需单独映射）
@@ -100,6 +102,7 @@ AIHUBMIX_MODELS = [
     "gpt-5.6-luna", "gpt-5.6-terra", "gpt-5.6-sol",
     "grok-4.6", "deepseek-v4-flash", "deepseek-v4-pro",
     "gemini-3.7-flash", "gemini-3.8-flash", "glm-5.3-flash", "glm-5.3",
+    "gpt-6-astra",
 ]
 
 # V3 上追踪的模型名（V3 用带日期后缀的版本号）
@@ -108,6 +111,7 @@ V3_MODELS = [
     "gpt-5.6-luna", "gpt-5.6-terra", "gpt-5.6-sol",
     "grok-4.6", "deepseek-v4-flash-0731", "deepseek-v4-pro-0813",
     "gemini-3.7-flash", "gemini-3.8-flash",
+    "gpt-6-astra",
 ]
 
 # Cubence 上追踪的模型（页面 $ 即人民币；仅 6 个模型可用）

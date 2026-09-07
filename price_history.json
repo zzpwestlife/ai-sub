@@ -729,13 +729,13 @@
     "note": "新录入的价格条目"
   },
   {
-"time": "2026-09-03 16:09",
+    "time": "2026-09-03 16:09",
     "provider": "openrouter",
     "model": "gemini-3.8-flash",
     "field": "(新增条目)",
     "from": "-",
     "to": "-",
-"note": "新录入的价格条目"
+    "note": "新录入的价格条目"
   },
   {
     "time": "2026-09-03 16:09",
@@ -744,6 +744,51 @@
     "field": "(新增条目)",
     "from": "-",
     "to": "-",
-"note": "新录入的价格条目"
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-09-06 07:56",
+    "provider": "v3api",
+    "model": "gemini-3.8-flash",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "用户手动触发全量更新 + GPT-6 Astra 核查"
+  },
+  {
+    "time": "2026-09-06 12:19",
+    "provider": "openrouter",
+    "model": "gpt-6-astra",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "接入 GPT-6 Astra"
+  },
+  {
+    "time": "2026-09-06 12:19",
+    "provider": "aihubmix",
+    "model": "gpt-6-astra",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "接入 GPT-6 Astra"
+  },
+  {
+    "time": "2026-09-07 08:46",
+    "provider": "nonelinear",
+    "model": "gpt-6-astra",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "日常价格更新"
+  },
+  {
+    "time": "2026-09-07 08:46",
+    "provider": "aiberm",
+    "model": "gpt-6-astra",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "日常价格更新"
   }
 ]

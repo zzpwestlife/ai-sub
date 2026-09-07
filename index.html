@@ -53,6 +53,13 @@ tr:hover { background:rgba(56,189,248,.05); }
 th.sortable { cursor:pointer; user-select:none; } th.sortable:hover { background:#2a3f55; }
 th.sorted-asc::after { content:' ▲'; font-size:.6rem; }
 th.sorted-desc::after { content:' ▼'; font-size:.6rem; }
+.tag-chg-up { background:#4a1010; color:#f87171; }
+.tag-chg-down { background:#14532d; color:#4ade80; }
+.tag-chg-new { background:#1e3a5f; color:#60a5fa; }
+.chg-cell { position:relative; }
+.chg-cell::after { content:''; position:absolute; top:2px; right:2px; width:6px; height:6px; border-radius:50%; }
+.chg-cell-up::after { background:var(--red); }
+.chg-cell-down::after { background:var(--green); }
 </style>
 </head>
 <body>
@@ -143,6 +150,61 @@ const hitRate = () => {
   const v = parseFloat(document.getElementById('cacheHit').value);
   return (Number.isFinite(v) ? v : 90) / 100;
 };
+
+// ====== 价格变动标记 ======
+const RECENT_DAYS = 3;
+let CHANGE_INDEX = {}; // key: "provider|model" → {dir, fields:[{field,from,to,time}], isNew}
+
+function buildChangeIndex() {
+  CHANGE_INDEX = {};
+  if (!HISTORY_DATA || !HISTORY_DATA.length) return;
+  const cutoff = new Date(Date.now() - RECENT_DAYS * 86400000);
+  const cutoffStr = cutoff.toISOString().slice(0,16).replace('T',' ');
+  HISTORY_DATA.forEach(e => {
+    if (e.time < cutoffStr) return;
+    const key = e.provider + '|' + e.model;
+    if (!CHANGE_INDEX[key]) CHANGE_INDEX[key] = { dir:null, fields:[], isNew:false };
+    const ci = CHANGE_INDEX[key];
+    if (e.field === '(新增条目)') { ci.isNew = true; ci.dir = 'new'; return; }
+    if (e.field === '(删除条目)') return;
+    const from = parseFloat(e.from), to = parseFloat(e.to);
+    ci.fields.push({ field:e.field, from:e.from, to:e.to, time:e.time });
+    if (!isNaN(from) && !isNaN(to)) {
+      ci.dir = to > from ? 'up' : to < from ? 'down' : ci.dir;
+    }
+  });
+}
+
+function chgBadge(provider, model) {
+  const ci = CHANGE_INDEX[provider + '|' + model];
+  if (!ci) return '';
+  const title = ci.fields.map(f => `${f.field}: ¥${f.from}→¥${f.to} (${f.time})`).join('\n') || '新上架';
+  if (ci.isNew) return ` <span class="tag tag-chg-new" title="${esc(title)}">NEW</span>`;
+  if (ci.dir === 'up') return ` <span class="tag tag-chg-up" title="${esc(title)}">↑涨</span>`;
+  if (ci.dir === 'down') return ` <span class="tag tag-chg-down" title="${esc(title)}">↓跌</span>`;
+  return '';
+}
+
+function modelChgBadge(modelId) {
+  const dirs = Object.entries(CHANGE_INDEX)
+    .filter(([k]) => k.endsWith('|' + modelId))
+    .map(([,v]) => v.dir);
+  if (!dirs.length) return '';
+  if (dirs.includes('new')) return ' <span class="tag tag-chg-new">NEW</span>';
+  if (dirs.includes('up')) return ' <span class="tag tag-chg-up">↑</span>';
+  if (dirs.includes('down')) return ' <span class="tag tag-chg-down">↓</span>';
+  return '';
+}
+
+function chgCellClass(provider, model, field) {
+  const ci = CHANGE_INDEX[provider + '|' + model];
+  if (!ci) return '';
+  const f = ci.fields.find(x => x.field === field);
+  if (!f) return '';
+  const from = parseFloat(f.from), to = parseFloat(f.to);
+  if (isNaN(from) || isNaN(to)) return '';
+  return to > from ? 'chg-cell chg-cell-up' : to < from ? 'chg-cell chg-cell-down' : '';
+}
 
 function effectiveInput(price, official) {
   if (!price) return null;
@@ -247,11 +309,12 @@ function renderOverview() {
   // 按最优综合单价升序（综合价为空时排末尾）
   summaryRows.sort((a, b) => (a.best.composite ?? Infinity) - (b.best.composite ?? Infinity));
 
-  let summaryHtml = '<div class="card" style="border-color:var(--accent)"><h2>🏆 最优总览</h2><table><thead><tr><th>模型</th><th>最低提供商</th><th>综合单价</th><th>vs 官方</th></tr></thead><tbody>';
+  let summaryHtml = '<div class="note" style="margin-bottom:8px">标记说明：<span class="tag tag-chg-new">NEW</span> 新上架 · <span class="tag tag-chg-up">↑涨</span> 近3天涨价 · <span class="tag tag-chg-down">↓跌</span> 近3天降价 · 单元格圆点标记具体变动字段 · 最低参考列不参与标记</div>';
+  summaryHtml += '<div class="card" style="border-color:var(--accent)"><h2>🏆 最优总览</h2><table><thead><tr><th>模型</th><th>最低提供商</th><th>综合单价</th><th>vs 官方</th></tr></thead><tbody>';
   summaryRows.forEach(({ m, best, offComp }) => {
     const vs = offComp ? (best.composite / offComp * 100).toFixed(0) + '%' : '—';
     const isVeryCheap = offComp && best.composite / offComp < 0.2;
-    summaryHtml += `<tr><td><strong>${m.name}</strong></td>`;
+    summaryHtml += `<tr><td><strong>${m.name}</strong>${modelChgBadge(m.id)}</td>`;
     summaryHtml += `<td><span class="tag tag-best">${providerName(best.provider)}</span></td>`;
     summaryHtml += `<td class="best">¥${fmt(best.composite)}</td>`;
     summaryHtml += `<td><span class="vs-official ${isVeryCheap ? 'vs-cheap' : 'vs-expensive'}">${vs}</span></td></tr>`;
@@ -311,7 +374,7 @@ function renderOverview() {
     });
     const bestComp = Math.min(...entries.map(e => e.composite || Infinity));
 
-    html += `<div class="card"><h3>${m.name} <span class="note">${esc(m.desc)}</span></h3>`;
+    html += `<div class="card"><h3>${m.name}${modelChgBadge(id)} <span class="note">${esc(m.desc)}</span></h3>`;
     html += `<table><thead><tr><th>提供商</th>`;
     html += `<th class="sortable ${sortCls('input')}" onclick="sortTable('input')">输入</th>`;
     html += `<th class="sortable ${sortCls('output')}" onclick="sortTable('output')">输出</th>`;
@@ -334,8 +397,8 @@ function renderOverview() {
       const isBest = e.composite === bestComp;
       const vsClass = e.vsOfficial != null && e.vsOfficial <= 0.2 ? 'vs-cheap' : 'vs-expensive';
       html += `<tr>`;
-      html += `<td>${providerName(e.provider)}${isBest ? ' <span class="tag tag-best">最优</span>' : ''}</td>`;
-      html += `<td>${fmt(e.input)}</td><td>${fmt(e.output)}</td><td>${e.cacheWrite != null ? fmt(e.cacheWrite) : '—'}</td><td>${e.cacheRead != null ? fmt(e.cacheRead) : '—'}</td>`;
+      html += `<td>${providerName(e.provider)}${isBest ? ' <span class="tag tag-best">最优</span>' : ''}${chgBadge(e.provider, e.model)}</td>`;
+      html += `<td class="${chgCellClass(e.provider,e.model,'input')}">${fmt(e.input)}</td><td class="${chgCellClass(e.provider,e.model,'output')}">${fmt(e.output)}</td><td class="${chgCellClass(e.provider,e.model,'cacheWrite')}">${e.cacheWrite != null ? fmt(e.cacheWrite) : '—'}</td><td class="${chgCellClass(e.provider,e.model,'cacheRead')}">${e.cacheRead != null ? fmt(e.cacheRead) : '—'}</td>`;
       html += `<td class="${isBest ? 'best' : ''}">${fmt(e.composite)}</td>`;
       html += `<td><span class="vs-official ${vsClass}">${e.vsOfficial != null ? fmtPct(e.vsOfficial) : '—'}</span></td>`;
       const ref = e.provider === 'openrouter' && DATA.openrouterRefMin?.[e.model];
@@ -364,6 +427,7 @@ function renderOverview() {
 // ============================================================
 function renderProviderView() {
   let html = '';
+  html += '<div class="note" style="margin-bottom:8px">标记说明：<span class="tag tag-chg-new">NEW</span> 新上架 · <span class="tag tag-chg-up">↑涨</span> 近3天涨价 · <span class="tag tag-chg-down">↓跌</span> 近3天降价 · 单元格圆点标记具体变动字段</div>';
   DATA.providers.forEach(prov => {
     const entries = DATA.prices.filter(p => p.provider === prov.id);
     if (!entries.length && prov.type === 'third-party') return;
@@ -382,12 +446,12 @@ function renderProviderView() {
         const op = officialFor(m.id);
         const isForThisProvider = DATA.providers.find(p=>p.id===prov.id);
         // Check if this official provider has this model
-        const modelCats = { 'anthropic':'Claude', 'openai':'GPT-5.6', 'xai':'Grok', 'deepseek':'DeepSeek', 'google':'Gemini', 'zhipu':'GLM' };
-        if (modelCats[prov.id] && m.category !== modelCats[prov.id]) return;
+        const modelCats = { 'anthropic':['Claude'], 'openai':['GPT-5.6','GPT-6'], 'xai':['Grok'], 'deepseek':['DeepSeek'], 'google':['Gemini'], 'zhipu':['GLM'] };
+        if (modelCats[prov.id] && !modelCats[prov.id].includes(m.category)) return;
         if (!modelCats[prov.id] && prov.type === 'official') return;
 
-        html += `<tr><td>${m.name}</td><td>${fmt(op.input)}</td><td>${fmt(op.output)}</td>`;
-        html += `<td>${fmt(op.cacheWrite)}</td><td>${fmt(op.cacheRead)}</td>`;
+        html += `<tr><td>${m.name}${modelChgBadge(m.id)}</td><td class="${chgCellClass(prov.id, m.id, 'input')}">${fmt(op.input)}</td><td class="${chgCellClass(prov.id, m.id, 'output')}">${fmt(op.output)}</td>`;
+        html += `<td class="${chgCellClass(prov.id, m.id, 'cacheWrite')}">${fmt(op.cacheWrite)}</td><td class="${chgCellClass(prov.id, m.id, 'cacheRead')}">${fmt(op.cacheRead)}</td>`;
         html += `<td class="note">${hasOff.peakInput ? '峰谷定价(按峰值)' : ''}</td></tr>`;
       });
       html += `</tbody></table>`;
@@ -401,8 +465,8 @@ function renderProviderView() {
         const vs = vsOfficial(e.model, comp);
         const vsClass = vs != null && vs <= 0.2 ? 'vs-cheap' : 'vs-expensive';
         const mi = modelInfo(e.model);
-        html += `<tr><td>${mi.name}</td><td>${fmt(e.input)}</td><td>${fmt(e.output)}</td>`;
-        html += `<td>${e.cacheRead != null ? fmt(e.cacheRead) : '—'}</td>`;
+        html += `<tr><td>${mi.name}${chgBadge(prov.id, e.model)}</td><td class="${chgCellClass(prov.id, e.model, 'input')}">${fmt(e.input)}</td><td class="${chgCellClass(prov.id, e.model, 'output')}">${fmt(e.output)}</td>`;
+        html += `<td class="${chgCellClass(prov.id, e.model, 'cacheRead')}">${e.cacheRead != null ? fmt(e.cacheRead) : '—'}</td>`;
         html += `<td>${fmt(comp)}</td>`;
         html += `<td><span class="vs-official ${vsClass}">${vs != null ? fmtPct(vs) : '—'}</span></td>`;
         html += `<td class="note">${esc(e.notes)}</td></tr>`;
@@ -426,17 +490,19 @@ function renderSubscription() {
   html += `<div class="card stat"><div class="stat-val">${totalProviders}</div><div class="stat-label">活跃提供商</div></div>`;
   html += `<div class="card stat"><div class="stat-val">${activeModels.size}</div><div class="stat-label">覆盖模型</div></div>`;
   html += `<div class="card stat"><div class="stat-val">¥${DATA.subscriptions.find(s=>s.provider==='apifun')?.balance || 0}</div><div class="stat-label">apifun 余额</div></div>`;
+  const chgCount = Object.keys(CHANGE_INDEX).length;
+  html += `<div class="card stat"><div class="stat-val">${chgCount}</div><div class="stat-label">近3天变动</div></div>`;
   html += '</div>';
 
   html += '<h2>当前订阅</h2><table><thead><tr><th>提供商</th><th>类型</th><th>角色</th><th>余额</th><th>覆盖模型</th><th>备注</th></tr></thead><tbody>';
   DATA.subscriptions.forEach(s => {
     const prov = DATA.providers.find(p => p.id === s.provider);
     const typeTag = prov?.type === 'official' ? '<span class="tag tag-official">官方</span>' : '<span class="tag tag-third">第三方</span>';
-    const modelNames = s.models.map(m => modelInfo(m).name).join(', ') || '—';
+    const modelNames = s.models.map(m => modelInfo(m).name + modelChgBadge(m)).join(', ') || '—';
     const balStr = s.balance != null ? `¥${s.balance}` : (s.currency === 'USD' ? 'Office Key' : '—');
     const rowStyle = s.role === '停用' ? 'style="opacity:.4"' : '';
     html += `<tr ${rowStyle}><td>${prov?.name || s.provider}</td><td>${typeTag}</td><td>${s.role}</td><td>${balStr}</td>`;
-    html += `<td class="note">${esc(modelNames)}</td><td class="note">${esc(s.notes)}</td></tr>`;
+    html += `<td class="note">${modelNames}</td><td class="note">${esc(s.notes)}</td></tr>`;
   });
   html += '</tbody></table>';
 
@@ -459,8 +525,8 @@ function renderScenario() {
   DATA.scenarios.forEach(s => {
     const mi = modelInfo(s.model);
     html += `<tr><td><strong>${s.name}</strong></td><td>${mi.name}</td>`;
-    html += `<td><span class="tag tag-best">${providerName(s.provider)}</span></td>`;
-    html += `<td>${s.backup ? providerName(s.backup) || s.backup : '—'}</td>`;
+    html += `<td><span class="tag tag-best">${providerName(s.provider)}</span>${chgBadge(s.provider, s.model)}</td>`;
+    html += `<td>${s.backup ? (providerName(s.backup) || s.backup) + chgBadge(s.backup, s.model) : '—'}</td>`;
     html += `<td class="note">${esc(s.reason)}</td></tr>`;
   });
   html += '</tbody></table></div>';
@@ -498,7 +564,8 @@ function loadHistory() {
         const mi = modelInfo(m);
         const o = document.createElement('option'); o.value = m; o.textContent = mi.name || m; modelSel.appendChild(o);
       });
-      renderHistory();
+      buildChangeIndex();
+      render();
     })
     .catch(() => {
       document.getElementById('historyContent').innerHTML =
@@ -510,7 +577,7 @@ function renderHistory() {
   if (!HISTORY_DATA) return;
   const pf = document.getElementById('histProvider').value;
   const mf = document.getElementById('histModel').value;
-  const FIELD_NAMES = { input:'输入', output:'输出', cacheWrite:'缓存写', cacheRead:'缓存读' };
+  const FIELD_NAMES = { input:'输入', output:'输出', cacheWrite:'缓存写', cacheRead:'缓存读', '(新增条目)':'新增', '(删除条目)':'删除' };
   let entries = HISTORY_DATA.filter(e => (!pf || e.provider === pf) && (!mf || e.model === mf));
   entries.sort((a, b) => (b.time || '').localeCompare(a.time || ''));
   document.getElementById('histCount').textContent = `共 ${entries.length} 条记录`;
@@ -518,16 +585,21 @@ function renderHistory() {
     document.getElementById('historyContent').innerHTML = '<div class="card"><p class="note">没有符合条件的记录。</p></div>';
     return;
   }
+  // 最新批次高亮
+  const latestTime = entries.reduce((max, e) => (e.time || '') > max ? e.time : max, '');
   let html = '<div class="card"><table><thead><tr><th>时间</th><th>提供商</th><th>模型</th><th>字段</th><th>原价格</th><th>→</th><th>新价格</th><th>备注</th></tr></thead><tbody>';
   entries.forEach(e => {
     const mi = modelInfo(e.model);
     const fromStr = e.from === '-' ? '—' : `¥${e.from}`;
     const toStr = e.to === '-' ? '—' : `¥${e.to}`;
-    html += `<tr><td class="note" style="white-space:nowrap">${e.time}</td>`;
+    const fromNum = parseFloat(e.from), toNum = parseFloat(e.to);
+    const dirClass = (!isNaN(fromNum) && !isNaN(toNum)) ? (toNum > fromNum ? 'style="color:var(--red);font-weight:700"' : toNum < fromNum ? 'style="color:var(--green);font-weight:700"' : '') : '';
+    const rowHL = e.time === latestTime ? ' style="border-left:3px solid var(--accent)"' : '';
+    html += `<tr${rowHL}><td class="note" style="white-space:nowrap">${e.time}</td>`;
     html += `<td>${providerName(e.provider) || e.provider}</td>`;
     html += `<td>${mi.name || e.model}</td>`;
     html += `<td>${FIELD_NAMES[e.field] || e.field}</td>`;
-    html += `<td class="note">${fromStr}</td><td class="note">→</td><td class="best">${toStr}</td>`;
+    html += `<td class="note">${fromStr}</td><td class="note">→</td><td ${dirClass}>${toStr}</td>`;
     html += `<td class="note">${esc(e.note)}</td></tr>`;
   });
   html += '</tbody></table></div>';
@@ -543,17 +615,24 @@ function loadLeaderboard() {
   return fetch('leaderboard_data.json?v=' + Date.now())
     .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(d => { LEADERBOARD_DATA = d; renderLeaderboard(); })
-    .catch(() => {
-      document.getElementById('leaderboardContent').innerHTML =
-        '<div class="card"><h2>🏅 榜单追踪</h2><p class="note">leaderboard_data.json 不存在或为空，请先运行 <code>python3 check_leaderboard.py</code> 建立基线。</p></div>';
+    .catch(err => {
+      if (err && err.message && err.message.match(/^\d{3}$/)) {
+        document.getElementById('leaderboardContent').innerHTML =
+          '<div class="card"><h2>🏅 榜单追踪</h2><p class="note">leaderboard_data.json 不存在或为空，请先运行 <code>python3 check_leaderboard.py</code> 建立基线。</p></div>';
+      } else {
+        console.error('Leaderboard render error:', err);
+        document.getElementById('leaderboardContent').innerHTML =
+          `<div class="card"><h2>🏅 榜单追踪</h2><p class="note">渲染异常：${esc(String(err))}</p></div>`;
+      }
     });
 }
 
 // 对比两份快照的变动（与 check_leaderboard.py 的 diff 逻辑保持一致：±0.5 分噪音容差）
 function leaderboardDiff(prev, cur) {
+  if (!cur?.models) return [];
   const changes = [];
   for (const [mid, ce] of Object.entries(cur.models)) {
-    const pe = prev.models ? prev.models[mid] : undefined;
+    const pe = prev?.models ? prev.models[mid] : undefined;
     const name = modelInfo(mid).name;
     if (!pe && ce) { changes.push(`${name}: 新上榜 #${ce.rank}`); continue; }
     if (pe && !ce) { changes.push(`${name}: 掉榜（原 #${pe.rank}）`); continue; }
@@ -568,50 +647,109 @@ function leaderboardDiff(prev, cur) {
 
 function renderLeaderboard() {
   if (!LEADERBOARD_DATA) return;
-  const dates = Object.keys(LEADERBOARD_DATA).sort();
-  if (!dates.length) return;
-  const latest = dates[dates.length - 1];
-  const prev = dates.length > 1 ? dates[dates.length - 2] : null;
-  const snap = LEADERBOARD_DATA[latest];
   let html = '';
 
-  // 更新日志（仅最近一次快照对比）
-  html += '<div class="card"><h2>📝 更新日志</h2>';
-  if (!prev) {
-    html += '<p class="note">基线已建立，暂无对比。次日起此处自动展示排名/分数变动。</p>';
-  } else {
-    const changes = leaderboardDiff(LEADERBOARD_DATA[prev], snap);
-    html += changes.length
-      ? '<ul style="margin-left:18px;line-height:1.9">' + changes.map(c => `<li>${esc(c)}</li>`).join('') + '</ul>'
-      : `<p class="note">${prev} → ${latest}：无变动。</p>`;
-  }
-  html += '</div>';
+  // === aihot 综合榜 ===
+  const aihot = LEADERBOARD_DATA.aihot;
+  if (aihot) {
+    const dates = Object.keys(aihot).sort();
+    if (dates.length) {
+      const latest = dates[dates.length - 1];
+      const prev = dates.length > 1 ? dates[dates.length - 2] : null;
+      const snap = aihot[latest];
 
-  // 榜单表格（按排名升序，未收录排末尾）
-  const rows = Object.entries(snap.models || {}).map(([mid, e]) => ({ mid, name: modelInfo(mid).name, e }));
-  rows.sort((a, b) => (a.e?.rank ?? Infinity) - (b.e?.rank ?? Infinity));
-  html += '<div class="card"><h2>🏆 aihot 综合榜 · 追踪模型</h2>';
-  html += '<table><thead><tr><th>模型</th><th>发布日期</th><th>排名</th><th>变动</th><th>综合分</th><th>置信度</th></tr></thead><tbody>';
-  rows.forEach(({ name, e }) => {
-    if (!e) {
-      html += `<tr style="opacity:.5"><td>${esc(name)}</td><td colspan="5" class="note">未在榜单收录</td></tr>`;
-      return;
+      // 更新日志
+      html += '<div class="card"><h2>📝 更新日志（aihot）</h2>';
+      if (!prev) {
+        html += '<p class="note">基线已建立，暂无对比。次日起此处自动展示排名/分数变动。</p>';
+      } else {
+        const changes = leaderboardDiff(aihot[prev], snap);
+        html += changes.length
+          ? '<ul style="margin-left:18px;line-height:1.9">' + changes.map(c => `<li>${esc(c)}</li>`).join('') + '</ul>'
+          : `<p class="note">${prev} → ${latest}：无变动。</p>`;
+      }
+      html += '</div>';
+
+      // 榜单表格
+      const rows = Object.entries(snap?.models || {}).map(([mid, e]) => ({ mid, name: modelInfo(mid).name, e }));
+      rows.sort((a, b) => (a.e?.rank ?? Infinity) - (b.e?.rank ?? Infinity));
+      html += '<div class="card"><h2>🏆 aihot 综合榜 · 追踪模型</h2>';
+      html += '<table><thead><tr><th>模型</th><th>发布日期</th><th>排名</th><th>变动</th><th>综合分</th><th>置信度</th></tr></thead><tbody>';
+      rows.forEach(({ name, e }) => {
+        if (!e) {
+          html += `<tr style="opacity:.5"><td>${esc(name)}</td><td colspan="5" class="note">未在榜单收录</td></tr>`;
+          return;
+        }
+        const rc = e.rankChange || 0;
+        const rcBadge = rc > 0 ? `<span class="tag tag-best">↑${rc}</span>`
+          : rc < 0 ? `<span class="tag tag-warn">↓${-rc}</span>` : '<span class="note">—</span>';
+        const confTag = e.confidence === 'HIGH' ? `<span class="tag tag-best">HIGH</span>`
+          : e.confidence === 'LOW' ? `<span class="tag tag-warn">LOW</span>`
+          : `<span class="note">${esc(e.confidence)}</span>`;
+        html += `<tr><td><strong>${esc(name)}</strong></td>`;
+        html += `<td class="note">${esc((e.releasedAt || '').slice(0, 10))}</td>`;
+        html += `<td><strong>#${e.rank}</strong></td><td>${rcBadge}</td>`;
+        html += `<td class="best">${e.score} <span class="note">±${e.uncertainty}</span></td>`;
+        html += `<td>${confTag}</td></tr>`;
+      });
+      html += '</tbody></table>';
+      html += `<div class="note">数据日期 ${latest} · 抓取于 ${esc(snap.fetchedAt)} · 来源 <a href="${esc(snap.source)}" target="_blank" style="color:var(--accent)">aihot 榜单 ↗</a> · 分数变动报警阈值 ±0.5</div>`;
+      html += '</div>';
     }
-    const rc = e.rankChange || 0;
-    const rcBadge = rc > 0 ? `<span class="tag tag-best">↑${rc}</span>`
-      : rc < 0 ? `<span class="tag tag-warn">↓${-rc}</span>` : '<span class="note">—</span>';
-    const confTag = e.confidence === 'HIGH' ? `<span class="tag tag-best">HIGH</span>`
-      : e.confidence === 'LOW' ? `<span class="tag tag-warn">LOW</span>`
-      : `<span class="note">${esc(e.confidence)}</span>`;
-    html += `<tr><td><strong>${esc(name)}</strong></td>`;
-    html += `<td class="note">${esc((e.releasedAt || '').slice(0, 10))}</td>`;
-    html += `<td><strong>#${e.rank}</strong></td><td>${rcBadge}</td>`;
-    html += `<td class="best">${e.score} <span class="note">±${e.uncertainty}</span></td>`;
-    html += `<td>${confTag}</td></tr>`;
-  });
-  html += '</tbody></table>';
-  html += `<div class="note">数据日期 ${latest} · 抓取于 ${esc(snap.fetchedAt)} · 来源 <a href="${esc(snap.source)}" target="_blank" style="color:var(--accent)">aihot 榜单 ↗</a> · 分数变动报警阈值 ±0.5</div>`;
-  html += '</div>';
+  }
+
+  // === aihubmix 排行榜 ===
+  const aihubmix = LEADERBOARD_DATA.aihubmix;
+  if (aihubmix) {
+    const dates = Object.keys(aihubmix).sort();
+    if (dates.length) {
+      const latest = dates[dates.length - 1];
+      const prev = dates.length > 1 ? dates[dates.length - 2] : null;
+      const snap = aihubmix[latest];
+      const prevSnap = prev ? aihubmix[prev] : null;
+
+      // 构建前一天排名索引（用于对比）
+      const prevOverallMap = {};
+      const prevCodingMap = {};
+      if (prevSnap) {
+        (prevSnap['text.overall'] || []).forEach(r => { prevOverallMap[r.model] = r; });
+        (prevSnap['text.coding'] || []).forEach(r => { prevCodingMap[r.model] = r; });
+      }
+
+      const renderAihubmixTable = (title, rows, prevMap) => {
+        if (!rows || !rows.length) return '';
+        let t = `<div class="card"><h2>${title}</h2>`;
+        t += '<table><thead><tr><th>#</th><th>模型</th><th>厂商</th><th>分数</th><th>输入价</th><th>输出价</th><th>TTFT</th><th>排名变动</th></tr></thead><tbody>';
+        rows.forEach(r => {
+          const pr = prevMap[r.model];
+          let rankChg = '';
+          if (pr) {
+            const diff = pr.rank - r.rank;
+            if (diff > 0) rankChg = `<span class="tag tag-chg-down">↑${diff}</span>`;
+            else if (diff < 0) rankChg = `<span class="tag tag-chg-up">↓${-diff}</span>`;
+            else rankChg = '<span class="note">—</span>';
+            const scoreDiff = r.score - pr.score;
+            if (Math.abs(scoreDiff) > 0.1) {
+              rankChg += scoreDiff > 0 ? ` <span class="tag tag-chg-down">+${scoreDiff.toFixed(1)}</span>` : ` <span class="tag tag-chg-up">${scoreDiff.toFixed(1)}</span>`;
+            }
+          } else {
+            rankChg = '<span class="tag tag-chg-new">NEW</span>';
+          }
+          t += `<tr><td><strong>${r.rank}</strong></td><td>${esc(r.model)}</td><td class="note">${esc(r.vendor)}</td>`;
+          t += `<td class="best">${r.score}</td><td>$${r.priceIn}</td><td>$${r.priceOut}</td>`;
+          t += `<td class="note">${r.ttftMs ? r.ttftMs + 'ms' : '—'}</td><td>${rankChg}</td></tr>`;
+        });
+        t += '</tbody></table></div>';
+        return t;
+      };
+
+      html += renderAihubmixTable('🏅 aihubmix Overall 榜', snap['text.overall'], prevOverallMap);
+      html += renderAihubmixTable('💻 aihubmix Coding 榜', snap['text.coding'], prevCodingMap);
+      html += `<div class="note" style="margin-top:-8px;margin-bottom:16px">数据日期 ${latest} · 抓取于 ${esc(snap.fetchedAt || '')} · 来源 <a href="${esc(snap.source || '')}" target="_blank" style="color:var(--accent)">aihubmix ↗</a></div>`;
+    }
+  }
+
+  if (!html) html = '<div class="card"><p class="note">榜单数据为空。</p></div>';
   document.getElementById('leaderboardContent').innerHTML = html;
 }
 

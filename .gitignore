@@ -7,3 +7,4 @@ monitor_config.local.json
 price_check_cron.log
 leaderboard_check_cron.log
 /.idea
+__pycache__/
