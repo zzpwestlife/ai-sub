@@ -1,5 +1,5 @@
 {
-  "updateDate": "2026-09-07",
+  "updateDate": "2026-09-09",
   "providers": [
     {
       "id": "anthropic",
@@ -696,11 +696,11 @@
     {
       "model": "deepseek-v4-flash",
       "provider": "openrouter",
-      "input": 3.08,
-      "output": 1.26,
+      "input": 0.91,
+      "output": 1.96,
       "cacheWrite": null,
       "cacheRead": 0.196,
-      "notes": "众数 输入5/30 输出5/30 缓存5/29"
+      "notes": "平票取最低档 输入4/29 输出4/29 缓存5/29(原记录为跨家虚拟价)"
     },
     {
       "model": "deepseek-v4-flash",
