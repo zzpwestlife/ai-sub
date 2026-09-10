@@ -245,6 +245,23 @@ function officialFor(modelId) {
     cacheWrite: off.cacheWrite,
   };
 }
+// 是否含峰谷定价（data.json 中 peak* 字段存在即视为峰谷模型）
+function hasPeak(modelId) {
+  const off = DATA.officialPrices[modelId];
+  return !!(off && off.peakInput != null);
+}
+// 峰谷模型的空闲档参考价文案（无峰谷返回 ''）
+function idleNote(modelId) {
+  const off = DATA.officialPrices[modelId];
+  if (!off || off.peakInput == null) return '';
+  return `空闲 ¥${fmt(off.input)}/¥${fmt(off.output)}`;
+}
+// 该报价是否只是"官方空闲档"（峰谷模型的官方档位，只在非高峰时段才拿得到）
+function isIdleWindowOnly(providerId, modelId) {
+  if (!hasPeak(modelId)) return false;
+  const prov = DATA.providers.find(p => p.id === providerId);
+  return !!(prov && prov.type === 'official');
+}
 function providerName(id) { const p = DATA.providers.find(p=>p.id===id); return p ? p.name : id; }
 function modelInfo(id) { return DATA.models.find(m=>m.id===id) || { name:id, category:'?', desc:'' }; }
 
@@ -309,13 +326,13 @@ function renderOverview() {
   // 按最优综合单价升序（综合价为空时排末尾）
   summaryRows.sort((a, b) => (a.best.composite ?? Infinity) - (b.best.composite ?? Infinity));
 
-  let summaryHtml = '<div class="note" style="margin-bottom:8px">标记说明：<span class="tag tag-chg-new">NEW</span> 新上架 · <span class="tag tag-chg-up">↑涨</span> 近3天涨价 · <span class="tag tag-chg-down">↓跌</span> 近3天降价 · 单元格圆点标记具体变动字段 · 最低参考列不参与标记</div>';
-  summaryHtml += '<div class="card" style="border-color:var(--accent)"><h2>🏆 最优总览</h2><table><thead><tr><th>模型</th><th>最低提供商</th><th>综合单价</th><th>vs 官方</th></tr></thead><tbody>';
+  let summaryHtml = '<div class="note" style="margin-bottom:8px">标记说明：<span class="tag tag-chg-new">NEW</span> 新上架 · <span class="tag tag-chg-up">↑涨</span> 近3天涨价 · <span class="tag tag-chg-down">↓跌</span> 近3天降价 · 单元格圆点标记具体变动字段 · 最低参考列不参与标记 · <span class="tag tag-warn">峰值</span> 峰谷模型官方基准按高峰期档位展示（空闲档价见该模型官方基准行备注） · <span class="tag tag-warn">限空闲时段</span> 该最优价是官方空闲档，只在高峰时段（9-12、14-18 点）之外可用</div>';
+  summaryHtml += '<div class="card" style="border-color:var(--accent)"><h2>🏆 最优总览</h2><table><thead><tr><th>模型</th><th>最低提供商</th><th>综合单价</th><th title="峰谷模型以官方高峰期档位为基准">vs 官方(峰)</th></tr></thead><tbody>';
   summaryRows.forEach(({ m, best, offComp }) => {
     const vs = offComp ? (best.composite / offComp * 100).toFixed(0) + '%' : '—';
     const isVeryCheap = offComp && best.composite / offComp < 0.2;
     summaryHtml += `<tr><td><strong>${m.name}</strong>${modelChgBadge(m.id)}</td>`;
-    summaryHtml += `<td><span class="tag tag-best">${providerName(best.provider)}</span></td>`;
+    summaryHtml += `<td><span class="tag tag-best">${providerName(best.provider)}</span>${isIdleWindowOnly(best.provider, m.id) ? ' <span class="tag tag-warn" title="该模型官方分空闲/高峰两档，此处取官方空闲档价，仅在高峰时段（9-12、14-18 点）之外可用">限空闲时段</span>' : ''}</td>`;
     summaryHtml += `<td class="best">¥${fmt(best.composite)}</td>`;
     summaryHtml += `<td><span class="vs-official ${isVeryCheap ? 'vs-cheap' : 'vs-expensive'}">${vs}</span></td></tr>`;
   });
@@ -381,16 +398,16 @@ function renderOverview() {
     html += `<th class="sortable ${sortCls('cacheWrite')}" onclick="sortTable('cacheWrite')">缓存写</th>`;
     html += `<th class="sortable ${sortCls('cacheRead')}" onclick="sortTable('cacheRead')">缓存读</th>`;
     html += `<th class="sortable ${sortCls('composite')}" onclick="sortTable('composite')">综合单价</th>`;
-    html += `<th class="sortable ${sortCls('vsOfficial')}" onclick="sortTable('vsOfficial')">vs 官方</th>`;
+    html += `<th class="sortable ${sortCls('vsOfficial')}" onclick="sortTable('vsOfficial')" title="峰谷模型以官方高峰期档位为基准">vs 官方(峰)</th>`;
     html += `<th title="OpenRouter 上最便宜 provider 的真实档位，仅供展示，不参与排序与最优计算">最低参考</th>`;
     html += `<th>备注</th></tr></thead><tbody>`;
 
     // Official price row
     if (off) {
       const offComp = off.input * 0.7 + off.output * 0.3;
-      html += `<tr style="opacity:.7"><td><span class="tag tag-official">官方基准</span></td>`;
+      html += `<tr style="opacity:.7"><td><span class="tag tag-official">官方基准</span>${hasPeak(id) ? ' <span class="tag tag-warn">峰值</span>' : ''}</td>`;
       html += `<td>${fmt(off.input)}</td><td>${fmt(off.output)}</td><td>${fmt(off.cacheWrite)}</td><td>${fmt(off.cacheRead)}</td>`;
-      html += `<td>${fmt(offComp)}</td><td>1.00×</td><td></td><td></td></tr>`;
+      html += `<td>${fmt(offComp)}</td><td>1.00×</td><td></td><td class="note">${idleNote(id)}</td></tr>`;
     }
 
     entries.forEach(e => {
@@ -452,12 +469,12 @@ function renderProviderView() {
 
         html += `<tr><td>${m.name}${modelChgBadge(m.id)}</td><td class="${chgCellClass(prov.id, m.id, 'input')}">${fmt(op.input)}</td><td class="${chgCellClass(prov.id, m.id, 'output')}">${fmt(op.output)}</td>`;
         html += `<td class="${chgCellClass(prov.id, m.id, 'cacheWrite')}">${fmt(op.cacheWrite)}</td><td class="${chgCellClass(prov.id, m.id, 'cacheRead')}">${fmt(op.cacheRead)}</td>`;
-        html += `<td class="note">${hasOff.peakInput ? '峰谷定价(按峰值)' : ''}</td></tr>`;
+        html += `<td class="note">${hasOff.peakInput ? '峰谷定价(按峰值) · ' + idleNote(m.id) : ''}</td></tr>`;
       });
       html += `</tbody></table>`;
     } else {
       // Third-party: show prices vs official
-      html += `<table><thead><tr><th>模型</th><th>输入</th><th>输出</th><th>缓存读</th><th>综合单价</th><th>vs 官方</th><th>备注</th></tr></thead><tbody>`;
+      html += `<table><thead><tr><th>模型</th><th>输入</th><th>输出</th><th>缓存读</th><th>综合单价</th><th title="峰谷模型以官方高峰期档位为基准">vs 官方(峰)</th><th>备注</th></tr></thead><tbody>`;
       entries.forEach(e => {
         if (e.isPeak) return;
         const off = officialFor(e.model);

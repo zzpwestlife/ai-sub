@@ -59,69 +59,67 @@ OPENROUTER_MODEL_MAP = {
     "claude-sonnet-5": "anthropic/claude-sonnet-5",
     "claude-opus-5": "anthropic/claude-opus-5",
     "claude-fable-5": "anthropic/claude-fable-5",
-    "gpt-5.6-luna": "openai/gpt-5.6-luna",
+    "claude-fable-5.1": "anthropic/claude-fable-5.1",
     "gpt-5.6-terra": "openai/gpt-5.6-terra",
     "gpt-5.6-sol": "openai/gpt-5.6-sol",
     "grok-4.6": "x-ai/grok-4.6",
-    "deepseek-v4-flash": "deepseek/deepseek-v4-flash-0731",
-    "deepseek-v4-pro": "deepseek/deepseek-v4-pro-0813",
-    "gemini-3.7-flash": "google/gemini-3.7-flash",
+    "deepseek-v4.1-flash": "deepseek/deepseek-v4.1-flash",
     "gemini-3.8-flash": "google/gemini-3.8-flash",
     "glm-5.3-flash": "z-ai/glm-5.3-flash",
-    "glm-5.3": "z-ai/glm-5.3",
     "gpt-6-astra": "openai/gpt-6-astra",
 }
 
 # apifun 分组名 → 负责的模型（与用户当前使用的分组一致）
 APIFUN_GROUP_MODELS = {
-    "Claude Plus（精品）": ["claude-sonnet-5", "claude-opus-5", "claude-fable-5"],
-    "Codex Pro（外接版）": ["gpt-5.6-luna"],
+    "Claude Plus（精品）": ["claude-sonnet-5", "claude-opus-5", "claude-fable-5", "claude-fable-5.1"],
     "Codex Pro（仅限Codex）": ["gpt-5.6-terra", "gpt-5.6-sol", "gpt-6-astra"],
     "Grok 企业版": ["grok-4.6"],
-    "DeepSeek（云厂商渠道）": ["deepseek-v4-flash", "deepseek-v4-pro"],
-    "智谱 Zhipu（特价渠道）": ["glm-5.3-flash", "glm-5.3"],
-    "Gemini （特价测试）": ["gemini-3.7-flash", "gemini-3.8-flash"],
+    "DeepSeek（云厂商渠道）": ["deepseek-v4.1-flash"],
+    "智谱 Zhipu（特价渠道）": ["glm-5.3-flash"],
+    "Gemini （特价测试）": ["gemini-3.8-flash"],
 }
 
 # 官方价本身就是人民币的模型（DeepSeek/GLM），apifun 倍率直接乘
 # data.json officialPrices 中的人民币价（单一数据源，改价只需改 data.json）；
 # 其余平台（Anthropic/OpenAI/xAI/Google）官方价是美元，需先除以汇率再乘倍率。
-CNY_OFFICIAL_MODELS = {"deepseek-v4-flash", "deepseek-v4-pro", "glm-5.3-flash", "glm-5.3"}
+CNY_OFFICIAL_MODELS = {"deepseek-v4.1-flash", "glm-5.3-flash"}
 
 # 非线智能上追踪的模型名（模型 ID 与 data.json 一致，无需单独映射）
+# 注：非线智能尚未上线 deepseek-v4.1-flash / claude-fable-5.1（2026-09-10 核查），暂不列入
 NONELINEAR_MODELS = [
     "claude-sonnet-5", "claude-opus-5", "claude-fable-5",
-    "gpt-5.6-luna", "gpt-5.6-terra", "gpt-5.6-sol",
-    "grok-4.6", "deepseek-v4-flash", "deepseek-v4-pro",
-    "gemini-3.7-flash", "gemini-3.8-flash", "glm-5.3-flash", "glm-5.3",
+    "gpt-5.6-terra", "gpt-5.6-sol",
+    "grok-4.6",
+    "gemini-3.8-flash", "glm-5.3-flash",
     "gpt-6-astra",
 ]
 
-# AIHubMix 上追踪的模型名（模型 ID 与 data.json 一致，无需单独映射）
+# AIHubMix 上追踪的模型名（多数与 data.json ID 一致，不一致的见 AIHUBMIX_ID_MAP）
 AIHUBMIX_MODELS = [
-    "claude-sonnet-5", "claude-opus-5", "claude-fable-5",
-    "gpt-5.6-luna", "gpt-5.6-terra", "gpt-5.6-sol",
-    "grok-4.6", "deepseek-v4-flash", "deepseek-v4-pro",
-    "gemini-3.7-flash", "gemini-3.8-flash", "glm-5.3-flash", "glm-5.3",
-    "gpt-6-astra",
+    "claude-sonnet-5", "claude-opus-5", "claude-fable-5", "claude-fable-5.1",
+    "gpt-5.6-terra", "gpt-5.6-sol",
+    "grok-4.6", "deepseek-v4.1-flash",
+    "gemini-3.8-flash", "glm-5.3-flash", "gpt-6-astra",
 ]
 
-# V3 上追踪的模型名（V3 用带日期后缀的版本号）
+# AIHubMix 把 Fable 5.1 写成连字符形式（claude-fable-5-1），与 data.json 的点号 ID 不一致
+AIHUBMIX_ID_MAP = {"claude-fable-5.1": "claude-fable-5-1"}
+
+# V3 上追踪的模型名（V3 用带日期后缀的版本号；fable 5.1 平台侧写作 claude-fable-5-1）
 V3_MODELS = [
-    "claude-sonnet-5", "claude-opus-5", "claude-fable-5",
-    "gpt-5.6-luna", "gpt-5.6-terra", "gpt-5.6-sol",
-    "grok-4.6", "deepseek-v4-flash-0731", "deepseek-v4-pro-0813",
-    "gemini-3.7-flash", "gemini-3.8-flash",
+    "claude-sonnet-5", "claude-opus-5", "claude-fable-5", "claude-fable-5-1",
+    "gpt-5.6-terra", "gpt-5.6-sol",
+    "grok-4.6", "deepseek-v4-flash-0731",
+    "gemini-3.8-flash",
     "gpt-6-astra",
 ]
 
 # Cubence 上追踪的模型（页面 $ 即人民币；仅 6 个模型可用）
 CUBENCE_MODELS = [
-    "claude-sonnet-5", "claude-opus-5", "claude-fable-5",
-    "gpt-5.6-luna", "gpt-5.6-terra", "gpt-5.6-sol",
+    "claude-sonnet-5", "claude-opus-5", "claude-fable-5", "claude-fable-5.1",
+    "gpt-5.6-terra", "gpt-5.6-sol",
     "grok-4.6",
-    "deepseek-v4-flash", "deepseek-v4-pro",
-    "glm-5.3",
+    "deepseek-v4.1-flash",
 ]
 
 
@@ -487,7 +485,7 @@ def check_aihubmix(data, cfg, use_proxy=True):
         local = hm_entries.get(model_id)
         if not local:
             continue
-        row = rows.get(model_id)
+        row = rows.get(AIHUBMIX_ID_MAP.get(model_id, model_id))
         if row is None:
             diffs.append({"provider": "AIHubMix", "model": model_id, "field": "-",
                           "local": "-", "remote": "模型在 AIHubMix 上不存在", "url": url})

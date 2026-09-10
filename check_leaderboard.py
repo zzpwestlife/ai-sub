@@ -50,15 +50,12 @@ MODEL_SLUG_MAP = {
     "claude-sonnet-5": "claude-sonnet-5",
     "claude-opus-5": "claude-opus-5",
     "claude-fable-5": "claude-fable-5",
-    "gpt-5.6-luna": "gpt-5-6-luna",
+    "claude-fable-5.1": "claude-fable-5-1",
     "gpt-5.6-terra": "gpt-5-6-terra",
     "gpt-5.6-sol": "gpt-5-6-sol",
     "grok-4.6": "grok-4-6",
-    "deepseek-v4-flash": "deepseek-v-4-flash-20260731",
-    "deepseek-v4-pro": "deepseek-v-4-pro-20260813",
-    "gemini-3.7-flash": "gemini-3-7-flash",
+    # 注：deepseek-v4.1-flash 尚未被 aihot 收录（2026-09-10 核查），收录后在此补 slug
     "glm-5.3-flash": "glm-5-3-flash",
-    "glm-5.3": "glm-5-3",
 }
 
 # 每个模型存档的字段（components 子分存档不展示，留作将来分析）
