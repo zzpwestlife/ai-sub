@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>鹈鹕骑自行车</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --sky: #bdeeff;
+      --ground: #8bd56f;
+      --ink: #16324f;
+      --orange: #f58b42;
+      --yellow: #ffd166;
+      --blue: #4e9ed1;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f8fdff;
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .stage {
+      width: min(100%, 1100px);
+      overflow: hidden;
+      border: 4px solid var(--ink);
+      border-radius: 28px;
+      background: var(--sky);
+      box-shadow: 0 14px 0 #9bc2d2, 0 22px 36px #16324f2c;
+    }
+
+    svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .cloud {
+      fill: #fff;
+      opacity: .82;
+      animation: drift 18s linear infinite;
+    }
+
+    .cloud.two { animation-duration: 25s; animation-delay: -9s; }
+    .cloud.three { animation-duration: 21s; animation-delay: -14s; }
+
+    .wheel {
+      fill: none;
+      stroke: var(--ink);
+      stroke-width: 8;
+    }
+
+    .spokes {
+      fill: none;
+      stroke: #5484a1;
+      stroke-width: 3;
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: spin .85s linear infinite;
+    }
+
+    .bike-line {
+      fill: none;
+      stroke: var(--ink);
+      stroke-width: 8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .pelican {
+      animation: ride-bob .85s ease-in-out infinite;
+      transform-box: fill-box;
+      transform-origin: center bottom;
+    }
+
+    .leg {
+      fill: none;
+      stroke: var(--orange);
+      stroke-width: 9;
+      stroke-linecap: round;
+      transform-box: fill-box;
+      transform-origin: center top;
+    }
+
+    .leg.back { animation: pedal-back .85s linear infinite; }
+    .leg.front { animation: pedal-front .85s linear infinite; }
+
+    .wing {
+      transform-box: fill-box;
+      transform-origin: 75% 80%;
+      animation: wing-flap 1.7s ease-in-out infinite;
+    }
+
+    .feather {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: feather-wiggle 1.2s ease-in-out infinite;
+    }
+
+    .road-mark {
+      animation: road-run 1.1s linear infinite;
+    }
+
+    .sun {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: sun-pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes drift { from { transform: translateX(-140px); } to { transform: translateX(980px); } }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes ride-bob {
+      0%, 100% { transform: translateY(0) rotate(-1deg); }
+      50% { transform: translateY(-7px) rotate(1deg); }
+    }
+    @keyframes pedal-front {
+      0%, 100% { transform: rotate(28deg); }
+      50% { transform: rotate(-28deg); }
+    }
+    @keyframes pedal-back {
+      0%, 100% { transform: rotate(-28deg); }
+      50% { transform: rotate(28deg); }
+    }
+    @keyframes wing-flap {
+      0%, 100% { transform: rotate(2deg); }
+      50% { transform: rotate(-13deg) translateY(-5px); }
+    }
+    @keyframes feather-wiggle {
+      0%, 100% { transform: rotate(0); }
+      50% { transform: rotate(5deg); }
+    }
+    @keyframes road-run {
+      from { transform: translateX(0); }
+      to { transform: translateX(-140px); }
+    }
+    @keyframes sun-pulse {
+      0%, 100% { transform: scale(1); opacity: .95; }
+      50% { transform: scale(1.08); opacity: 1; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="stage" aria-label="一只鹈鹕骑自行车的 SVG 2D 动画">
+    <svg viewBox="0 0 1100 680" role="img" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0" stop-color="#a7e8ff"/>
+          <stop offset="1" stop-color="#e9fbff"/>
+        </linearGradient>
+        <linearGradient id="hill" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0" stop-color="#7edb81"/>
+          <stop offset="1" stop-color="#4db76e"/>
+        </linearGradient>
+      </defs>
+
+      <rect width="1100" height="680" fill="url(#sky)"/>
+      <g class="sun">
+        <circle cx="900" cy="135" r="62" fill="#ffd166"/>
+        <g fill="none" stroke="#ffd166" stroke-width="10" stroke-linecap="round">
+          <path d="M900 48v-25M900 247v-25M813 135h-25M1012 135h-25"/>
+          <path d="m839 74-18-18M979 214l-18-18M961 74l18-18M821 214l18-18"/>
+        </g>
+      </g>
+
+      <g class="cloud">
+        <path d="M80 170c0-27 22-49 49-49 8 0 15 2 22 5 13-30 43-50 77-50 46 0 83 37 83 83h12c25 0 45 20 45 45H80c0-19 0-23 0-34Z"/>
+      </g>
+      <g class="cloud two">
+        <path d="M720 250c0-22 18-40 40-40 7 0 13 2 18 4 11-24 35-40 62-40 36 0 66 29 66 66h10c20 0 36 16 36 36H720c0-14 0-18 0-26Z"/>
+      </g>
+      <g class="cloud three">
+        <path d="M340 90c0-16 13-29 29-29 5 0 10 1 14 3 8-18 26-30 47-30 28 0 51 22 51 51h8c15 0 28 13 28 28H340Z"/>
+      </g>
+
+      <path d="M0 405c145-78 248-55 366 6 139 72 264 33 379-20 126-58 217-45 355 32v257H0Z" fill="url(#hill)"/>
+      <path d="M0 480c168-43 264 13 395 31 152 21 236-44 357-57 132-14 233 39 348 68v158H0Z" fill="#58bd69"/>
+      <rect y="565" width="1100" height="115" fill="#394e5c"/>
+      <path d="M0 620h1100" stroke="#e6d28a" stroke-width="10" stroke-dasharray="70 48" class="road-mark"/>
+
+      <g aria-label="自行车">
+        <circle class="wheel" cx="300" cy="526" r="91" fill="#b6e7ee"/>
+        <circle class="wheel" cx="745" cy="526" r="91" fill="#b6e7ee"/>
+        <g class="spokes" transform="translate(300 526)">
+          <path d="M0-84V84M-84 0H84M-59-59l118 118M59-59-59 59"/>
+        </g>
+        <g class="spokes" transform="translate(745 526)">
+          <path d="M0-84V84M-84 0H84M-59-59l118 118M59-59-59 59"/>
+        </g>
+        <path class="bike-line" d="M300 526 462 526 565 375 745 526 462 526 400 403 565 375"/>
+        <path class="bike-line" d="M565 375h70l27-35"/>
+        <path class="bike-line" d="M400 403h-57l-21 30"/>
+        <circle cx="462" cy="526" r="16" fill="#f58b42" stroke="var(--ink)" stroke-width="6"/>
+        <path class="bike-line" d="M462 526l53-25m-53 25-47-29"/>
+        <path class="bike-line" d="M520 500l-13-20"/>
+      </g>
+
+      <g class="pelican" aria-label="鹈鹕">
+        <path d="M458 380c-13-55 12-116 71-141 68-29 141 4 157 69 13 53-21 101-83 116-61 15-132 3-145-44Z" fill="#f7f2e8" stroke="var(--ink)" stroke-width="8"/>
+        <path class="wing" d="M555 325c17-60 65-77 111-48 17 11 31 29 34 52-26-18-56-19-80-2l-40 31Z" fill="#d9e6e6" stroke="var(--ink)" stroke-width="8"/>
+        <path d="M633 270c30-44 70-58 107-34 28 18 38 52 22 76-14 22-43 26-65 9l-64-30Z" fill="#f7f2e8" stroke="var(--ink)" stroke-width="8"/>
+        <path d="M738 299c33-1 81 8 113 23 12 6 12 20-1 25-39 15-81 10-120-2Z" fill="#f49a52" stroke="var(--ink)" stroke-width="8"/>
+        <path d="M739 314c38 8 72 15 101 17-21 14-55 13-88 4Z" fill="#f8ba6a"/>
+        <circle cx="700" cy="274" r="9" fill="#16324f"/>
+        <circle cx="703" cy="271" r="3" fill="#fff"/>
+        <path class="feather" d="M606 207c-20-24-13-48 15-64 10 22 11 41-15 64Z" fill="#f7f2e8" stroke="var(--ink)" stroke-width="7"/>
+        <path d="M603 373 580 438M675 373l18 62" class="leg back"/>
+        <path d="M580 438h-34M693 435h35" stroke="#f58b42" stroke-width="10" stroke-linecap="round"/>
+        <path d="M582 437 534 475M693 435l46 40" stroke="#16324f" stroke-width="6" stroke-linecap="round"/>
+        <path d="M534 475h-28M739 475h28" stroke="#f58b42" stroke-width="8" stroke-linecap="round"/>
+      </g>
+
+      <g fill="#fff" opacity=".9">
+        <circle cx="160" cy="410" r="5"/><circle cx="190" cy="385" r="4"/><circle cx="860" cy="390" r="5"/>
+      </g>
+    </svg>
+  </main>
+</body>
+</html>
