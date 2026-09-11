@@ -1,5 +1,5 @@
 {
-  "updateDate": "2026-09-09",
+  "updateDate": "2026-09-11",
   "providers": [
     {
       "id": "anthropic",
@@ -630,11 +630,11 @@
     {
       "model": "glm-5.3-flash",
       "provider": "nonelinear",
-      "input": 0.4,
-      "output": 1.4,
+      "input": 0.8,
+      "output": 2.8,
       "cacheWrite": null,
-      "cacheRead": 0.115,
-      "notes": "限时5折(官方¥0.80/¥2.80)"
+      "cacheRead": 0.23,
+      "notes": "限时5折结束,已回官方价(2026-09-11核验)"
     },
     {
       "model": "claude-sonnet-5",

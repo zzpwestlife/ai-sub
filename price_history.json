@@ -898,5 +898,464 @@
     "from": 1.26,
     "to": 1.96,
     "note": "09-09 修正openrouter虚拟价"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "deepseek",
+    "model": "deepseek-v4.1-flash",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "deepseek",
+    "model": "deepseek-v4.1-flash",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "aihubmix",
+    "model": "deepseek-v4.1-flash",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "openrouter",
+    "model": "deepseek-v4.1-flash",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "aihubmix",
+    "model": "glm-5.3-flash",
+    "field": "input",
+    "from": 0.3944,
+    "to": 0.7888,
+    "note": ""
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "aihubmix",
+    "model": "glm-5.3-flash",
+    "field": "output",
+    "from": 1.3803,
+    "to": 2.7607,
+    "note": ""
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "aihubmix",
+    "model": "glm-5.3-flash",
+    "field": "cacheRead",
+    "from": 0.0986,
+    "to": 0.1972,
+    "note": ""
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "openrouter",
+    "model": "claude-fable-5.1",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "aihubmix",
+    "model": "claude-fable-5.1",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "apifun",
+    "model": "gpt-5.6-luna",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "v3api",
+    "model": "gpt-5.6-luna",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "aicode007",
+    "model": "gpt-5.6-luna",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "openrouter",
+    "model": "gpt-5.6-luna",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "nonelinear",
+    "model": "gpt-5.6-luna",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "aiberm",
+    "model": "gpt-5.6-luna",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "siliconflow",
+    "model": "deepseek-v4-flash",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "apifun",
+    "model": "deepseek-v4-flash",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "deepseek",
+    "model": "deepseek-v4-flash",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "deepseek",
+    "model": "deepseek-v4-flash",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "v3api",
+    "model": "deepseek-v4-flash",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "openrouter",
+    "model": "deepseek-v4-flash",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "nonelinear",
+    "model": "deepseek-v4-flash",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "aiberm",
+    "model": "deepseek-v4-flash",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "apifun",
+    "model": "deepseek-v4-pro",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "deepseek",
+    "model": "deepseek-v4-pro",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "deepseek",
+    "model": "deepseek-v4-pro",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "siliconflow",
+    "model": "deepseek-v4-pro",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "openrouter",
+    "model": "deepseek-v4-pro",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "nonelinear",
+    "model": "deepseek-v4-pro",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "v3api",
+    "model": "deepseek-v4-pro",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "aiberm",
+    "model": "deepseek-v4-pro",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "apifun",
+    "model": "gemini-3.7-flash",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "openrouter",
+    "model": "gemini-3.7-flash",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "v3api",
+    "model": "gemini-3.7-flash",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "aiberm",
+    "model": "gemini-3.7-flash",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "nonelinear",
+    "model": "gemini-3.7-flash",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "aihubmix",
+    "model": "gpt-5.6-luna",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "aihubmix",
+    "model": "deepseek-v4-flash",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "aihubmix",
+    "model": "deepseek-v4-pro",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "aihubmix",
+    "model": "gemini-3.7-flash",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "aihubmix",
+    "model": "glm-5.3",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "apifun",
+    "model": "glm-5.3",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "openrouter",
+    "model": "glm-5.3",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "zhipu",
+    "model": "glm-5.3",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "cubence",
+    "model": "gpt-5.6-luna",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "cubence",
+    "model": "deepseek-v4-flash",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "cubence",
+    "model": "deepseek-v4-pro",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 21:57",
+    "provider": "cubence",
+    "model": "glm-5.3",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-11 22:02",
+    "provider": "nonelinear",
+    "model": "glm-5.3-flash",
+    "field": "input",
+    "from": 0.4,
+    "to": 0.8,
+    "note": "非线智能 GLM5.3F 限时5折结束，2x容差漏报已修正"
+  },
+  {
+    "time": "2026-09-11 22:02",
+    "provider": "nonelinear",
+    "model": "glm-5.3-flash",
+    "field": "output",
+    "from": 1.4,
+    "to": 2.8,
+    "note": "非线智能 GLM5.3F 限时5折结束，2x容差漏报已修正"
+  },
+  {
+    "time": "2026-09-11 22:02",
+    "provider": "nonelinear",
+    "model": "glm-5.3-flash",
+    "field": "cacheRead",
+    "from": 0.115,
+    "to": 0.23,
+    "note": "非线智能 GLM5.3F 限时5折结束，2x容差漏报已修正"
   }
 ]

@@ -388,6 +388,7 @@ def check_nonelinear(data, cfg, use_proxy=True):
     url = verify_url("非线智能")
 
     nl_entries = {p["model"]: p for p in data["prices"] if p["provider"] == "nonelinear"}
+    official_prices = data.get("officialPrices", {})
 
     for model_id in NONELINEAR_MODELS:
         local = nl_entries.get(model_id)
@@ -411,9 +412,9 @@ def check_nonelinear(data, cfg, use_proxy=True):
             except (TypeError, ValueError):
                 continue
             if is_changed(lv, rv, cfg):
-                # 峰谷口径差：线上挂牌价恰为本地记录的 2 倍（挂峰值价）或 0.5 倍（挂空闲价），
-                # 属于峰谷切换而非调价，跳过以免反复误报；真实调价不会恰好整数倍于峰谷比。
-                if lv:
+                # 峰谷口径差：仅当该模型官方定价确有峰谷两档时才套用 2x/0.5x 容差。
+                # 否则会把"恰好 2 倍"的真实调价（如限时促销结束）误判为峰谷切换而漏报。
+                if lv and "peakInput" in official_prices.get(model_id, {}):
                     ratio = rv / lv
                     if abs(ratio - 2) < 0.02 or abs(ratio - 0.5) < 0.02:
                         log(f"非线智能 {model_id} {field}: 线上为{'峰值' if ratio > 1 else '空闲'}档"
