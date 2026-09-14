@@ -12,7 +12,7 @@ AI 订阅价格监控脚本
   - apifun：    公开 API 拿分组倍率，推算实际价格（价格 = 官方美元价 × 倍率）
   - V3 API：    公开 API 拿基础倍率（分组倍率不公开，用快照对比检测变动）
   - 非线智能：  公开 /models 接口，直接返回人民币价格（无需登录）
-  - Cubence：   API 需认证，/v1/models 不含定价（暂无法自动监控）
+  - Cubence：   /v1/models 需 API Key 但不含定价 → 仅监控模型可用性（价格仍人工录入）
 
 用法：
   python3 check_prices.py            # 正常检查
@@ -48,8 +48,8 @@ NOTE_ARG = sys.argv[sys.argv.index("--note") + 1] if "--note" in sys.argv else "
 # ---------------------------------------------------------------------------
 
 DEFAULT_CONFIG = {
-    "proxy": "",            # 如 "http://127.0.0.1:7897"，留空则不使用
-    "no_proxy_providers": ["OpenRouter", "apifun", "非线智能"],  # 不需要代理的提供商（直连更快）
+    "proxy": "",            # 如 "http://127.0.0.1:7898"，留空则不使用
+    "no_proxy_providers": ["OpenRouter", "非线智能"],  # 不需要代理的提供商（直连更快）
     "fx_rate": 7.0,         # 美元兑人民币汇率
     "change_threshold_pct": 0.5,  # 价格变动超过该百分比才算变动（防舍入噪音）
 }
@@ -76,7 +76,7 @@ APIFUN_GROUP_MODELS = {
     "Grok 企业版": ["grok-4.6"],
     "DeepSeek（云厂商渠道）": ["deepseek-v4.1-flash"],
     "智谱 Zhipu（特价渠道）": ["glm-5.3-flash"],
-    "Gemini （特价渠道）": ["gemini-3.8-flash"],
+    "Gemini （特价渠道）": ["gemini-3.8-flash"],  # 2026-09-12 原「特价测试」已改名（倍率 1）
 }
 
 # 官方价本身就是人民币的模型（DeepSeek/GLM），apifun 倍率直接乘
@@ -114,13 +114,9 @@ V3_MODELS = [
     "gpt-6-astra",
 ]
 
-# Cubence 上追踪的模型（页面 $ 即人民币；仅 6 个模型可用）
-CUBENCE_MODELS = [
-    "claude-sonnet-5", "claude-opus-5", "claude-fable-5", "claude-fable-5.1",
-    "gpt-5.6-terra", "gpt-5.6-sol",
-    "grok-4.6",
-    "deepseek-v4.1-flash",
-]
+# Cubence 平台侧模型 ID 与 data.json ID 不一致的映射（点号 → 连字符）
+# 2026-09-12 核查：Cubence /v1/models 共 28 个模型，平台写作 claude-fable-5-1
+CUBENCE_ID_MAP = {"claude-fable-5.1": "claude-fable-5-1"}
 
 
 def log(msg):
@@ -433,28 +429,53 @@ def check_nonelinear(data, cfg, use_proxy=True):
 # ---------------------------------------------------------------------------
 
 def check_cubence(data, cfg, use_proxy=True):
-    """Cubence API 需认证，定价不在 API 中返回。
-    页面 $ 即人民币（充值 30 RMB 显示 $30）。
-    价格数据来自 Model Plaza 页面截图（人工录入 data.json）。
-    当前 /v1/models 仅返回模型列表，不含定价，无法自动监控。
-    保留此函数作为占位，若 Cubence 未来开放定价 API 可在此补充。"""
+    """Cubence：/v1/models 需 API Key，但**不含定价**，因此价格无法自动监控
+    （Model Plaza 的价格需登录，且随分组/区域变化；页面 $ 即人民币）。
+    可自动监控的部分：**模型可用性** —— 对比 /v1/models 与 data.json 中已录入的
+    cubence 条目，报告已下架/改名的模型，避免追踪清单悄悄过期。"""
     diffs = []
 
-    # 读取 API Key（保留，以备未来 API 扩展）
     secrets_file = BASE_DIR / "secrets.local.json"
     api_key = None
     if secrets_file.exists():
         try:
             with open(secrets_file) as f:
-                secrets = json.load(f)
-                api_key = secrets.get("cubence_api_key")
+                api_key = json.load(f).get("cubence_api_key")
         except Exception:
             pass
     if not api_key:
         log("Cubence: 未配置 API Key，跳过")
         return diffs
 
-    log("Cubence: /v1/models 不含定价数据，暂无法自动监控（需手动关注 Model Plaza）")
+    proxy = cfg.get("proxy") if use_proxy else None
+    # Cubence 的网关会 403 掉浏览器型 UA（含 Mozilla）与默认 Python-urllib UA，
+    # 只有非浏览器型 UA 才放行，故此处显式指定（2026-09-12 实测）。
+    raw = http_get_json("https://api.cubence.com/v1/models", proxy=proxy,
+                        headers={"Authorization": f"Bearer {api_key}",
+                                 "User-Agent": "ai-sub-price-monitor/1.0"})
+    avail = {m["id"] for m in raw.get("data", [])}
+    if not avail:
+        raise ValueError("/v1/models 返回空列表（接口可能变动）")
+    log(f"Cubence: /v1/models 返回 {len(avail)} 个模型"
+        "（不含定价，价格仍需人工核对 Model Plaza）")
+
+    local = {p["model"] for p in data["prices"] if p["provider"] == "cubence"}
+    known = {p["model"] for p in data["prices"]}
+    url = verify_url("Cubence")
+
+    for model_id in sorted(local):
+        if CUBENCE_ID_MAP.get(model_id, model_id) not in avail:
+            diffs.append({"provider": "Cubence", "model": model_id, "field": "-",
+                          "local": "已录入价格",
+                          "remote": "Cubence 已无此模型（下架或改名）", "url": url})
+
+    # 「Cubence 有、别处已追踪、但缺 cubence 价格」的候选只在日志提示，不产生告警，
+    # 避免未补录时天天误报（与 apifun 分组缺失的处理口径一致）。
+    cand = [next((k for k, v in CUBENCE_ID_MAP.items() if v == pid), pid)
+            for pid in sorted(avail)]
+    cand = [m for m in cand if m in known and m not in local]
+    if cand:
+        log(f"Cubence: 可补充价格条目的候选模型：{', '.join(cand)}")
     return diffs
 
 

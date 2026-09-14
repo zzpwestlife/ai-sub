@@ -3,8 +3,9 @@
 
 追踪多个榜单来源的模型排名/得分变动，每日抓取：
 
-【aihot.virxact.com 综合榜】
-  - 数据源：https://aihot.virxact.com/leaderboard（Next.js SSR payload，纯 HTTP 可抓）
+【aihot.news 综合榜】
+  - 数据源：https://aihot.news/leaderboard（原 aihot.virxact.com 已 301 跳转；
+    2026-09-12 起榜单为服务端渲染 HTML 表格，纯 HTTP 可抓）
   - 追踪 data.json 中已有模型的排名/分数变化
 
 【aihubmix.com 排行榜】
@@ -43,7 +44,8 @@ LEADERBOARD_FILE = BASE_DIR / "leaderboard_data.json"
 # aihot 相关配置
 # ---------------------------------------------------------------------------
 
-AIHOT_URL = "https://aihot.virxact.com/leaderboard"
+# 2026-09-12：aihot.virxact.com 301 跳转到 aihot.news，且榜单改为服务端渲染表格
+AIHOT_URL = "https://aihot.news/leaderboard"
 
 # data.json 模型 ID → aihot 榜单 slug
 MODEL_SLUG_MAP = {
@@ -54,7 +56,9 @@ MODEL_SLUG_MAP = {
     "gpt-5.6-terra": "gpt-5-6-terra",
     "gpt-5.6-sol": "gpt-5-6-sol",
     "grok-4.6": "grok-4-6",
-    # 注：deepseek-v4.1-flash 尚未被 aihot 收录（2026-09-10 核查），收录后在此补 slug
+    # 2026-09-12 核查：deepseek-v4.1-flash 已收录（slug=deepseek-v-4-1-flash）
+    "deepseek-v4.1-flash": "deepseek-v-4-1-flash",
+    "gpt-6-astra": "gpt-6-astra",
     "glm-5.3-flash": "glm-5-3-flash",
 }
 
@@ -114,46 +118,40 @@ def http_get_text(url, proxy=None, timeout=30):
         raise
 
 
-def extract_flight_payload(html):
-    """拼接 Next.js RSC flight payload（self.__next_f.push 的字符串分片）。"""
-    chunks = re.findall(r'self\.__next_f\.push\(\[1,("(?:[^"\\]|\\.)*")\]\)', html, re.S)
-    if not chunks:
-        raise ValueError("页面中找不到 __next_f payload（aihot 可能改版）")
-    return "".join(json.loads(c) for c in chunks)
+def extract_entries(html):
+    """从榜单页 HTML 表格中抠出条目。
 
+    2026-09-12 aihot 改版：数据不再是 __next_f 里的 JSON，而是服务端渲染的
+    <tr> 表格行。每行关键结构：
+      lb-rank-number  排名（两位补零，需 int() 归一）
+      lb-name-cell    内含 href="/leaderboard/<slug>"
+      lb-release-cell 上线日期
+      lb-evidence-cell data-confidence="HIGH|MEDIUM|LOW"
+      lb-score-cell   共识指数分数
 
-def extract_entries(blob):
-    """从 payload 中抠出榜单条目。条目形如 {"rank":N,"previousRank":...,"slug":...}，
-    用花括号配平截取完整 JSON 对象再 json.loads，解析失败的候选直接丢弃。"""
+    返回 {slug: {rank, score, confidence, releasedAt, ...}}；旧版 payload 独有的
+    previousRank / rankChange / uncertainty / components 新版页面不再暴露，置 None
+    （diff 只依赖 rank 与 score，不受影响）。
+    """
     entries = {}
-    for m in re.finditer(r'\{"rank":\d+,"previousRank":', blob):
-        start = m.start()
-        depth, i, in_str, esc = 0, start, False, False
-        while i < len(blob):
-            ch = blob[i]
-            if in_str:
-                if esc:
-                    esc = False
-                elif ch == "\\":
-                    esc = True
-                elif ch == '"':
-                    in_str = False
-            else:
-                if ch == '"':
-                    in_str = True
-                elif ch == "{":
-                    depth += 1
-                elif ch == "}":
-                    depth -= 1
-                    if depth == 0:
-                        break
-            i += 1
-        try:
-            obj = json.loads(blob[start:i + 1])
-        except json.JSONDecodeError:
+    for row in re.findall(r'<tr[^>]*>(?:(?!</tr>).)*?lb-model-entry.*?</tr>', html, re.S):
+        m = re.search(r'href="/leaderboard/([a-z0-9.\-]+)"', row)
+        if not m:
             continue
-        if isinstance(obj, dict) and obj.get("slug"):
-            entries[obj["slug"]] = obj
+        rank = re.search(r'lb-rank-number"><span>(\d+)</span>', row)
+        score = re.search(r'lb-score-cell"><strong>([\d.]+)</strong>', row)
+        conf = re.search(r'data-confidence="(\w+)"', row)
+        rel = re.search(r'lb-release-cell"><time dateTime="([^"]+)"', row)
+        entries[m.group(1)] = {
+            "rank": int(rank.group(1)) if rank else None,
+            "previousRank": None,
+            "rankChange": None,
+            "score": float(score.group(1)) if score else None,
+            "uncertainty": None,
+            "confidence": conf.group(1) if conf else None,
+            "releasedAt": rel.group(1) if rel else None,
+            "components": None,
+        }
     return entries
 
 
@@ -337,8 +335,7 @@ def check_aihot(cfg, model_names, store, today):
     log("【aihot】抓取榜单页 ...")
     try:
         html = http_get_text(AIHOT_URL, proxy=cfg.get("proxy"))
-        blob = extract_flight_payload(html)
-        entries = extract_entries(blob)
+        entries = extract_entries(html)
     except Exception as e:
         print(f"❌ aihot 抓取失败：{e}")
         return [], True

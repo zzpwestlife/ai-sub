@@ -10,9 +10,10 @@
 - **V3 API**：公开 API 拿基础倍率（分组倍率不公开，用快照对比检测变动）
 - **非线智能**：公开 /models 接口，直接返回人民币价格
 - **AIHubMix**：公开 API，从 ratio 还原美元价格
+- **Cubence**：需 API Key（`secrets.local.json`）。`/v1/models` **不含定价**，故只监控**模型可用性**（下架/改名），价格仍需人工核对 Model Plaza 录入
 
 **榜单追踪**的来源：
-- **aihot 综合榜**：追踪 data.json 中 12 个模型的排名/得分（Next.js SSR payload）
+- **aihot 综合榜**：追踪 data.json 中已有模型的排名/得分（服务端渲染 HTML 表格，`lb-*` class 行解析）
 - **aihubmix 排行榜**：追踪 Overall + Coding 两个榜单的全量模型（公开 JSON API，含价格/延迟）
 
 ## 核心源文件
