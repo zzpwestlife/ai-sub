@@ -1,5 +1,5 @@
 {
-  "updateDate": "2026-09-11",
+  "updateDate": "2026-09-14",
   "providers": [
     {
       "id": "anthropic",
@@ -41,8 +41,8 @@
       "id": "apifun",
       "name": "apifun",
       "type": "third-party",
-      "url": "https://apikey.fun/dashboard",
-      "baseUrl": "https://api.apikey.fun",
+      "url": "https://apikey.fan/dashboard",
+      "baseUrl": "https://api.apikey.fan",
       "notes": "第三方中转，支持缓存计费，GPT限Codex"
     },
     {
@@ -170,10 +170,10 @@
       "peakCacheRead": 0.04
     },
     "gemini-3.8-flash": {
-      "input": 10.5,
-      "output": 52.5,
+      "input": 5.25,
+      "output": 26.25,
       "cacheWrite": 0,
-      "cacheRead": 1.05
+      "cacheRead": 0.525
     },
     "glm-5.3-flash": {
       "input": 0.8,
@@ -431,8 +431,8 @@
     {
       "model": "gpt-5.6-terra",
       "provider": "aicode007",
-      "input": 1.7,
-      "output": 10.2,
+      "input": 1.8,
+      "output": 10.8,
       "cacheWrite": null,
       "cacheRead": 0.2,
       "notes": "官方1.2折,支持Codex"
@@ -485,10 +485,10 @@
     {
       "model": "gpt-5.6-sol",
       "provider": "aicode007",
-      "input": 4.3,
-      "output": 25.5,
+      "input": 4.5,
+      "output": 27,
       "cacheWrite": null,
-      "cacheRead": 0.4,
+      "cacheRead": 0.5,
       "notes": "官方1.2折,支持Codex"
     },
     {
@@ -598,7 +598,16 @@
       "output": 13.125,
       "cacheWrite": null,
       "cacheRead": 0.2625,
-      "notes": "众数 输入6/6 输出6/6 缓存6/6"
+      "notes": "众数 输入2/6 输出2/6 缓存2/6（三档平票取最低档）"
+    },
+    {
+      "model": "gemini-3.8-flash",
+      "provider": "apifun",
+      "input": 0.75,
+      "output": 3.75,
+      "cacheWrite": null,
+      "cacheRead": 0.08,
+      "notes": "Gemini（特价渠道）1x，第三方逆向渠道，几乎无缓存命中"
     },
     {
       "model": "gemini-3.8-flash",
@@ -616,7 +625,7 @@
       "output": 52.5,
       "cacheWrite": null,
       "cacheRead": 1.05,
-      "notes": "同官方价"
+      "notes": "约官方2倍（官方 $0.75/$3.75）"
     },
     {
       "model": "glm-5.3-flash",
@@ -801,10 +810,10 @@
     {
       "model": "gpt-6-astra",
       "provider": "aicode007",
-      "input": 8.5,
-      "output": 42.5,
+      "input": 9,
+      "output": 45,
       "cacheWrite": null,
-      "cacheRead": 0.8,
+      "cacheRead": 0.9,
       "notes": "官方1.2折,支持Codex"
     },
     {

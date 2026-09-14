@@ -76,7 +76,7 @@ APIFUN_GROUP_MODELS = {
     "Grok 企业版": ["grok-4.6"],
     "DeepSeek（云厂商渠道）": ["deepseek-v4.1-flash"],
     "智谱 Zhipu（特价渠道）": ["glm-5.3-flash"],
-    "Gemini （特价测试）": ["gemini-3.8-flash"],
+    "Gemini （特价渠道）": ["gemini-3.8-flash"],
 }
 
 # 官方价本身就是人民币的模型（DeepSeek/GLM），apifun 倍率直接乘
@@ -167,7 +167,10 @@ def http_get_json(url, proxy=None, timeout=30, headers=None):
             handler = urllib.request.ProxyHandler({"https": proxy, "http": proxy})
             opener = urllib.request.build_opener(handler)
         else:
-            opener = urllib.request.build_opener()
+            # 真正的强制直连：显式传空 ProxyHandler，屏蔽 HTTP_PROXY/HTTPS_PROXY 等
+            # 环境变量。否则 build_opener() 会自动读取环境代理，
+            # 使 no_proxy_providers 与「直连失败才走代理」的判断全部失效。
+            opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
         req = urllib.request.Request(url, headers=hdrs)
         with opener.open(req, timeout=timeout) as resp:
             return json.loads(resp.read().decode("utf-8"))
@@ -197,7 +200,7 @@ def verify_url(provider, model_id=None, or_id=None):
     if provider == "OpenRouter" and or_id:
         return f"https://openrouter.ai/{or_id}"
     if provider == "apifun":
-        return "https://apikey.fun/pricing"
+        return "https://apikey.fan/pricing"
     if provider == "V3 API":
         return "https://api.v3.cm/panel"
     if provider == "非线智能":
@@ -319,7 +322,7 @@ def check_apifun(data, cfg, use_proxy=True):
     diffs = []
     log("拉取 apifun 分组倍率 ...")
     proxy = cfg.get("proxy") if use_proxy else None
-    raw = http_get_json("https://apikey.fun/api/v1/pricing/groups", proxy=proxy)
+    raw = http_get_json("https://apikey.fan/api/v1/pricing/groups", proxy=proxy)
     groups = {g["name"]: g for g in raw.get("data", [])}
     fx = cfg["fx_rate"]
 
@@ -674,15 +677,21 @@ def is_changed(local, remote, cfg):
         return local != remote
     if local == 0 and remote == 0:
         return False
-    # 绝对差 ≤ ¥0.005 视为舍入误差（提供商页面通常只显示两位小数）
-    if abs(local - remote) <= 0.005:
+    # 绝对差 ≤ ¥0.005 视为舍入误差（提供商页面通常只显示两位小数）。
+    # 加 EPS 是因为十进制 0.005 在二进制浮点里不精确：如 0.08-0.075 实际是
+    # 0.0050000000000000044 > 0.005，会让"恰好舍入 0.005"的常见情形漏过容差、
+    # 产生永久误报（0.12-0.115 恰好是 0.0049999999999999906 才侥幸通过）。
+    if abs(local - remote) <= 0.005 + 1e-9:
         return False
     base = max(abs(local), abs(remote), 1e-9)
     return abs(local - remote) / base * 100 > cfg["change_threshold_pct"]
 
 
 def write_report(all_diffs, errors):
-    REPORT_DIR.mkdir(exist_ok=True)
+    # 目录已存在时不再调用 mkdir：某些沙箱/权限代理会把 exist_ok=True 的 mkdir
+    # 误判为 EEXIST 而抛 PermissionError，导致报告写不出来
+    if not REPORT_DIR.exists():
+        REPORT_DIR.mkdir(parents=True, exist_ok=True)
     ts = datetime.now()
     path = REPORT_DIR / f"report-{ts.strftime('%Y-%m-%d_%H%M')}.md"
     lines = [f"# 价格变动检查报告 {ts.strftime('%Y-%m-%d %H:%M')}", ""]

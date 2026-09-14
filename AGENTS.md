@@ -6,7 +6,7 @@
 
 **价格监控**的提供商：
 - **OpenRouter**：公开 API，精确美元价格
-- **apifun**：公开 API 拿分组倍率，推算实际价格（价格 = 官方美元价 × 倍率）
+- **apifun**：公开 API 拿分组倍率，推算实际价格（价格 = 官方美元价 × 倍率）。域名 2026-09-14 由 `apikey.fun` 改为 `apikey.fan`（旧域名已停止解析）
 - **V3 API**：公开 API 拿基础倍率（分组倍率不公开，用快照对比检测变动）
 - **非线智能**：公开 /models 接口，直接返回人民币价格
 - **AIHubMix**：公开 API，从 ratio 还原美元价格
@@ -39,6 +39,10 @@
 - **历史文件保护** price_history.json 损坏时中止执行，不静默清空
 - **原子写入** 所有 JSON 写入先写临时文件再原子重命名，防止写入中断导致文件损坏
 - **仅内容变化时写入** data.json 通过 diff 对比，仅在内容实际变化时才写入
+- **真直连** `no_proxy_providers` 的直连分支必须显式传空 `ProxyHandler({})`。`build_opener()` 会自动读取 `HTTP_PROXY`/`HTTPS_PROXY` 环境变量，使该列表与「直连失败才走代理」的判断全部失效——症状是日志里出现 `Tunnel connection failed: 502` 这类"直连"却报代理错误（2026-09-14 修复）
+- **舍入容差要带 EPS** ¥0.005 绝对差容差用于吸收提供商页面两位小数的舍入，但 `abs(0.08-0.075)` 在二进制浮点下是 `0.0050000000000000044 > 0.005`，会让"恰好舍入 0.005"这一最常见情形漏过容差、产生永久误报。比较必须写成 `<= 0.005 + 1e-9`（2026-09-14 修复）
+- **报告目录已存在时不要再 mkdir** 沙箱/权限代理会把 `mkdir(exist_ok=True)` 误判为 EEXIST 抛 `PermissionError`，导致历史已写入而报告丢失、脚本 traceback 退出。先 `exists()` 判断（2026-09-14 修复）
+- **officialPrices 是唯一官方价数据源**，单位是**人民币**（= 官方美元价 × `fx_rate`）。apifun 的推算口径是 `officialPrices / fx_rate × 分组倍率`（即官方美元价 × 倍率）。录入前务必与 OpenRouter `/api/v1/models` 的 `pricing.prompt` × fx 交叉核验：2026-09-14 发现 `gemini-3.8-flash` 的 officialPrices 比真实官方价高 2 倍（10.5 vs 5.25），已按 OpenRouter 与 apifun 页面双重佐证修正
 
 ## 运行方式
 

@@ -1357,5 +1357,257 @@
     "from": 0.115,
     "to": 0.23,
     "note": "非线智能 GLM5.3F 限时5折结束，2x容差漏报已修正"
+  },
+  {
+    "time": "2026-09-14 09:20",
+    "provider": "aicode007",
+    "model": "claude-sonnet-5",
+    "field": "input",
+    "from": 6.86,
+    "to": 6.8,
+    "note": ""
+  },
+  {
+    "time": "2026-09-14 09:20",
+    "provider": "aicode007",
+    "model": "claude-sonnet-5",
+    "field": "output",
+    "from": 34.3,
+    "to": 33.9,
+    "note": ""
+  },
+  {
+    "time": "2026-09-14 09:20",
+    "provider": "aicode007",
+    "model": "claude-sonnet-5",
+    "field": "cacheWrite",
+    "from": "-",
+    "to": 8.0,
+    "note": ""
+  },
+  {
+    "time": "2026-09-14 09:20",
+    "provider": "aicode007",
+    "model": "claude-sonnet-5",
+    "field": "cacheRead",
+    "from": "-",
+    "to": 0.7,
+    "note": ""
+  },
+  {
+    "time": "2026-09-14 09:20",
+    "provider": "aicode007",
+    "model": "claude-opus-5",
+    "field": "input",
+    "from": 17.15,
+    "to": 16.9,
+    "note": ""
+  },
+  {
+    "time": "2026-09-14 09:20",
+    "provider": "aicode007",
+    "model": "claude-opus-5",
+    "field": "output",
+    "from": 85.75,
+    "to": 84.8,
+    "note": ""
+  },
+  {
+    "time": "2026-09-14 09:20",
+    "provider": "aicode007",
+    "model": "claude-opus-5",
+    "field": "cacheWrite",
+    "from": "-",
+    "to": 21.0,
+    "note": ""
+  },
+  {
+    "time": "2026-09-14 09:20",
+    "provider": "aicode007",
+    "model": "claude-opus-5",
+    "field": "cacheRead",
+    "from": "-",
+    "to": 1.7,
+    "note": ""
+  },
+  {
+    "time": "2026-09-14 09:20",
+    "provider": "aicode007",
+    "model": "claude-fable-5",
+    "field": "input",
+    "from": 34.3,
+    "to": 33.9,
+    "note": ""
+  },
+  {
+    "time": "2026-09-14 09:20",
+    "provider": "aicode007",
+    "model": "claude-fable-5",
+    "field": "output",
+    "from": 171.5,
+    "to": 169.5,
+    "note": ""
+  },
+  {
+    "time": "2026-09-14 09:20",
+    "provider": "aicode007",
+    "model": "claude-fable-5",
+    "field": "cacheWrite",
+    "from": "-",
+    "to": 42.0,
+    "note": ""
+  },
+  {
+    "time": "2026-09-14 09:20",
+    "provider": "aicode007",
+    "model": "claude-fable-5",
+    "field": "cacheRead",
+    "from": "-",
+    "to": 3.4,
+    "note": ""
+  },
+  {
+    "time": "2026-09-14 09:20",
+    "provider": "aicode007",
+    "model": "gpt-5.6-terra",
+    "field": "input",
+    "from": 1.68,
+    "to": 1.7,
+    "note": ""
+  },
+  {
+    "time": "2026-09-14 09:20",
+    "provider": "aicode007",
+    "model": "gpt-5.6-terra",
+    "field": "output",
+    "from": 10.08,
+    "to": 10.2,
+    "note": ""
+  },
+  {
+    "time": "2026-09-14 09:20",
+    "provider": "aicode007",
+    "model": "gpt-5.6-terra",
+    "field": "cacheRead",
+    "from": "-",
+    "to": 0.2,
+    "note": ""
+  },
+  {
+    "time": "2026-09-14 09:20",
+    "provider": "aicode007",
+    "model": "gpt-5.6-sol",
+    "field": "input",
+    "from": 4.2,
+    "to": 4.3,
+    "note": ""
+  },
+  {
+    "time": "2026-09-14 09:20",
+    "provider": "aicode007",
+    "model": "gpt-5.6-sol",
+    "field": "output",
+    "from": 25.2,
+    "to": 25.5,
+    "note": ""
+  },
+  {
+    "time": "2026-09-14 09:20",
+    "provider": "aicode007",
+    "model": "gpt-5.6-sol",
+    "field": "cacheRead",
+    "from": "-",
+    "to": 0.4,
+    "note": ""
+  },
+  {
+    "time": "2026-09-14 09:20",
+    "provider": "aicode007",
+    "model": "gpt-6-astra",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-09-14 09:40",
+    "provider": "aicode007",
+    "model": "gpt-5.6-terra",
+    "field": "input",
+    "from": 1.7,
+    "to": 1.8,
+    "note": ""
+  },
+  {
+    "time": "2026-09-14 09:40",
+    "provider": "aicode007",
+    "model": "gpt-5.6-terra",
+    "field": "output",
+    "from": 10.2,
+    "to": 10.8,
+    "note": ""
+  },
+  {
+    "time": "2026-09-14 09:40",
+    "provider": "aicode007",
+    "model": "gpt-5.6-sol",
+    "field": "input",
+    "from": 4.3,
+    "to": 4.5,
+    "note": ""
+  },
+  {
+    "time": "2026-09-14 09:40",
+    "provider": "aicode007",
+    "model": "gpt-5.6-sol",
+    "field": "output",
+    "from": 25.5,
+    "to": 27,
+    "note": ""
+  },
+  {
+    "time": "2026-09-14 09:40",
+    "provider": "aicode007",
+    "model": "gpt-5.6-sol",
+    "field": "cacheRead",
+    "from": 0.4,
+    "to": 0.5,
+    "note": ""
+  },
+  {
+    "time": "2026-09-14 09:40",
+    "provider": "apifun",
+    "model": "gemini-3.8-flash",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-09-14 09:40",
+    "provider": "aicode007",
+    "model": "gpt-6-astra",
+    "field": "input",
+    "from": 8.5,
+    "to": 9,
+    "note": ""
+  },
+  {
+    "time": "2026-09-14 09:40",
+    "provider": "aicode007",
+    "model": "gpt-6-astra",
+    "field": "output",
+    "from": 42.5,
+    "to": 45,
+    "note": ""
+  },
+  {
+    "time": "2026-09-14 09:40",
+    "provider": "aicode007",
+    "model": "gpt-6-astra",
+    "field": "cacheRead",
+    "from": 0.8,
+    "to": 0.9,
+    "note": ""
   }
 ]
