@@ -1609,5 +1609,86 @@
     "from": 0.8,
     "to": 0.9,
     "note": ""
+  },
+  {
+    "time": "2026-09-17 09:28",
+    "provider": "apifun",
+    "model": "gpt-5.6-terra",
+    "field": "input",
+    "from": 1.0,
+    "to": 1.4,
+    "note": ""
+  },
+  {
+    "time": "2026-09-17 09:28",
+    "provider": "apifun",
+    "model": "gpt-5.6-terra",
+    "field": "output",
+    "from": 6.0,
+    "to": 8.4,
+    "note": ""
+  },
+  {
+    "time": "2026-09-17 09:28",
+    "provider": "apifun",
+    "model": "gpt-5.6-terra",
+    "field": "cacheRead",
+    "from": 0.1,
+    "to": 0.14,
+    "note": ""
+  },
+  {
+    "time": "2026-09-17 09:28",
+    "provider": "apifun",
+    "model": "gpt-5.6-sol",
+    "field": "input",
+    "from": 2.5,
+    "to": 3.5,
+    "note": ""
+  },
+  {
+    "time": "2026-09-17 09:28",
+    "provider": "apifun",
+    "model": "gpt-5.6-sol",
+    "field": "output",
+    "from": 15.0,
+    "to": 21.0,
+    "note": ""
+  },
+  {
+    "time": "2026-09-17 09:28",
+    "provider": "apifun",
+    "model": "gpt-5.6-sol",
+    "field": "cacheRead",
+    "from": 0.25,
+    "to": 0.35,
+    "note": ""
+  },
+  {
+    "time": "2026-09-17 09:28",
+    "provider": "apifun",
+    "model": "gpt-6-astra",
+    "field": "input",
+    "from": 5.0,
+    "to": 7.0,
+    "note": ""
+  },
+  {
+    "time": "2026-09-17 09:28",
+    "provider": "apifun",
+    "model": "gpt-6-astra",
+    "field": "output",
+    "from": 25.0,
+    "to": 35.0,
+    "note": ""
+  },
+  {
+    "time": "2026-09-17 09:28",
+    "provider": "apifun",
+    "model": "gpt-6-astra",
+    "field": "cacheRead",
+    "from": 0.5,
+    "to": 0.7,
+    "note": ""
   }
 ]
