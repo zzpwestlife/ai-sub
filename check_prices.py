@@ -74,7 +74,7 @@ APIFUN_GROUP_MODELS = {
     "Claude Plus（精品）": ["claude-sonnet-5", "claude-opus-5", "claude-fable-5", "claude-fable-5.1"],
     "Codex Pro（仅限Codex）": ["gpt-5.6-terra", "gpt-5.6-sol", "gpt-6-astra"],
     "Grok 企业版": ["grok-4.6"],
-    "DeepSeek（云厂商渠道）": ["deepseek-v4.1-flash"],
+    "DeepSeek（大厂直供）": ["deepseek-v4.1-flash"],  # 2026-09-21 由「云厂商渠道」改名，倍率 0.75→0.5
     "智谱 Zhipu（特价渠道）": ["glm-5.3-flash"],
     "Gemini （特价渠道）": ["gemini-3.8-flash"],  # 2026-09-12 原「特价测试」已改名（倍率 1）
 }

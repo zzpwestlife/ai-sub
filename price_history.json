@@ -1699,5 +1699,41 @@
     "from": "-",
     "to": "-",
     "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-21 15:30",
+    "provider": "aihubmix",
+    "model": "deepseek-v4.1-flash",
+    "field": "input",
+    "from": 1.085,
+    "to": 0.6899,
+    "note": "apikey.fan DeepSeek 分组改名降倍率 + AIHubMix 限时7折"
+  },
+  {
+    "time": "2026-09-21 15:30",
+    "provider": "aihubmix",
+    "model": "deepseek-v4.1-flash",
+    "field": "output",
+    "from": 4.34,
+    "to": 2.7597,
+    "note": "apikey.fan DeepSeek 分组改名降倍率 + AIHubMix 限时7折"
+  },
+  {
+    "time": "2026-09-21 15:30",
+    "provider": "aihubmix",
+    "model": "deepseek-v4.1-flash",
+    "field": "cacheRead",
+    "from": 0.0217,
+    "to": 0.0138,
+    "note": "apikey.fan DeepSeek 分组改名降倍率 + AIHubMix 限时7折"
+  },
+  {
+    "time": "2026-09-21 15:30",
+    "provider": "apifun",
+    "model": "deepseek-v4.1-flash",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "apikey.fan DeepSeek 分组改名降倍率 + AIHubMix 限时7折"
   }
 ]

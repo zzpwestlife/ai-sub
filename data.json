@@ -1,5 +1,5 @@
 {
-  "updateDate": "2026-09-20",
+  "updateDate": "2026-09-21",
   "providers": [
     {
       "id": "anthropic",
@@ -576,11 +576,20 @@
     {
       "model": "deepseek-v4.1-flash",
       "provider": "aihubmix",
-      "input": 1.085,
-      "output": 4.34,
+      "input": 0.6899,
+      "output": 2.7597,
       "cacheWrite": null,
-      "cacheRead": 0.0217,
-      "notes": "ratio还原(0.0775/×4/×0.02),与官方V4.1定价结构一致"
+      "cacheRead": 0.0138,
+      "notes": "ratio还原(0.0704/×4/×0.02)叠加限时7折(30% off,截止2026-09-27);折后基准¥0.9856/¥3.9424,促销结束后按基准价核验"
+    },
+    {
+      "model": "deepseek-v4.1-flash",
+      "provider": "apifun",
+      "input": 0.5,
+      "output": 2.0,
+      "cacheWrite": null,
+      "cacheRead": 0.01,
+      "notes": "DeepSeek（大厂直供）0.5x;官方空闲价×0.5;高峰档¥1/¥4(2026-09-21分组由「云厂商渠道0.75」改名并降倍率)"
     },
     {
       "model": "deepseek-v4.1-flash",
