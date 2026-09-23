@@ -145,6 +145,11 @@ fetch('data.json?v=' + Date.now())
 // ============================================================
 // 工具函数
 // ============================================================
+// 不计入「活跃提供商」的角色。
+// 停用 = 完全弃用；仅监控 = 只看价格数据、不再充值；暂停 = 有余额但无竞争优势、不再充值。
+// 后两者的价格仍会被 check_prices.py 监控，只是不作为付费渠道使用。
+const NON_ACTIVE_ROLES = ['停用', '仅监控', '暂停'];
+
 const fx = () => parseFloat(document.getElementById('fxRate').value) || 7.0;
 const hitRate = () => {
   const v = parseFloat(document.getElementById('cacheHit').value);
@@ -500,11 +505,11 @@ function renderProviderView() {
 // ============================================================
 function renderSubscription() {
   let html = '<div class="grid">';
-  const totalProviders = DATA.subscriptions.filter(s => s.role !== '停用').length;
+  const totalProviders = DATA.subscriptions.filter(s => !NON_ACTIVE_ROLES.includes(s.role)).length;
   const activeModels = new Set();
   DATA.subscriptions.forEach(s => s.models.forEach(m => activeModels.add(m)));
 
-  html += `<div class="card stat"><div class="stat-val">${totalProviders}</div><div class="stat-label">活跃提供商</div></div>`;
+  html += `<div class="card stat"><div class="stat-val">${totalProviders}</div><div class="stat-label" title="不含 停用 / 仅监控 / 暂停">活跃提供商</div></div>`;
   html += `<div class="card stat"><div class="stat-val">${activeModels.size}</div><div class="stat-label">覆盖模型</div></div>`;
   html += `<div class="card stat"><div class="stat-val">¥${DATA.subscriptions.find(s=>s.provider==='apifun')?.balance || 0}</div><div class="stat-label">apifun 余额</div></div>`;
   const chgCount = Object.keys(CHANGE_INDEX).length;
@@ -779,7 +784,7 @@ function renderConfig() {
     if (!prov.baseUrl) return;
     const typeTag = prov.type === 'official' ? '<span class="tag tag-official">官方</span>' : '<span class="tag tag-third">第三方</span>';
     const sub = DATA.subscriptions.find(s => s.provider === prov.id);
-    const statusBadge = sub?.role === '主力' ? '<span class="tag tag-best">主力</span>' : sub?.role === '备用' ? '<span class="tag" style="background:#1e3a5f;color:#60a5fa">备用</span>' : sub?.role === '批量' ? '<span class="tag" style="background:#14532d;color:#4ade80">批量</span>' : sub?.role === '兜底' ? '<span class="tag" style="background:#422006;color:#fb923c">兜底</span>' : sub?.role === '暂停' ? '<span class="tag" style="background:#4a1010;color:#f87171">暂停</span>' : '';
+    const statusBadge = sub?.role === '主力' ? '<span class="tag tag-best">主力</span>' : sub?.role === '备用' ? '<span class="tag" style="background:#1e3a5f;color:#60a5fa">备用</span>' : sub?.role === '批量' ? '<span class="tag" style="background:#14532d;color:#4ade80">批量</span>' : sub?.role === '兜底' ? '<span class="tag" style="background:#422006;color:#fb923c">兜底</span>' : sub?.role === '暂停' ? '<span class="tag" style="background:#4a1010;color:#f87171">暂停</span>' : sub?.role === '仅监控' ? '<span class="tag" style="background:#334155;color:#cbd5e1">仅监控</span>' : '';
     html += `<div class="card"><div class="provider-header"><div><h2>${prov.name} ${typeTag} ${statusBadge}</h2></div>`;
     if (prov.url) html += `<a href="${prov.url}" target="_blank" class="btn" style="font-size:.75rem">控制台 </a>`;
     html += `</div>`;

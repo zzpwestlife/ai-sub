@@ -1051,7 +1051,7 @@
       "provider": "nonelinear",
       "balance": 70,
       "currency": "CNY",
-      "role": "少用",
+      "role": "仅监控",
       "models": [
         "claude-sonnet-5",
         "claude-opus-5",
@@ -1063,7 +1063,7 @@
         "glm-5.3-flash",
         "gpt-6-astra"
       ],
-      "notes": "价格同官方，GLM限时5折,其余同官方"
+      "notes": "只关注价格数据,不再充值(2026-09-21);余额¥70 留作观察;价格同官方无折扣优势"
     }
   ],
   "scenarios": [
