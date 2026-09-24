@@ -1,0 +1,174 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" role="img" aria-labelledby="title desc">
+    <title id="title">Pelican riding a bicycle</title>
+    <desc id="desc">An animated pelican pedals a bicycle past a moving dashed road line.</desc>
+
+    <style>
+      :root { color-scheme: light; }
+      .wheel { fill: none; stroke: #284b63; }
+      .frame { fill: none; stroke: #167d8d; stroke-width: 11; stroke-linecap: round; stroke-linejoin:
+      round; }
+      .metal { fill: none; stroke: #284b63; stroke-width: 7; stroke-linecap: round; stroke-linejoin:
+      round; }
+      @media (prefers-reduced-motion: reduce) {
+        .optional-motion { display: none; }
+      }
+    </style>
+
+    <rect width="800" height="480" fill="#f7f5ed"/>
+    <circle cx="659" cy="83" r="37" fill="#f8cf78" opacity=".7"/>
+
+    <!-- Road markings move one dash period for a seamless loop. -->
+    <g class="optional-motion" stroke="#b8c6c1" stroke-width="4" stroke-linecap="round" stroke-
+    dasharray="27 43">
+      <path d="M-70 440H870">
+        <animateTransform attributeName="transform" type="translate"
+          from="0 0" to="-70 0" dur=".15s" repeatCount="indefinite"/>
+      </path>
+    </g>
+    <path d="M0 430H800" stroke="#dce3dc" stroke-width="2"/>
+
+    <!-- Both wheels turn clockwise: forward rotation for travel to the right. -->
+    <g transform="translate(233 350)">
+      <circle r="73" fill="#f7f5ed" stroke="#284b63" stroke-width="13"/>
+      <circle r="63" class="wheel" stroke-width="2"/>
+      <g class="wheel" stroke-width="2" opacity=".8">
+        <animateTransform attributeName="transform" type="rotate"
+          from="0" to="360" dur="1s" repeatCount="indefinite"/>
+        <path d="M-62 0H62M0-62V62M-44-44L44 44M44-44L-44 44
+                 M-24-57L24 57M24-57L-24 57M-57-24L57 24M57-24L-57 24"/>
+      </g>
+      <circle r="9" fill="#284b63"/>
+    </g>
+    <g transform="translate(574 350)">
+      <circle r="73" fill="#f7f5ed" stroke="#284b63" stroke-width="13"/>
+      <circle r="63" class="wheel" stroke-width="2"/>
+      <g class="wheel" stroke-width="2" opacity=".8">
+        <animateTransform attributeName="transform" type="rotate"
+          from="0" to="360" dur="1s" repeatCount="indefinite"/>
+        <path d="M-62 0H62M0-62V62M-44-44L44 44M44-44L-44 44
+                 M-24-57L24 57M24-57L-24 57M-57-24L57 24M57-24L-57 24"/>
+      </g>
+      <circle r="9" fill="#284b63"/>
+    </g>
+
+    <!-- A recognizable diamond frame: rear triangle plus main triangle. -->
+    <path class="frame" d="M233 350L379 247L409 350L233 350
+                            M379 247H526L409 350"/>
+    <path class="metal" d="M526 247L542 268L574 350M526 247L516 220H553"/>
+    <path class="metal" d="M379 247L372 222M354 222H395"/>
+    <path d="M349 219Q374 211 400 219" fill="none" stroke="#284b63"
+          stroke-width="12" stroke-linecap="round"/>
+    <path d="M547 219h29" class="metal"/>
+    <circle cx="409" cy="350" r="25" fill="#e5b85f" stroke="#284b63" stroke-width="5"/>
+    <circle cx="409" cy="350" r="11" fill="#f7f5ed"/>
+
+    <!-- Pelican body, wing, and head share a subtle riding bob. -->
+    <g>
+      <animateTransform attributeName="transform" type="translate"
+        values="0 0;0 -4;0 0;0 2;0 0" keyTimes="0;.25;.5;.75;1"
+        dur=".5s" repeatCount="indefinite"/>
+      <path d="M347 176Q324 159 310 177Q329 185 344 190"
+            fill="#d9e5dd"/>
+      <path d="M343 146Q361 122 407 137Q445 149 453 185
+               Q447 216 412 227Q362 231 344 205Q329 179 343 146Z"
+            fill="#fffaf0" stroke="#284b63" stroke-width="4"/>
+      <path d="M355 211Q375 230 402 223" fill="none"
+            stroke="#d9e5dd" stroke-width="8" stroke-linecap="round"/>
+
+      <g transform="translate(378 167)">
+        <animateTransform attributeName="transform" additive="sum" type="rotate"
+          values="-3;5;-3" keyTimes="0;.5;1" dur="1s" repeatCount="indefinite"/>
+        <path d="M0 0Q29-8 48 17Q34 37 0 32Q-18 22 0 0Z"
+              fill="#dce9df" stroke="#284b63" stroke-width="3"/>
+        <path d="M8 17Q26 12 40 23M4 25Q19 22 30 29"
+              fill="none" stroke="#9bbeb3" stroke-width="3" stroke-linecap="round"/>
+      </g>
+
+      <!-- Neck pivot lets the beak and pouch trail the body slightly. -->
+      <g transform="translate(433 157)">
+        <animateTransform attributeName="transform" additive="sum" type="rotate"
+          values="2;-2;2" keyTimes="0;.5;1" dur="1s" repeatCount="indefinite"/>
+        <path d="M-6 19Q16 3 18-40Q19-64 40-69Q65-74 78-52
+                 Q64-47 56-36Q49-12 45 9Q25 30-6 19Z"
+              fill="#fffaf0" stroke="#284b63" stroke-width="4"/>
+        <path d="M64-49Q101-55 159-45Q169-42 159-35
+                 Q112-26 68-32Z"
+              fill="#e7b35e" stroke="#284b63" stroke-width="3"/>
+        <path d="M68-31Q106-17 151-32Q135 5 111 13
+                 Q83 14 68-31Z"
+              fill="#ef9a80" stroke="#284b63" stroke-width="3"/>
+        <path d="M81-24Q110-12 137-26" fill="none"
+              stroke="#f8c0a5" stroke-width="3"/>
+        <circle cx="67" cy="-57" r="5" fill="#284b63"/>
+        <circle cx="69" cy="-59" r="1.5" fill="white"/>
+        <path d="M33-67l-8-13M43-70l-1-14M52-67l7-12"
+              fill="none" stroke="#284b63" stroke-width="3" stroke-linecap="round"/>
+      </g>
+    </g>
+
+    <!-- The crank, articulated legs, and feet all use the same two-second cycle.
+         Each foot follows its corresponding crank-pin position. -->
+    <g transform="translate(409 350)">
+      <g>
+        <animateTransform attributeName="transform" type="rotate"
+          from="0" to="360" dur="2s" repeatCount="indefinite"/>
+        <path d="M-38 0H38" stroke="#284b63" stroke-width="8" stroke-linecap="round"/>
+        <circle cx="-38" r="7" fill="#284b63"/>
+        <circle cx="38" r="7" fill="#284b63"/>
+      </g>
+      <circle r="5" fill="#284b63"/>
+    </g>
+
+    <path fill="none" stroke="#e49a7d" stroke-width="13"
+          stroke-linecap="round" stroke-linejoin="round"
+          d="M378 219Q399 262 447 350">
+      <animate attributeName="d" dur="2s" repeatCount="indefinite"
+        keyTimes="0;.125;.25;.375;.5;.625;.75;.875;1"
+        values="
+        M378 219Q399 262 447 350;
+        M378 219Q418 267 436 377;
+        M378 219Q417 279 409 388;
+        M378 219Q390 286 382 377;
+        M378 219Q362 281 371 350;
+        M378 219Q349 267 382 323;
+        M378 219Q362 255 409 312;
+        M378 219Q387 252 436 323;
+        M378 219Q399 262 447 350"/>
+    </path>
+    <path fill="none" stroke="#d98671" stroke-width="13"
+          stroke-linecap="round" stroke-linejoin="round"
+          d="M414 218Q386 267 371 350">
+      <animate attributeName="d" dur="2s" repeatCount="indefinite"
+        keyTimes="0;.125;.25;.375;.5;.625;.75;.875;1"
+        values="
+        M414 218Q386 267 371 350;
+        M414 218Q390 258 382 323;
+        M414 218Q412 255 409 312;
+        M414 218Q435 260 436 323;
+        M414 218Q448 271 447 350;
+        M414 218Q442 281 436 377;
+        M414 218Q416 287 409 388;
+        M414 218Q390 282 382 377;
+        M414 218Q386 267 371 350"/>
+    </path>
+
+    <g fill="#e49a7d" stroke="#284b63" stroke-width="2.5"
+       stroke-linejoin="round">
+      <g transform="translate(447 350)">
+        <animateTransform attributeName="transform" type="translate"
+          dur="2s" repeatCount="indefinite"
+          keyTimes="0;.125;.25;.375;.5;.625;.75;.875;1"
+          values="447 350;436 377;409 388;382 377;371 350;382 323;409 312;436 323;447 350"/>
+        <path d="M-5-5Q6-8 17-2L29 3L18 7L31 11L15 12L23 17
+                 Q6 17-5 7Z"/>
+      </g>
+      <g transform="translate(371 350)">
+        <animateTransform attributeName="transform" type="translate"
+          dur="2s" repeatCount="indefinite"
+          keyTimes="0;.125;.25;.375;.5;.625;.75;.875;1"
+          values="371 350;382 323;409 312;436 323;447 350;436 377;409 388;382 377;371 350"/>
+        <path d="M-5-5Q6-8 17-2L29 3L18 7L31 11L15 12L23 17
+                 Q6 17-5 7Z"/>
+      </g>
+    </g>
+  </svg>

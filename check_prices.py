@@ -58,22 +58,26 @@ DEFAULT_CONFIG = {
 OPENROUTER_MODEL_MAP = {
     "claude-sonnet-5": "anthropic/claude-sonnet-5",
     "claude-opus-5": "anthropic/claude-opus-5",
+    "claude-opus-5.5": "anthropic/claude-opus-5.5",
     "claude-fable-5": "anthropic/claude-fable-5",
     "claude-fable-5.1": "anthropic/claude-fable-5.1",
     "gpt-5.6-terra": "openai/gpt-5.6-terra",
     "gpt-5.6-sol": "openai/gpt-5.6-sol",
     "grok-4.6": "x-ai/grok-4.6",
+    "grok-4.7": "x-ai/grok-4.7",
     "deepseek-v4.1-flash": "deepseek/deepseek-v4.1-flash",
     "gemini-3.8-flash": "google/gemini-3.8-flash",
     "glm-5.3-flash": "z-ai/glm-5.3-flash",
     "gpt-6-astra": "openai/gpt-6-astra",
+    "gpt-6-sol": "openai/gpt-6-sol",
+    "gpt-6-luna": "openai/gpt-6-luna",
 }
 
 # apifun 分组名 → 负责的模型（与用户当前使用的分组一致）
 APIFUN_GROUP_MODELS = {
-    "Claude Plus（精品）": ["claude-sonnet-5", "claude-opus-5", "claude-fable-5", "claude-fable-5.1"],
-    "Codex Pro（仅限Codex）": ["gpt-5.6-terra", "gpt-5.6-sol", "gpt-6-astra"],
-    "Grok 企业版": ["grok-4.6"],
+    "Claude Plus（精品）": ["claude-sonnet-5", "claude-opus-5", "claude-opus-5.5", "claude-fable-5", "claude-fable-5.1"],
+    "Codex Pro（仅限Codex）": ["gpt-5.6-terra", "gpt-5.6-sol", "gpt-6-astra", "gpt-6-sol", "gpt-6-luna"],
+    "Grok 企业版": ["grok-4.6", "grok-4.7"],
     "DeepSeek（大厂直供）": ["deepseek-v4.1-flash"],  # 2026-09-21 由「云厂商渠道」改名，倍率 0.75→0.5
     "智谱 Zhipu（特价渠道）": ["glm-5.3-flash"],
     "Gemini （特价渠道）": ["gemini-3.8-flash"],  # 2026-09-12 原「特价测试」已改名（倍率 1）

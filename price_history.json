@@ -1735,5 +1735,239 @@
     "from": "-",
     "to": "-",
     "note": "apikey.fan DeepSeek 分组改名降倍率 + AIHubMix 限时7折"
+  },
+  {
+    "time": "2026-09-23 19:49",
+    "provider": "apifun",
+    "model": "gpt-5.6-terra",
+    "field": "input",
+    "from": 1.0,
+    "to": 1.4,
+    "note": ""
+  },
+  {
+    "time": "2026-09-23 19:49",
+    "provider": "apifun",
+    "model": "gpt-5.6-terra",
+    "field": "output",
+    "from": 6.0,
+    "to": 8.4,
+    "note": ""
+  },
+  {
+    "time": "2026-09-23 19:49",
+    "provider": "apifun",
+    "model": "gpt-5.6-terra",
+    "field": "cacheRead",
+    "from": 0.1,
+    "to": 0.14,
+    "note": ""
+  },
+  {
+    "time": "2026-09-23 19:49",
+    "provider": "aicode007",
+    "model": "gpt-5.6-terra",
+    "field": "input",
+    "from": 1.7,
+    "to": 1.8,
+    "note": ""
+  },
+  {
+    "time": "2026-09-23 19:49",
+    "provider": "aicode007",
+    "model": "gpt-5.6-terra",
+    "field": "output",
+    "from": 10.2,
+    "to": 10.8,
+    "note": ""
+  },
+  {
+    "time": "2026-09-23 19:49",
+    "provider": "apifun",
+    "model": "gpt-5.6-sol",
+    "field": "input",
+    "from": 2.5,
+    "to": 3.5,
+    "note": ""
+  },
+  {
+    "time": "2026-09-23 19:49",
+    "provider": "apifun",
+    "model": "gpt-5.6-sol",
+    "field": "output",
+    "from": 15.0,
+    "to": 21.0,
+    "note": ""
+  },
+  {
+    "time": "2026-09-23 19:49",
+    "provider": "apifun",
+    "model": "gpt-5.6-sol",
+    "field": "cacheRead",
+    "from": 0.25,
+    "to": 0.35,
+    "note": ""
+  },
+  {
+    "time": "2026-09-23 19:49",
+    "provider": "aicode007",
+    "model": "gpt-5.6-sol",
+    "field": "input",
+    "from": 4.3,
+    "to": 4.5,
+    "note": ""
+  },
+  {
+    "time": "2026-09-23 19:49",
+    "provider": "aicode007",
+    "model": "gpt-5.6-sol",
+    "field": "output",
+    "from": 25.5,
+    "to": 27,
+    "note": ""
+  },
+  {
+    "time": "2026-09-23 19:49",
+    "provider": "aicode007",
+    "model": "gpt-5.6-sol",
+    "field": "cacheRead",
+    "from": 0.4,
+    "to": 0.5,
+    "note": ""
+  },
+  {
+    "time": "2026-09-23 19:49",
+    "provider": "aihubmix",
+    "model": "deepseek-v4.1-flash",
+    "field": "input",
+    "from": 1.085,
+    "to": 0.6899,
+    "note": ""
+  },
+  {
+    "time": "2026-09-23 19:49",
+    "provider": "aihubmix",
+    "model": "deepseek-v4.1-flash",
+    "field": "output",
+    "from": 4.34,
+    "to": 2.7597,
+    "note": ""
+  },
+  {
+    "time": "2026-09-23 19:49",
+    "provider": "aihubmix",
+    "model": "deepseek-v4.1-flash",
+    "field": "cacheRead",
+    "from": 0.0217,
+    "to": 0.0138,
+    "note": ""
+  },
+  {
+    "time": "2026-09-23 19:49",
+    "provider": "apifun",
+    "model": "deepseek-v4.1-flash",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-09-23 19:49",
+    "provider": "apifun",
+    "model": "gemini-3.8-flash",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-09-23 19:49",
+    "provider": "nonelinear",
+    "model": "glm-5.3-flash",
+    "field": "input",
+    "from": 0.4,
+    "to": 0.8,
+    "note": ""
+  },
+  {
+    "time": "2026-09-23 19:49",
+    "provider": "nonelinear",
+    "model": "glm-5.3-flash",
+    "field": "output",
+    "from": 1.4,
+    "to": 2.8,
+    "note": ""
+  },
+  {
+    "time": "2026-09-23 19:49",
+    "provider": "nonelinear",
+    "model": "glm-5.3-flash",
+    "field": "cacheRead",
+    "from": 0.115,
+    "to": 0.23,
+    "note": ""
+  },
+  {
+    "time": "2026-09-23 19:49",
+    "provider": "apifun",
+    "model": "gpt-6-astra",
+    "field": "input",
+    "from": 5.0,
+    "to": 7.0,
+    "note": ""
+  },
+  {
+    "time": "2026-09-23 19:49",
+    "provider": "apifun",
+    "model": "gpt-6-astra",
+    "field": "output",
+    "from": 25.0,
+    "to": 35.0,
+    "note": ""
+  },
+  {
+    "time": "2026-09-23 19:49",
+    "provider": "apifun",
+    "model": "gpt-6-astra",
+    "field": "cacheRead",
+    "from": 0.5,
+    "to": 0.7,
+    "note": ""
+  },
+  {
+    "time": "2026-09-23 19:49",
+    "provider": "aicode007",
+    "model": "gpt-6-astra",
+    "field": "input",
+    "from": 8.5,
+    "to": 9,
+    "note": ""
+  },
+  {
+    "time": "2026-09-23 19:49",
+    "provider": "aicode007",
+    "model": "gpt-6-astra",
+    "field": "output",
+    "from": 42.5,
+    "to": 45,
+    "note": ""
+  },
+  {
+    "time": "2026-09-23 19:49",
+    "provider": "aicode007",
+    "model": "gpt-6-astra",
+    "field": "cacheRead",
+    "from": 0.8,
+    "to": 0.9,
+    "note": ""
+  },
+  {
+    "time": "2026-09-23 19:49",
+    "provider": "cubence",
+    "model": "grok-4.6",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
   }
 ]

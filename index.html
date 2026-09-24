@@ -516,15 +516,45 @@ function renderSubscription() {
   html += `<div class="card stat"><div class="stat-val">${chgCount}</div><div class="stat-label">近3天变动</div></div>`;
   html += '</div>';
 
-  html += '<h2>当前订阅</h2><table><thead><tr><th>提供商</th><th>类型</th><th>角色</th><th>余额</th><th>覆盖模型</th><th>备注</th></tr></thead><tbody>';
+  html += '<h2>当前订阅</h2><table><thead><tr><th>提供商</th><th>类型</th><th>角色</th><th>余额/方案</th><th>覆盖模型</th><th>备注</th></tr></thead><tbody>';
   DATA.subscriptions.forEach(s => {
     const prov = DATA.providers.find(p => p.id === s.provider);
-    const typeTag = prov?.type === 'official' ? '<span class="tag tag-official">官方</span>' : '<span class="tag tag-third">第三方</span>';
+    const typeTag = prov?.type === 'official' ? '<span class="tag tag-official">官方</span>' : 
+                    prov?.type === 'subscription' ? '<span class="tag tag-third">订阅制</span>' : 
+                    '<span class="tag tag-third">第三方</span>';
     const modelNames = s.models.map(m => modelInfo(m).name + modelChgBadge(m)).join(', ') || '—';
-    const balStr = s.balance != null ? `¥${s.balance}` : (s.currency === 'USD' ? 'Office Key' : '—');
+    let balStr;
+    if (s.plans && s.plans.length > 0) {
+      // 订阅制：显示方案价格范围
+      const minP = Math.min(...s.plans.map(p => p.price));
+      const maxP = Math.max(...s.plans.map(p => p.price));
+      balStr = `¥${minP}~${maxP}/月`;
+    } else if (s.balance != null) {
+      balStr = `¥${s.balance}`;
+    } else {
+      balStr = s.currency === 'USD' ? 'Office Key' : '—';
+    }
     const rowStyle = s.role === '停用' ? 'style="opacity:.4"' : '';
     html += `<tr ${rowStyle}><td>${prov?.name || s.provider}</td><td>${typeTag}</td><td>${s.role}</td><td>${balStr}</td>`;
     html += `<td class="note">${modelNames}</td><td class="note">${esc(s.notes)}</td></tr>`;
+    // 订阅制：展开显示各方案详情
+    if (s.plans && s.plans.length > 0) {
+      html += `<tr style="background:var(--bg-soft)"><td colspan="6" style="padding:8px 16px">`;
+      html += `<div style="display:grid;grid-template-columns:repeat(${s.plans.length},1fr);gap:8px">`;
+      s.plans.forEach(p => {
+        const monthlyUsd = p.weeklyLimitUsd * 4;
+        const cnyPerUsd = (p.price / monthlyUsd).toFixed(2);
+        const seatLabel = p.seats != null ? `<span class="note">剩 ${p.seats} 席位</span>` : '';
+        html += `<div style="background:var(--bg);border-radius:6px;padding:10px;border:1px solid var(--border)">`;
+        html += `<div style="font-weight:600">${p.name}</div>`;
+        html += `<div style="font-size:1.2rem;font-weight:700;color:var(--accent)">¥${p.price}<span style="font-size:.75rem;font-weight:400;color:var(--muted)">/月</span></div>`;
+        html += `<div class="note">$${p.weeklyLimitUsd}/周 ≈ $${monthlyUsd}/月</div>`;
+        html += `<div class="note">¥${cnyPerUsd} / $1 额度</div>`;
+        html += seatLabel;
+        html += `</div>`;
+      });
+      html += `</div></td></tr>`;
+    }
   });
   html += '</tbody></table>';
 
