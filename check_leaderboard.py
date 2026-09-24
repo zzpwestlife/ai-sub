@@ -51,13 +51,18 @@ AIHOT_URL = "https://aihot.news/leaderboard"
 MODEL_SLUG_MAP = {
     "claude-sonnet-5": "claude-sonnet-5",
     "claude-opus-5": "claude-opus-5",
+    "claude-opus-5.5": "claude-opus-5-5",
     "claude-fable-5": "claude-fable-5",
     "claude-fable-5.1": "claude-fable-5-1",
     "gpt-5.6-terra": "gpt-5-6-terra",
     "gpt-5.6-sol": "gpt-5-6-sol",
     "grok-4.6": "grok-4-6",
+    "grok-4.7": "grok-4-7",
     # 2026-09-12 核查：deepseek-v4.1-flash 已收录（slug=deepseek-v-4-1-flash）
     "deepseek-v4.1-flash": "deepseek-v-4-1-flash",
+    "gemini-3.8-flash": "gemini-3-8-flash",
+    "gpt-6-luna": "gpt-6-luna",
+    "gpt-6-sol": "gpt-6-sol",
     "gpt-6-astra": "gpt-6-astra",
     "glm-5.3-flash": "glm-5-3-flash",
 }
