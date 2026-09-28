@@ -304,11 +304,11 @@
     {
       "model": "claude-opus-5.5",
       "provider": "aiberm",
-      "input": 20.902,
-      "output": 104.512,
+      "input": 2.838,
+      "output": 14.188,
       "cacheWrite": null,
       "cacheRead": null,
-      "notes": "高性能档,-26.4%"
+      "notes": "-90%"
     },
     {
       "model": "grok-4.7",
