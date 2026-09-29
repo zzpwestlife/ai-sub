@@ -1,5 +1,5 @@
 {
-  "updateDate": "2026-09-25",
+  "updateDate": "2026-09-29",
   "providers": [
     {
       "id": "anthropic",
@@ -126,12 +126,6 @@
     }
   ],
   "officialPrices": {
-    "claude-sonnet-5": {
-      "input": 14.0,
-      "output": 70.0,
-      "cacheWrite": 17.5,
-      "cacheRead": 1.4
-    },
     "claude-opus-5.5": {
       "input": 28.0,
       "output": 140.0,
@@ -176,15 +170,15 @@
       "output": 350.0,
       "cacheWrite": 87.5,
       "cacheRead": 7.0
+    },
+    "claude-sonnet-5.5": {
+      "input": 14.0,
+      "output": 70.0,
+      "cacheWrite": 17.5,
+      "cacheRead": 1.4
     }
   },
   "models": [
-    {
-      "id": "claude-sonnet-5",
-      "name": "Claude Sonnet 5",
-      "category": "Claude",
-      "desc": "日常编码主力"
-    },
     {
       "id": "claude-opus-5.5",
       "name": "Claude Opus 5.5",
@@ -226,63 +220,15 @@
       "name": "GPT-6 Astra",
       "category": "GPT-6",
       "desc": "OpenAI 旗舰/1.05M上下文/≥272K长文档价翻倍"
+    },
+    {
+      "id": "claude-sonnet-5.5",
+      "name": "Claude Sonnet 5.5",
+      "category": "Claude",
+      "desc": "编码+多模态生成"
     }
   ],
   "prices": [
-    {
-      "model": "claude-sonnet-5",
-      "provider": "apifun",
-      "input": 1.6,
-      "output": 8.0,
-      "cacheWrite": 2.0,
-      "cacheRead": 0.16,
-      "notes": "支持缓存计费"
-    },
-    {
-      "model": "claude-sonnet-5",
-      "provider": "aiberm",
-      "input": 2.13,
-      "output": 10.65,
-      "cacheWrite": null,
-      "cacheRead": null,
-      "notes": "无缓存价"
-    },
-    {
-      "model": "claude-sonnet-5",
-      "provider": "v3api",
-      "input": 4.9,
-      "output": 24.5,
-      "cacheWrite": 6.125,
-      "cacheRead": 0.49,
-      "notes": "claude_kiro分组,0.35x"
-    },
-    {
-      "model": "claude-sonnet-5",
-      "provider": "aicode007",
-      "input": 6.8,
-      "output": 33.9,
-      "cacheWrite": 8.0,
-      "cacheRead": 0.7,
-      "notes": "官方4.8折,限Claude Code"
-    },
-    {
-      "model": "claude-sonnet-5",
-      "provider": "openrouter",
-      "input": 14.0,
-      "output": 70.0,
-      "cacheWrite": null,
-      "cacheRead": 1.4,
-      "notes": "众数 输入6/9 输出6/9 缓存6/9"
-    },
-    {
-      "model": "claude-sonnet-5",
-      "provider": "nonelinear",
-      "input": 14.0,
-      "output": 70.0,
-      "cacheWrite": null,
-      "cacheRead": 1.4,
-      "notes": "同官方价"
-    },
     {
       "model": "claude-opus-5.5",
       "provider": "apifun",
@@ -322,10 +268,10 @@
     {
       "model": "grok-4.7",
       "provider": "openrouter",
-      "input": 11.2,
-      "output": 33.6,
+      "input": 14.0,
+      "output": 42.0,
       "cacheWrite": null,
-      "cacheRead": 2.8,
+      "cacheRead": 3.5,
       "notes": "两档平票取最低档(2/4)"
     },
     {
@@ -382,24 +328,6 @@
       "cacheWrite": null,
       "cacheRead": 0.042,
       "notes": "$0.30/$1.20 单端点(DeepSeek官方),约合官方高峰档"
-    },
-    {
-      "model": "claude-sonnet-5",
-      "provider": "aihubmix",
-      "input": 14.0,
-      "output": 70.0,
-      "cacheWrite": null,
-      "cacheRead": 14.0,
-      "notes": "同官方价($2/$10)"
-    },
-    {
-      "model": "claude-sonnet-5",
-      "provider": "cubence",
-      "input": 2.0,
-      "output": 10.0,
-      "cacheWrite": 2.5,
-      "cacheRead": 0.2,
-      "notes": "页面$即人民币"
     },
     {
       "model": "claude-fable-5.1",
@@ -526,6 +454,24 @@
       "cacheWrite": 26.25,
       "cacheRead": 2.1,
       "notes": "codex分组 0.3x倍率"
+    },
+    {
+      "model": "claude-sonnet-5.5",
+      "provider": "openrouter",
+      "input": 14.0,
+      "output": 70.0,
+      "cacheWrite": null,
+      "cacheRead": 1.4,
+      "notes": "众数 5/11 家"
+    },
+    {
+      "model": "claude-sonnet-5.5",
+      "provider": "apifun",
+      "input": 1.6,
+      "output": 8.0,
+      "cacheWrite": 2.0,
+      "cacheRead": 0.16,
+      "notes": "Claude Plus精品,倍率0.8"
     }
   ],
   "subscriptions": [
@@ -784,11 +730,6 @@
     }
   ],
   "openrouterRefMin": {
-    "claude-sonnet-5": {
-      "input": 14.0,
-      "output": 70.0,
-      "cacheRead": 1.4
-    },
     "claude-fable-5.1": {
       "input": 70.0,
       "output": 350.0,
@@ -798,6 +739,16 @@
       "input": 2.1,
       "output": 8.4,
       "cacheRead": 0.042
+    },
+    "claude-sonnet-5.5": {
+      "input": 14.0,
+      "output": 70.0,
+      "cacheRead": 1.4
+    },
+    "grok-4.7": {
+      "input": 14.0,
+      "output": 42.0,
+      "cacheRead": 3.5
     }
   }
 }

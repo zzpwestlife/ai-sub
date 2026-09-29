@@ -2527,5 +2527,113 @@
     "from": 0.7,
     "to": 1.54,
     "note": ""
+  },
+  {
+    "time": "2026-09-29 08:47",
+    "provider": "aiberm",
+    "model": "claude-opus-5.5",
+    "field": "input",
+    "from": 20.902,
+    "to": 2.838,
+    "note": ""
+  },
+  {
+    "time": "2026-09-29 08:47",
+    "provider": "aiberm",
+    "model": "claude-opus-5.5",
+    "field": "output",
+    "from": 104.512,
+    "to": 14.188,
+    "note": ""
+  },
+  {
+    "time": "2026-09-29 09:13",
+    "provider": "openrouter",
+    "model": "claude-sonnet-5.5",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-09-29 09:13",
+    "provider": "apifun",
+    "model": "claude-sonnet-5.5",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-09-29 09:13",
+    "provider": "apifun",
+    "model": "claude-sonnet-5",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-29 09:13",
+    "provider": "aiberm",
+    "model": "claude-sonnet-5",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-29 09:13",
+    "provider": "v3api",
+    "model": "claude-sonnet-5",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-29 09:13",
+    "provider": "aicode007",
+    "model": "claude-sonnet-5",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-29 09:13",
+    "provider": "openrouter",
+    "model": "claude-sonnet-5",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-29 09:13",
+    "provider": "nonelinear",
+    "model": "claude-sonnet-5",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-29 09:13",
+    "provider": "aihubmix",
+    "model": "claude-sonnet-5",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-09-29 09:13",
+    "provider": "cubence",
+    "model": "claude-sonnet-5",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
   }
 ]
