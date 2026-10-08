@@ -163,7 +163,14 @@
       "input": 14.0,
       "output": 70.0,
       "cacheWrite": 17.5,
-      "cacheRead": 1.4
+      "cacheRead": 0.7
+    },
+    "claude-haiku-5.5": {
+      "input": 0.7,
+      "output": 3.5,
+      "cacheWrite": 0.875,
+      "cacheRead": 0.07,
+      "notes": "低档位(≤100K);高档¥3.5/¥17.5/¥4.375/¥0.35"
     },
     "gpt-6.1-sol": {
       "input": 14.0,
@@ -206,7 +213,13 @@
       "id": "claude-sonnet-5.5",
       "name": "Claude Sonnet 5.5",
       "category": "Claude",
-      "desc": "编码+多模态生成"
+      "desc": "编码+多模态生成/缓存读降50%"
+    },
+    {
+      "id": "claude-haiku-5.5",
+      "name": "Claude Haiku 5.5",
+      "category": "Claude",
+      "desc": "最快最小模型/比Haiku4.5便宜75%"
     },
     {
       "id": "gpt-6.1-sol",
@@ -219,11 +232,11 @@
     {
       "model": "claude-opus-5.5",
       "provider": "apifun",
-      "input": 3.2,
-      "output": 16.0,
-      "cacheWrite": 4.0,
-      "cacheRead": 0.16,
-      "notes": "Claude Plus精品分组0.8x,支持缓存计费"
+      "input": 4.0,
+      "output": 20.0,
+      "cacheWrite": 5.0,
+      "cacheRead": 0.2,
+      "notes": "Claude Plus精品分组1.0x(2026-10由0.8涨),支持缓存计费"
     },
     {
       "model": "claude-opus-5.5",
@@ -394,17 +407,26 @@
       "input": 14.0,
       "output": 70.0,
       "cacheWrite": null,
-      "cacheRead": 1.4,
-      "notes": "众数 5/11 家"
+      "cacheRead": 0.7,
+      "notes": "2026-10官方缓存读降50%($0.20→$0.10);待provider众数验证"
+    },
+    {
+      "model": "claude-haiku-5.5",
+      "provider": "openrouter",
+      "input": 0.7,
+      "output": 3.5,
+      "cacheWrite": null,
+      "cacheRead": 0.07,
+      "notes": "刚上架providers=0,按官方价;低档位(≤100K)"
     },
     {
       "model": "claude-sonnet-5.5",
       "provider": "apifun",
-      "input": 1.6,
-      "output": 8.0,
-      "cacheWrite": 2.0,
-      "cacheRead": 0.16,
-      "notes": "Claude Plus精品,倍率0.8"
+      "input": 2.0,
+      "output": 10.0,
+      "cacheWrite": 2.5,
+      "cacheRead": 0.1,
+      "notes": "Claude Plus精品1.0x(2026-10由0.8涨);官方缓存读2026-10降50%"
     },
     {
       "model": "gpt-6.1-sol",
@@ -435,6 +457,7 @@
         "claude-sonnet-5",
         "claude-opus-5",
         "claude-opus-5.5",
+        "claude-sonnet-5.5",
         "grok-4.6",
         "grok-4.7",
         "gpt-5.6-terra",
@@ -445,7 +468,7 @@
         "gpt-6-sol",
         "gpt-6-luna"
       ],
-      "notes": "覆盖最广,支持缓存"
+      "notes": "覆盖最广,支持缓存;Claude Plus分组2026-10涨价(0.8→1.0)"
     },
     {
       "provider": "aiberm",
@@ -530,6 +553,8 @@
         "claude-sonnet-5",
         "claude-opus-5",
         "claude-opus-5.5",
+        "claude-sonnet-5.5",
+        "claude-haiku-5.5",
         "claude-fable-5",
         "gpt-5.6-terra",
         "gpt-5.6-sol",
@@ -540,7 +565,7 @@
         "gpt-6-sol",
         "gpt-6-luna"
       ],
-      "notes": "官方价直连,DeepSeek有折扣"
+      "notes": "官方价直连,DeepSeek有折扣;Sonnet5.5缓存读2026-10降50%"
     },
     {
       "provider": "cubence",

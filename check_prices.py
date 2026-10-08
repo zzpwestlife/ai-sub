@@ -57,6 +57,7 @@ DEFAULT_CONFIG = {
 # data.json 模型 → OpenRouter 模型 ID 映射
 OPENROUTER_MODEL_MAP = {
     "claude-sonnet-5.5": "anthropic/claude-sonnet-5.5",
+    "claude-haiku-5.5": "anthropic/claude-haiku-5.5",
     "claude-opus-5": "anthropic/claude-opus-5",
     "claude-opus-5.5": "anthropic/claude-opus-5.5",
     "claude-fable-5": "anthropic/claude-fable-5",
