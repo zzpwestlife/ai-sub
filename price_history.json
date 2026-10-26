@@ -2635,5 +2635,86 @@
     "from": "-",
     "to": "-",
     "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-10-09 14:06",
+    "provider": "openrouter",
+    "model": "claude-sonnet-5.5",
+    "field": "cacheRead",
+    "from": "-",
+    "to": 1.4,
+    "note": ""
+  },
+  {
+    "time": "2026-10-09 14:06",
+    "provider": "openrouter",
+    "model": "gpt-6.1-sol",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-10-09 14:06",
+    "provider": "apifun",
+    "model": "gpt-6.1-sol",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-10-09 14:06",
+    "provider": "apifun",
+    "model": "grok-4.7",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-10-09 14:06",
+    "provider": "openrouter",
+    "model": "grok-4.7",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-10-09 14:06",
+    "provider": "aiberm",
+    "model": "grok-4.7",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-10-09 14:06",
+    "provider": "apifun",
+    "model": "gpt-6-sol",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-10-09 14:06",
+    "provider": "openrouter",
+    "model": "gpt-6-sol",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-10-09 14:06",
+    "provider": "aiberm",
+    "model": "gpt-6-sol",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "价格条目被移除"
   }
 ]
