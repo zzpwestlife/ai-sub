@@ -48,23 +48,20 @@ LEADERBOARD_FILE = BASE_DIR / "leaderboard_data.json"
 AIHOT_URL = "https://aihot.news/leaderboard"
 
 # data.json 模型 ID → aihot 榜单 slug
+# 2026-10-27 对齐：只保留看板 data.json models 里实际持有的 9 个模型，
+# 补录 claude-sonnet-5.5 / gpt-6.1-sol / gpt-6.1-terra（榜上 #5 / #9 / #12）；
+# 移除已取消关注的 grok-4.6、grok-4.7、gpt-5.6-*、claude-opus-5、claude-fable-5、
+# gemini-3.8-flash、glm-5.3-flash、claude-sonnet-5、gpt-6-sol。
 MODEL_SLUG_MAP = {
-    "claude-sonnet-5": "claude-sonnet-5",
-    "claude-opus-5": "claude-opus-5",
     "claude-opus-5.5": "claude-opus-5-5",
-    "claude-fable-5": "claude-fable-5",
     "claude-fable-5.1": "claude-fable-5-1",
-    "gpt-5.6-terra": "gpt-5-6-terra",
-    "gpt-5.6-sol": "gpt-5-6-sol",
-    "grok-4.6": "grok-4-6",
-    "grok-4.7": "grok-4-7",
-    # 2026-09-12 核查：deepseek-v4.1-flash 已收录（slug=deepseek-v-4-1-flash）
+    "claude-sonnet-5.5": "claude-sonnet-5-5",
+    "claude-haiku-5.5": "claude-haiku-5-5",
     "deepseek-v4.1-flash": "deepseek-v-4-1-flash",
-    "gemini-3.8-flash": "gemini-3-8-flash",
     "gpt-6-luna": "gpt-6-luna",
-    "gpt-6-sol": "gpt-6-sol",
     "gpt-6-astra": "gpt-6-astra",
-    "glm-5.3-flash": "glm-5-3-flash",
+    "gpt-6.1-sol": "gpt-6-1-sol",
+    "gpt-6.1-terra": "gpt-6-1-terra",
 }
 
 # 每个模型存档的字段（components 子分存档不展示，留作将来分析）
@@ -89,6 +86,10 @@ AIHUBMIX_DIMS = {
 
 # 分数变动超过该绝对值才算真实变动（榜单分数带小数舍入噪音）
 SCORE_NOISE = 0.5
+
+# 分数口径标识：2026-10-27 aihot 改版后分数整体下移（opus-5.5 由 94.2 → 73.2），
+# 新旧分数不可比。快照里带上这个标记，跨标记的对比自动跳过分数（排名仍比）。
+SCORE_SCALE = "aihot-2026-10-27"
 
 
 # ===========================================================================
@@ -126,34 +127,35 @@ def http_get_text(url, proxy=None, timeout=30):
 def extract_entries(html):
     """从榜单页 HTML 表格中抠出条目。
 
-    2026-09-12 aihot 改版：数据不再是 __next_f 里的 JSON，而是服务端渲染的
-    <tr> 表格行。每行关键结构：
-      lb-rank-number  排名（两位补零，需 int() 归一）
-      lb-name-cell    内含 href="/leaderboard/<slug>"
-      lb-release-cell 上线日期
-      lb-evidence-cell data-confidence="HIGH|MEDIUM|LOW"
-      lb-score-cell   共识指数分数
+    2026-10-27 改版：lb-* 系列 class 被全部移除（lb-model-entry / lb-rank-number /
+    lb-score-cell / lb-evidence-cell 在页面上均已不存在），旧正则解析出 0 条，
+    快照因此从 2026-09-24 起停摆。新结构：
+      <tr data-slug="claude-opus-5-5">        模型 slug
+      首列 <span class="mono ...">01</span>   名次（两位补零）
+      末列 <strong aria-label="... AIHOT 评分 73.2">73.2</strong>   分数
+      <time dateTime="2026-09-22">            上线日期
+    注意：新版页面不再暴露 data-confidence，confidence 恒为 None；
+    分数口径也变了（opus-5.5 由 94.2 变为 73.2），跨改版对比的分数差属口径变更。
 
     返回 {slug: {rank, score, confidence, releasedAt, ...}}；旧版 payload 独有的
     previousRank / rankChange / uncertainty / components 新版页面不再暴露，置 None
     （diff 只依赖 rank 与 score，不受影响）。
     """
     entries = {}
-    for row in re.findall(r'<tr[^>]*>(?:(?!</tr>).)*?lb-model-entry.*?</tr>', html, re.S):
-        m = re.search(r'href="/leaderboard/([a-z0-9.\-]+)"', row)
-        if not m:
-            continue
-        rank = re.search(r'lb-rank-number"><span>(\d+)</span>', row)
-        score = re.search(r'lb-score-cell"><strong>([\d.]+)</strong>', row)
-        conf = re.search(r'data-confidence="(\w+)"', row)
-        rel = re.search(r'lb-release-cell"><time dateTime="([^"]+)"', row)
-        entries[m.group(1)] = {
+    pattern = r'<tr[^>]*data-slug="([a-z0-9.\-]+)"[^>]*>(?:(?!</tr>).)*?</tr>'
+    for mrow in re.finditer(pattern, html, re.S):
+        slug, row = mrow.group(1), mrow.group(0)
+        rank = re.search(r'<td[^>]*>\s*<span class="mono[^"]*">\s*(\d+)\s*</span>', row)
+        score = (re.search(r'aria-label="[^"]*AIHOT\s*评分\s*([\d.]+)"', row)
+                 or re.search(r'<strong class="mono[^"]*"[^>]*>\s*([\d.]+)\s*</strong>', row))
+        rel = re.search(r'<time dateTime="([^"]+)"', row)
+        entries[slug] = {
             "rank": int(rank.group(1)) if rank else None,
             "previousRank": None,
             "rankChange": None,
             "score": float(score.group(1)) if score else None,
             "uncertainty": None,
-            "confidence": conf.group(1) if conf else None,
+            "confidence": None,
             "releasedAt": rel.group(1) if rel else None,
             "components": None,
         }
@@ -173,14 +175,21 @@ def build_aihot_snapshot(entries, model_names):
     return {
         "fetchedAt": datetime.now().strftime("%Y-%m-%d %H:%M"),
         "source": AIHOT_URL,
+        "scoreScale": SCORE_SCALE,
         "models": models,
     }
 
 
 def diff_aihot_snapshots(prev, cur):
-    """对比两份 aihot 快照（各含 models 字典），返回人类可读的变动列表。"""
+    """对比两份 aihot 快照（各含 models 字典），返回人类可读的变动列表。
+
+    两份快照的 scoreScale 不同（aihot 页面改版）时，分数不可比，只报排名变动。
+    """
     changes = []
     prev_m, cur_m = prev.get("models", {}), cur.get("models", {})
+    scale_changed = prev.get("scoreScale") != cur.get("scoreScale")
+    if scale_changed:
+        changes.append("注意：aihot 分数口径已变更（页面改版），本次不做分数对比")
     for model_id, cur_e in cur_m.items():
         prev_e = prev_m.get(model_id)
         if prev_e is None and cur_e is None:
@@ -194,6 +203,8 @@ def diff_aihot_snapshots(prev, cur):
         if cur_e.get("rank") != prev_e.get("rank"):
             changes.append(f"{model_id}: 排名 #{prev_e.get('rank')} → #{cur_e.get('rank')}")
         ps, cs = prev_e.get("score"), cur_e.get("score")
+        if scale_changed:
+            continue  # 跨口径分数不可比，避免改版噪音刷屏
         if ps is not None and cs is not None and abs(cs - ps) > SCORE_NOISE:
             changes.append(f"{model_id}: 分数 {ps} → {cs}（{cs - ps:+.1f}）")
     return changes

@@ -1,5 +1,5 @@
 {
-  "updateDate": "2026-10-09",
+  "updateDate": "2026-10-27",
   "providers": [
     {
       "id": "anthropic",
@@ -176,6 +176,12 @@
       "input": 14.0,
       "output": 70.0,
       "cacheRead": 0.7
+    },
+    "gpt-6.1-terra": {
+      "input": 7.0,
+      "output": 35.0,
+      "cacheWrite": 8.75,
+      "cacheRead": 0.35
     }
   },
   "models": [
@@ -226,6 +232,12 @@
       "name": "GPT-6.1 Sol",
       "category": "GPT-6",
       "desc": "GPT-6.1 编码版"
+    },
+    {
+      "id": "gpt-6.1-terra",
+      "name": "GPT-6.1 Terra",
+      "category": "GPT-6",
+      "desc": "GPT-6.1 通用版/Sol半价/1.05M上下文/≥272K长文档价翻倍"
     }
   ],
   "prices": [
@@ -445,6 +457,24 @@
       "cacheWrite": null,
       "cacheRead": 0.07,
       "notes": "Codex Pro仅限Codex,倍率0.7"
+    },
+    {
+      "model": "gpt-6.1-terra",
+      "provider": "apifun",
+      "input": 0.7,
+      "output": 3.5,
+      "cacheWrite": 0.875,
+      "cacheRead": 0.035,
+      "notes": "Codex Pro仅限Codex,倍率0.7(2026-10-27上架)"
+    },
+    {
+      "model": "gpt-6.1-terra",
+      "provider": "openrouter",
+      "input": 7.0,
+      "output": 35.0,
+      "cacheWrite": 8.75,
+      "cacheRead": 0.35,
+      "notes": "官方常规价$1/$5;endpoints含batch半价档($0.5/$2.5),众数会被拉低,勿按众数改(2026-10-27录入)"
     }
   ],
   "subscriptions": [
@@ -466,7 +496,8 @@
         "glm-5.3-flash",
         "gpt-6-astra",
         "gpt-6-sol",
-        "gpt-6-luna"
+        "gpt-6-luna",
+        "gpt-6.1-terra"
       ],
       "notes": "覆盖最广,支持缓存;Claude Plus分组2026-10涨价(0.8→1.0)"
     },
@@ -563,7 +594,8 @@
         "deepseek-v4.1-flash",
         "gpt-6-astra",
         "gpt-6-sol",
-        "gpt-6-luna"
+        "gpt-6-luna",
+        "gpt-6.1-terra"
       ],
       "notes": "官方价直连,DeepSeek有折扣;Sonnet5.5缓存读2026-10降50%"
     },
@@ -725,6 +757,11 @@
       "input": 14.0,
       "output": 70.0,
       "cacheRead": null
+    },
+    "gpt-6.1-terra": {
+      "input": 7.0,
+      "output": 35.0,
+      "cacheRead": 0.35
     }
   }
 }

@@ -55,32 +55,27 @@ DEFAULT_CONFIG = {
 }
 
 # data.json 模型 → OpenRouter 模型 ID 映射
+# 2026-10-27 清理：移除 7 个已不关注的旧模型（claude-opus-5 / claude-fable-5 /
+# gpt-5.6-terra / gpt-5.6-sol / grok-4.6 / gemini-3.8-flash / glm-5.3-flash）。
+# 它们不在 data.json models 里、也没有价格条目，每次运行都会报「(空) → 众数」的噪音 diff。
+# 只保留看板 models 中实际持有的模型。
 OPENROUTER_MODEL_MAP = {
     "claude-sonnet-5.5": "anthropic/claude-sonnet-5.5",
     "claude-haiku-5.5": "anthropic/claude-haiku-5.5",
-    "claude-opus-5": "anthropic/claude-opus-5",
     "claude-opus-5.5": "anthropic/claude-opus-5.5",
-    "claude-fable-5": "anthropic/claude-fable-5",
     "claude-fable-5.1": "anthropic/claude-fable-5.1",
-    "gpt-5.6-terra": "openai/gpt-5.6-terra",
-    "gpt-5.6-sol": "openai/gpt-5.6-sol",
-    "grok-4.6": "x-ai/grok-4.6",
     "deepseek-v4.1-flash": "deepseek/deepseek-v4.1-flash",
-    "gemini-3.8-flash": "google/gemini-3.8-flash",
-    "glm-5.3-flash": "z-ai/glm-5.3-flash",
     "gpt-6-astra": "openai/gpt-6-astra",
     "gpt-6.1-sol": "openai/gpt-6.1-sol",
+    "gpt-6.1-terra": "openai/gpt-6.1-terra",
     "gpt-6-luna": "openai/gpt-6-luna",
 }
 
 # apifun 分组名 → 负责的模型（与用户当前使用的分组一致）
 APIFUN_GROUP_MODELS = {
-    "Claude Plus（精品）": ["claude-sonnet-5.5", "claude-opus-5", "claude-opus-5.5", "claude-fable-5", "claude-fable-5.1"],
-    "Codex Pro（仅限Codex）": ["gpt-5.6-terra", "gpt-5.6-sol", "gpt-6-astra", "gpt-6.1-sol", "gpt-6-luna"],
-    "Grok 企业版": ["grok-4.6"],
+    "Claude Plus（精品）": ["claude-sonnet-5.5", "claude-opus-5.5", "claude-fable-5.1"],
+    "Codex Pro（仅限Codex）": ["gpt-6-astra", "gpt-6.1-sol", "gpt-6-luna", "gpt-6.1-terra"],
     "DeepSeek（大厂直供）": ["deepseek-v4.1-flash"],  # 2026-09-21 由「云厂商渠道」改名，倍率 0.75→0.5
-    "智谱 Zhipu（特价渠道）": ["glm-5.3-flash"],
-    "Gemini （特价渠道）": ["gemini-3.8-flash"],  # 2026-09-12 原「特价测试」已改名（倍率 1）
 }
 
 # 官方价本身就是人民币的模型（DeepSeek/GLM），apifun 倍率直接乘
@@ -91,19 +86,15 @@ CNY_OFFICIAL_MODELS = {"deepseek-v4.1-flash", "glm-5.3-flash"}
 # 非线智能上追踪的模型名（模型 ID 与 data.json 一致，无需单独映射）
 # 注：非线智能尚未上线 deepseek-v4.1-flash / claude-fable-5.1（2026-09-10 核查），暂不列入
 NONELINEAR_MODELS = [
-    "claude-sonnet-5.5", "claude-opus-5", "claude-fable-5",
-    "gpt-5.6-terra", "gpt-5.6-sol",
-    "grok-4.6",
-    "gemini-3.8-flash", "glm-5.3-flash",
-    "gpt-6-astra",
+    "claude-sonnet-5.5",
+    "gpt-6-astra",  # 保留：astra 的第三方比价来源之一
 ]
 
 # AIHubMix 上追踪的模型名（多数与 data.json ID 一致，不一致的见 AIHUBMIX_ID_MAP）
 AIHUBMIX_MODELS = [
-    "claude-sonnet-5.5", "claude-opus-5", "claude-fable-5", "claude-fable-5.1",
-    "gpt-5.6-terra", "gpt-5.6-sol",
-    "grok-4.6", "deepseek-v4.1-flash",
-    "gemini-3.8-flash", "glm-5.3-flash", "gpt-6-astra",
+    "claude-sonnet-5.5", "claude-fable-5.1",
+    "deepseek-v4.1-flash",
+    "gpt-6-astra",  # 保留：astra 的第三方比价来源之一
 ]
 
 # AIHubMix 把 Fable 5.1 写成连字符形式（claude-fable-5-1），与 data.json 的点号 ID 不一致
@@ -111,10 +102,8 @@ AIHUBMIX_ID_MAP = {"claude-fable-5.1": "claude-fable-5-1"}
 
 # V3 上追踪的模型名（V3 用带日期后缀的版本号；fable 5.1 平台侧写作 claude-fable-5-1）
 V3_MODELS = [
-    "claude-sonnet-5.5", "claude-opus-5", "claude-fable-5", "claude-fable-5-1",
-    "gpt-5.6-terra", "gpt-5.6-sol",
-    "grok-4.6", "deepseek-v4-flash-0731",
-    "gemini-3.8-flash",
+    "claude-sonnet-5.5", "claude-fable-5-1",
+    "deepseek-v4-flash-0731",
     "gpt-6-astra",
 ]
 

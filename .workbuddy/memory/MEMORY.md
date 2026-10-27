@@ -14,6 +14,14 @@
 - 会话内 `git push` 时 pre-push hook 会打印 `/bin/ps: Operation not permitted`——**这是沙箱限制，不影响推送**，
   看 `To github.com:... 40d10b7..a12bfe7 master -> master` 这行才是真结果。
 
+## 查价/核验的两个手法（2026-10-27 沉淀）
+
+- **apifun 上架清单**：`GET https://apikey.fan/api/v1/pricing/groups`（公开、直连可达）→ 每个分组的
+  `display_models` 数组就是在售模型。`/pricing` 页面是 SPA，HTML 里抓不到数据。
+- **OpenRouter 众数会被 batch 变体拉低**：部分模型的 `/endpoints` 里混着 `:batch` 半价档，
+  导致三家价格全不同、平票取最低 → 众数给出半价。**惯例是 openrouter 条目记官方常规价、不跟众数**，
+  并在 notes 写明（gpt-6.1-sol / gpt-6.1-terra 都是这种情况，长期 diff 属预期）。
+
 ## 已知坑：index.html 会被注入 data-page-node-id
 
 **症状**：`index.html` 的 diff 突然多出几十行，内容是 `data-page-node-id="<随机串>"`，
