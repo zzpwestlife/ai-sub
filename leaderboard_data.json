@@ -2216,6 +2216,85 @@
           "components": null
         }
       }
+    },
+    "2026-10-30": {
+      "fetchedAt": "2026-10-30 14:45",
+      "source": "https://aihot.news/leaderboard",
+      "scoreScale": "aihot-2026-10-27",
+      "models": {
+        "claude-opus-5.5": {
+          "rank": 2,
+          "previousRank": null,
+          "rankChange": null,
+          "score": 73.0,
+          "uncertainty": null,
+          "confidence": null,
+          "releasedAt": "2026-09-22",
+          "components": null
+        },
+        "claude-fable-5.1": {
+          "rank": 4,
+          "previousRank": null,
+          "rankChange": null,
+          "score": 71.2,
+          "uncertainty": null,
+          "confidence": null,
+          "releasedAt": "2026-09-01",
+          "components": null
+        },
+        "claude-sonnet-5.5": {
+          "rank": 6,
+          "previousRank": null,
+          "rankChange": null,
+          "score": 70.5,
+          "uncertainty": null,
+          "confidence": null,
+          "releasedAt": "2026-09-28",
+          "components": null
+        },
+        "claude-haiku-5.5": {
+          "rank": 29,
+          "previousRank": null,
+          "rankChange": null,
+          "score": 61.1,
+          "uncertainty": null,
+          "confidence": null,
+          "releasedAt": "2026-10-07",
+          "components": null
+        },
+        "deepseek-v4.1-flash": null,
+        "gpt-6-luna": null,
+        "gpt-6-astra": {
+          "rank": 5,
+          "previousRank": null,
+          "rankChange": null,
+          "score": 70.7,
+          "uncertainty": null,
+          "confidence": null,
+          "releasedAt": "2026-09-03",
+          "components": null
+        },
+        "gpt-6.1-sol": {
+          "rank": 8,
+          "previousRank": null,
+          "rankChange": null,
+          "score": 68.7,
+          "uncertainty": null,
+          "confidence": null,
+          "releasedAt": "2026-09-29",
+          "components": null
+        },
+        "gpt-6.1-terra": {
+          "rank": 10,
+          "previousRank": null,
+          "rankChange": null,
+          "score": 68.3,
+          "uncertainty": null,
+          "confidence": null,
+          "releasedAt": "2026-10-26",
+          "components": null
+        }
+      }
     }
   },
   "aihubmix": {

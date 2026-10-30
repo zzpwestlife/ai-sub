@@ -2716,5 +2716,158 @@
     "from": "-",
     "to": "-",
     "note": "价格条目被移除"
+  },
+  {
+    "time": "2026-10-30 14:41",
+    "provider": "apifun",
+    "model": "claude-opus-5.5",
+    "field": "input",
+    "from": 3.2,
+    "to": 4.0,
+    "note": ""
+  },
+  {
+    "time": "2026-10-30 14:41",
+    "provider": "apifun",
+    "model": "claude-opus-5.5",
+    "field": "output",
+    "from": 16.0,
+    "to": 20.0,
+    "note": ""
+  },
+  {
+    "time": "2026-10-30 14:41",
+    "provider": "apifun",
+    "model": "claude-opus-5.5",
+    "field": "cacheWrite",
+    "from": 4.0,
+    "to": 5.0,
+    "note": ""
+  },
+  {
+    "time": "2026-10-30 14:41",
+    "provider": "apifun",
+    "model": "claude-opus-5.5",
+    "field": "cacheRead",
+    "from": 0.16,
+    "to": 0.2,
+    "note": ""
+  },
+  {
+    "time": "2026-10-30 14:41",
+    "provider": "openrouter",
+    "model": "claude-sonnet-5.5",
+    "field": "cacheRead",
+    "from": 1.4,
+    "to": 0.7,
+    "note": ""
+  },
+  {
+    "time": "2026-10-30 14:41",
+    "provider": "openrouter",
+    "model": "claude-haiku-5.5",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-10-30 14:41",
+    "provider": "apifun",
+    "model": "claude-sonnet-5.5",
+    "field": "input",
+    "from": 1.6,
+    "to": 2.0,
+    "note": ""
+  },
+  {
+    "time": "2026-10-30 14:41",
+    "provider": "apifun",
+    "model": "claude-sonnet-5.5",
+    "field": "output",
+    "from": 8.0,
+    "to": 10.0,
+    "note": ""
+  },
+  {
+    "time": "2026-10-30 14:41",
+    "provider": "apifun",
+    "model": "claude-sonnet-5.5",
+    "field": "cacheWrite",
+    "from": 2.0,
+    "to": 2.5,
+    "note": ""
+  },
+  {
+    "time": "2026-10-30 14:41",
+    "provider": "apifun",
+    "model": "claude-sonnet-5.5",
+    "field": "cacheRead",
+    "from": 0.16,
+    "to": 0.1,
+    "note": ""
+  },
+  {
+    "time": "2026-10-30 14:41",
+    "provider": "apifun",
+    "model": "gpt-6.1-terra",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-10-30 14:41",
+    "provider": "openrouter",
+    "model": "gpt-6.1-terra",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-10-30 14:43",
+    "provider": "aihubmix",
+    "model": "deepseek-v4.1-flash",
+    "field": "input",
+    "from": 0.6899,
+    "to": 0.9856,
+    "note": ""
+  },
+  {
+    "time": "2026-10-30 14:43",
+    "provider": "aihubmix",
+    "model": "deepseek-v4.1-flash",
+    "field": "output",
+    "from": 2.7597,
+    "to": 3.9424,
+    "note": ""
+  },
+  {
+    "time": "2026-10-30 14:43",
+    "provider": "aihubmix",
+    "model": "deepseek-v4.1-flash",
+    "field": "cacheRead",
+    "from": 0.0138,
+    "to": 0.0197,
+    "note": ""
+  },
+  {
+    "time": "2026-10-30 14:43",
+    "provider": "openrouter",
+    "model": "gpt-6.1-sol",
+    "field": "cacheRead",
+    "from": "-",
+    "to": 0.7,
+    "note": ""
+  },
+  {
+    "time": "2026-10-30 14:53",
+    "provider": "openrouter",
+    "model": "gemini-4-argon",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "新录入的价格条目"
   }
 ]
