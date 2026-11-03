@@ -238,6 +238,10 @@ def check_openrouter(data, cfg, use_proxy=True):
         samples = {"input": [], "output": [], "cacheRead": []}
         ep_prices = []
         for ep in endpoints:
+            # 跳过 batch/flex 半价档，否则众数会被拉低产生假降价误报
+            label = f"{ep.get('tag') or ''} {ep.get('name') or ''}".lower()
+            if "batch" in label or "flex" in label:
+                continue
             p = ep.get("pricing", {})
             pi = round(float(p.get("prompt", 0)) * 1e6 * fx, 3)
             po = round(float(p.get("completion", 0)) * 1e6 * fx, 3)

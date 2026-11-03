@@ -2869,5 +2869,41 @@
     "from": "-",
     "to": "-",
     "note": "新录入的价格条目"
+  },
+  {
+    "time": "2026-11-03 08:54",
+    "provider": "openrouter",
+    "model": "gpt-6-luna",
+    "field": "input",
+    "from": 0.77,
+    "to": 0.7,
+    "note": ""
+  },
+  {
+    "time": "2026-11-03 08:54",
+    "provider": "openrouter",
+    "model": "gpt-6-luna",
+    "field": "output",
+    "from": 3.85,
+    "to": 3.5,
+    "note": ""
+  },
+  {
+    "time": "2026-11-03 08:54",
+    "provider": "openrouter",
+    "model": "gpt-6-luna",
+    "field": "cacheWrite",
+    "from": "-",
+    "to": 0.875,
+    "note": ""
+  },
+  {
+    "time": "2026-11-03 08:54",
+    "provider": "openrouter",
+    "model": "gpt-6-luna",
+    "field": "cacheRead",
+    "from": 0.077,
+    "to": 0.07,
+    "note": ""
   }
 ]

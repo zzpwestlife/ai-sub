@@ -1,5 +1,5 @@
 {
-  "updateDate": "2026-10-30",
+  "updateDate": "2026-11-03",
   "providers": [
     {
       "id": "anthropic",
@@ -356,11 +356,11 @@
     {
       "model": "gpt-6-luna",
       "provider": "openrouter",
-      "input": 0.77,
-      "output": 3.85,
-      "cacheWrite": null,
-      "cacheRead": 0.077,
-      "notes": "4家全不同平票取最低档"
+      "input": 0.7,
+      "output": 3.5,
+      "cacheWrite": 0.875,
+      "cacheRead": 0.07,
+      "notes": "官方端点$0.1/$0.5;缓存读$0.01/写$0.125(2026-11-03核实，原0.77为旧最低档)"
     },
     {
       "model": "gpt-6-astra",
