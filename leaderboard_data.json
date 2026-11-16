@@ -2295,6 +2295,103 @@
           "components": null
         }
       }
+    },
+    "2026-11-16": {
+      "fetchedAt": "2026-11-16 14:23",
+      "source": "https://aihot.news/leaderboard",
+      "scoreScale": "aihot-2026-10-27",
+      "models": {
+        "claude-opus-5.5": {
+          "rank": 3,
+          "previousRank": null,
+          "rankChange": null,
+          "score": 74.0,
+          "uncertainty": null,
+          "confidence": null,
+          "releasedAt": "2026-09-22",
+          "components": null
+        },
+        "claude-fable-5.1": {
+          "rank": 5,
+          "previousRank": null,
+          "rankChange": null,
+          "score": 72.2,
+          "uncertainty": null,
+          "confidence": null,
+          "releasedAt": "2026-09-01",
+          "components": null
+        },
+        "claude-sonnet-5.5": {
+          "rank": 8,
+          "previousRank": null,
+          "rankChange": null,
+          "score": 71.3,
+          "uncertainty": null,
+          "confidence": null,
+          "releasedAt": "2026-09-28",
+          "components": null
+        },
+        "claude-haiku-5.5": {
+          "rank": 34,
+          "previousRank": null,
+          "rankChange": null,
+          "score": 62.0,
+          "uncertainty": null,
+          "confidence": null,
+          "releasedAt": "2026-10-07",
+          "components": null
+        },
+        "deepseek-v4.1-flash": {
+          "rank": 30,
+          "previousRank": null,
+          "rankChange": null,
+          "score": 62.2,
+          "uncertainty": null,
+          "confidence": null,
+          "releasedAt": "2026-09-10",
+          "components": null
+        },
+        "gpt-6-luna": {
+          "rank": 48,
+          "previousRank": null,
+          "rankChange": null,
+          "score": 58.5,
+          "uncertainty": null,
+          "confidence": null,
+          "releasedAt": "2026-09-22",
+          "components": null
+        },
+        "gpt-6-astra": {
+          "rank": 6,
+          "previousRank": null,
+          "rankChange": null,
+          "score": 71.5,
+          "uncertainty": null,
+          "confidence": null,
+          "releasedAt": "2026-09-03",
+          "components": null
+        },
+        "gpt-6.1-sol": {
+          "rank": 9,
+          "previousRank": null,
+          "rankChange": null,
+          "score": 70.1,
+          "uncertainty": null,
+          "confidence": null,
+          "releasedAt": "2026-09-29",
+          "components": null
+        },
+        "gpt-6.1-terra": {
+          "rank": 10,
+          "previousRank": null,
+          "rankChange": null,
+          "score": 69.1,
+          "uncertainty": null,
+          "confidence": null,
+          "releasedAt": "2026-10-26",
+          "components": null
+        }
+      }
     }
   },
   "aihubmix": {
@@ -4429,6 +4526,464 @@
           "priceIn": 0.68,
           "priceOut": 3.0735,
           "ttftMs": null
+        }
+      ]
+    },
+    "2026-11-16": {
+      "fetchedAt": "2026-11-16 14:23",
+      "source": "https://aihubmix.com/api/router/leaderboard",
+      "text.overall": [
+        {
+          "rank": 1,
+          "model": "gemini-4-carbon",
+          "vendor": "google",
+          "score": 93.1,
+          "priceIn": 1,
+          "priceOut": 5,
+          "ttftMs": 11167
+        },
+        {
+          "rank": 2,
+          "model": "gemini-4-argon",
+          "vendor": "google",
+          "score": 92.1,
+          "priceIn": 1,
+          "priceOut": 5,
+          "ttftMs": 8074
+        },
+        {
+          "rank": 3,
+          "model": "claude-opus-5-5",
+          "vendor": "anthropic",
+          "score": 87.4,
+          "priceIn": 2,
+          "priceOut": 5,
+          "ttftMs": 950
+        },
+        {
+          "rank": 4,
+          "model": "claude-fable-5-1",
+          "vendor": "anthropic",
+          "score": 86.5,
+          "priceIn": 5.5,
+          "priceOut": 5,
+          "ttftMs": 22662
+        },
+        {
+          "rank": 5,
+          "model": "gemini-3.8-flash",
+          "vendor": "google",
+          "score": 85,
+          "priceIn": 0.375,
+          "priceOut": 5,
+          "ttftMs": 4009
+        },
+        {
+          "rank": 6,
+          "model": "kimi-k3",
+          "vendor": "moonshot ai",
+          "score": 82,
+          "priceIn": 1.42,
+          "priceOut": 5,
+          "ttftMs": 910
+        },
+        {
+          "rank": 7,
+          "model": "qwen3.8-max",
+          "vendor": "qwen",
+          "score": 81.1,
+          "priceIn": 0.845,
+          "priceOut": 3,
+          "ttftMs": 28012
+        },
+        {
+          "rank": 8,
+          "model": "glm-5.3",
+          "vendor": "z.ai",
+          "score": 80.7,
+          "priceIn": 0.5634,
+          "priceOut": 3.5,
+          "ttftMs": 1072
+        },
+        {
+          "rank": 9,
+          "model": "gpt-6.1-sol",
+          "vendor": "openai",
+          "score": 80.6,
+          "priceIn": 1,
+          "priceOut": 5,
+          "ttftMs": 7040
+        },
+        {
+          "rank": 10,
+          "model": "mimo-v2.6-pro",
+          "vendor": "xiaomi",
+          "score": 80,
+          "priceIn": 0.24,
+          "priceOut": 2,
+          "ttftMs": 5038
+        },
+        {
+          "rank": 11,
+          "model": "deepseek-v4.1-flash-1017",
+          "vendor": "deepseek",
+          "score": 78.6,
+          "priceIn": 0.0775,
+          "priceOut": 4,
+          "ttftMs": 640
+        },
+        {
+          "rank": 12,
+          "model": "glm-5.3-flash",
+          "vendor": "z.ai",
+          "score": 78.3,
+          "priceIn": 0.05634,
+          "priceOut": 3.5,
+          "ttftMs": 544
+        },
+        {
+          "rank": 13,
+          "model": "gpt-6-astra",
+          "vendor": "openai",
+          "score": 78.3,
+          "priceIn": 5,
+          "priceOut": 5,
+          "ttftMs": 9232
+        },
+        {
+          "rank": 14,
+          "model": "claude-sonnet-5-5",
+          "vendor": "anthropic",
+          "score": 77.9,
+          "priceIn": 1,
+          "priceOut": 5,
+          "ttftMs": 2007
+        },
+        {
+          "rank": 15,
+          "model": "gpt-6-sol",
+          "vendor": "openai",
+          "score": 73.4,
+          "priceIn": 1,
+          "priceOut": 5,
+          "ttftMs": 4306
+        },
+        {
+          "rank": 16,
+          "model": "step-5-preview",
+          "vendor": "stepfun",
+          "score": 70.9,
+          "priceIn": 0.54,
+          "priceOut": 2.86,
+          "ttftMs": 3967
+        },
+        {
+          "rank": 17,
+          "model": "mimo-v2.6-flash",
+          "vendor": "xiaomi",
+          "score": 70.8,
+          "priceIn": 0.0775,
+          "priceOut": 2,
+          "ttftMs": 14214
+        },
+        {
+          "rank": 18,
+          "model": "grok-4.7",
+          "vendor": "grok",
+          "score": 69.1,
+          "priceIn": 1,
+          "priceOut": 3,
+          "ttftMs": 19624
+        },
+        {
+          "rank": 19,
+          "model": "minimax-m3.1-flash",
+          "vendor": "minimax",
+          "score": 68.9,
+          "priceIn": 0.0825,
+          "priceOut": 4,
+          "ttftMs": 1683
+        },
+        {
+          "rank": 20,
+          "model": "gpt-6-luna",
+          "vendor": "openai",
+          "score": 68.8,
+          "priceIn": 0.05,
+          "priceOut": 5,
+          "ttftMs": 5628
+        },
+        {
+          "rank": 21,
+          "model": "deepseek-v4-flash-0731",
+          "vendor": "deepseek",
+          "score": 67.4,
+          "priceIn": 0.071,
+          "priceOut": 2,
+          "ttftMs": 396
+        },
+        {
+          "rank": 22,
+          "model": "qwen3.8-27b",
+          "vendor": "qwen",
+          "score": 66.7,
+          "priceIn": 0.09999999999999999,
+          "priceOut": 12.5,
+          "ttftMs": null
+        },
+        {
+          "rank": 23,
+          "model": "qwen3.8-flash",
+          "vendor": "qwen",
+          "score": 66.7,
+          "priceIn": 0.0563,
+          "priceOut": 3.375,
+          "ttftMs": 5530
+        },
+        {
+          "rank": 24,
+          "model": "mistral-large-4-0",
+          "vendor": "mistral",
+          "score": 63.7,
+          "priceIn": 0.68,
+          "priceOut": 3.0735,
+          "ttftMs": null
+        },
+        {
+          "rank": 25,
+          "model": "claude-haiku-5-5",
+          "vendor": "anthropic",
+          "score": 63.5,
+          "priceIn": 0.05,
+          "priceOut": 5,
+          "ttftMs": 602
+        }
+      ],
+      "text.coding": [
+        {
+          "rank": 1,
+          "model": "gemini-4-carbon",
+          "vendor": "google",
+          "score": 100,
+          "priceIn": 1,
+          "priceOut": 5,
+          "ttftMs": 11167
+        },
+        {
+          "rank": 2,
+          "model": "gemini-4-argon",
+          "vendor": "google",
+          "score": 100,
+          "priceIn": 1,
+          "priceOut": 5,
+          "ttftMs": 8074
+        },
+        {
+          "rank": 3,
+          "model": "gpt-6-astra",
+          "vendor": "openai",
+          "score": 99.5,
+          "priceIn": 5,
+          "priceOut": 5,
+          "ttftMs": 9232
+        },
+        {
+          "rank": 4,
+          "model": "claude-opus-5-5",
+          "vendor": "anthropic",
+          "score": 98.9,
+          "priceIn": 2,
+          "priceOut": 5,
+          "ttftMs": 950
+        },
+        {
+          "rank": 5,
+          "model": "gpt-6.1-sol",
+          "vendor": "openai",
+          "score": 97.2,
+          "priceIn": 1,
+          "priceOut": 5,
+          "ttftMs": 7040
+        },
+        {
+          "rank": 6,
+          "model": "mimo-v2.6-pro",
+          "vendor": "xiaomi",
+          "score": 96.5,
+          "priceIn": 0.24,
+          "priceOut": 2,
+          "ttftMs": 5038
+        },
+        {
+          "rank": 7,
+          "model": "kimi-k3",
+          "vendor": "moonshot ai",
+          "score": 96.4,
+          "priceIn": 1.42,
+          "priceOut": 5,
+          "ttftMs": 910
+        },
+        {
+          "rank": 8,
+          "model": "claude-fable-5-1",
+          "vendor": "anthropic",
+          "score": 95.2,
+          "priceIn": 5.5,
+          "priceOut": 5,
+          "ttftMs": 22662
+        },
+        {
+          "rank": 9,
+          "model": "gemini-3.8-flash",
+          "vendor": "google",
+          "score": 94.7,
+          "priceIn": 0.375,
+          "priceOut": 5,
+          "ttftMs": 4009
+        },
+        {
+          "rank": 10,
+          "model": "glm-5.3-flash",
+          "vendor": "z.ai",
+          "score": 93.3,
+          "priceIn": 0.05634,
+          "priceOut": 3.5,
+          "ttftMs": 544
+        },
+        {
+          "rank": 11,
+          "model": "deepseek-v4.1-flash-1017",
+          "vendor": "deepseek",
+          "score": 92.9,
+          "priceIn": 0.0775,
+          "priceOut": 4,
+          "ttftMs": 640
+        },
+        {
+          "rank": 12,
+          "model": "qwen3.8-max",
+          "vendor": "qwen",
+          "score": 92.5,
+          "priceIn": 0.845,
+          "priceOut": 3,
+          "ttftMs": 28012
+        },
+        {
+          "rank": 13,
+          "model": "glm-5.3",
+          "vendor": "z.ai",
+          "score": 92.1,
+          "priceIn": 0.5634,
+          "priceOut": 3.5,
+          "ttftMs": 1072
+        },
+        {
+          "rank": 14,
+          "model": "gpt-6-sol",
+          "vendor": "openai",
+          "score": 91.2,
+          "priceIn": 1,
+          "priceOut": 5,
+          "ttftMs": 4306
+        },
+        {
+          "rank": 15,
+          "model": "claude-sonnet-5-5",
+          "vendor": "anthropic",
+          "score": 90.4,
+          "priceIn": 1,
+          "priceOut": 5,
+          "ttftMs": 2007
+        },
+        {
+          "rank": 16,
+          "model": "mimo-v2.6-flash",
+          "vendor": "xiaomi",
+          "score": 89.1,
+          "priceIn": 0.0775,
+          "priceOut": 2,
+          "ttftMs": 14214
+        },
+        {
+          "rank": 17,
+          "model": "step-5-preview",
+          "vendor": "stepfun",
+          "score": 87,
+          "priceIn": 0.54,
+          "priceOut": 2.86,
+          "ttftMs": 3967
+        },
+        {
+          "rank": 18,
+          "model": "gpt-6-luna",
+          "vendor": "openai",
+          "score": 86.3,
+          "priceIn": 0.05,
+          "priceOut": 5,
+          "ttftMs": 5628
+        },
+        {
+          "rank": 19,
+          "model": "qwen3.8-27b",
+          "vendor": "qwen",
+          "score": 84.5,
+          "priceIn": 0.09999999999999999,
+          "priceOut": 12.5,
+          "ttftMs": null
+        },
+        {
+          "rank": 20,
+          "model": "qwen3.8-flash",
+          "vendor": "qwen",
+          "score": 84.5,
+          "priceIn": 0.0563,
+          "priceOut": 3.375,
+          "ttftMs": 5530
+        },
+        {
+          "rank": 21,
+          "model": "grok-4.7",
+          "vendor": "grok",
+          "score": 83.6,
+          "priceIn": 1,
+          "priceOut": 3,
+          "ttftMs": 19624
+        },
+        {
+          "rank": 22,
+          "model": "claude-haiku-5-5",
+          "vendor": "anthropic",
+          "score": 82.8,
+          "priceIn": 0.05,
+          "priceOut": 5,
+          "ttftMs": 602
+        },
+        {
+          "rank": 23,
+          "model": "deepseek-v4-flash-0731",
+          "vendor": "deepseek",
+          "score": 81.1,
+          "priceIn": 0.071,
+          "priceOut": 2,
+          "ttftMs": 396
+        },
+        {
+          "rank": 24,
+          "model": "mistral-large-4-0",
+          "vendor": "mistral",
+          "score": 80.7,
+          "priceIn": 0.68,
+          "priceOut": 3.0735,
+          "ttftMs": null
+        },
+        {
+          "rank": 25,
+          "model": "minimax-m3.1-flash",
+          "vendor": "minimax",
+          "score": 68.9,
+          "priceIn": 0.0825,
+          "priceOut": 4,
+          "ttftMs": 1683
         }
       ]
     }
