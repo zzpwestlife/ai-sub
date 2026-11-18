@@ -62,6 +62,8 @@ MODEL_SLUG_MAP = {
     "gpt-6-astra": "gpt-6-astra",
     "gpt-6.1-sol": "gpt-6-1-sol",
     "gpt-6.1-terra": "gpt-6-1-terra",
+    "gpt-6.2-astra": "gpt-6-2-astra",
+    "gpt-6.2-sol": "gpt-6-2-sol",
 }
 
 # 每个模型存档的字段（components 子分存档不展示，留作将来分析）

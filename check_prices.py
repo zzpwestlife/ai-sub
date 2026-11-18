@@ -68,13 +68,16 @@ OPENROUTER_MODEL_MAP = {
     "gpt-6-astra": "openai/gpt-6-astra",
     "gpt-6.1-sol": "openai/gpt-6.1-sol",
     "gpt-6.1-terra": "openai/gpt-6.1-terra",
+    "gpt-6.2-astra": "openai/gpt-6.2-astra",
+    "gpt-6.2-sol": "openai/gpt-6.2-sol",
     "gpt-6-luna": "openai/gpt-6-luna",
 }
 
 # apifun 分组名 → 负责的模型（与用户当前使用的分组一致）
 APIFUN_GROUP_MODELS = {
     "Claude Plus（精品）": ["claude-sonnet-5.5", "claude-opus-5.5", "claude-fable-5.1"],
-    "Codex Pro（仅限Codex）": ["gpt-6-astra", "gpt-6.1-sol", "gpt-6-luna", "gpt-6.1-terra"],
+    "Codex Pro（仅限Codex）": ["gpt-6-astra", "gpt-6.1-sol", "gpt-6-luna", "gpt-6.1-terra",
+                           "gpt-6.2-astra", "gpt-6.2-sol"],
     "DeepSeek（大厂直供）": ["deepseek-v4.1-flash"],  # 2026-09-21 由「云厂商渠道」改名，倍率 0.75→0.5
 }
 

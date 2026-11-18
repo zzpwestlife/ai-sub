@@ -183,6 +183,18 @@
       "cacheWrite": 8.75,
       "cacheRead": 0.35
     },
+    "gpt-6.2-astra": {
+      "input": 56.0,
+      "output": 280.0,
+      "cacheWrite": 70.0,
+      "cacheRead": 2.8
+    },
+    "gpt-6.2-sol": {
+      "input": 14.0,
+      "output": 70.0,
+      "cacheWrite": 17.5,
+      "cacheRead": 0.7
+    },
     "gemini-4-argon": {
       "input": 14.0,
       "output": 70.0,
@@ -244,6 +256,18 @@
       "name": "GPT-6.1 Terra",
       "category": "GPT-6",
       "desc": "GPT-6.1 通用版/Sol半价/1.05M上下文/≥272K长文档价翻倍"
+    },
+    {
+      "id": "gpt-6.2-astra",
+      "name": "GPT-6.2 Astra",
+      "category": "GPT-6",
+      "desc": "6.2旗舰/输入输出较GPT-6 Astra降20%/缓存读降60%/1.05M上下文"
+    },
+    {
+      "id": "gpt-6.2-sol",
+      "name": "GPT-6.2 Sol",
+      "category": "GPT-6",
+      "desc": "6.2日常版/价格同6.1 Sol/编码接近Astra/1.05M上下文"
     },
     {
       "id": "gemini-4-argon",
@@ -496,6 +520,42 @@
       "cacheWrite": 1.3125,
       "cacheRead": 0.7,
       "notes": "官方价$2/$10,缓存读$0.1(2026-10-30录入;暂不监控,需加入check_prices.py名单才抓取)"
+    },
+    {
+      "model": "gpt-6.2-astra",
+      "provider": "apifun",
+      "input": 5.6,
+      "output": 28.0,
+      "cacheWrite": 7.0,
+      "cacheRead": 0.28,
+      "notes": "Codex Pro（仅限Codex）0.7x;缓存写按官方1.25×输入推算/待账单实测(2026-11-18上架)"
+    },
+    {
+      "model": "gpt-6.2-astra",
+      "provider": "openrouter",
+      "input": 56.0,
+      "output": 280.0,
+      "cacheWrite": 70.0,
+      "cacheRead": 2.8,
+      "notes": "官方端点$8/$40,缓存读$0.4/写$10;OpenAI/Azure/Bedrock三家同价(2026-11-18录入)"
+    },
+    {
+      "model": "gpt-6.2-sol",
+      "provider": "apifun",
+      "input": 1.4,
+      "output": 7.0,
+      "cacheWrite": 1.75,
+      "cacheRead": 0.07,
+      "notes": "Codex Pro（仅限Codex）0.7x;缓存写按官方1.25×输入推算/待账单实测(2026-11-18上架)"
+    },
+    {
+      "model": "gpt-6.2-sol",
+      "provider": "openrouter",
+      "input": 14.0,
+      "output": 70.0,
+      "cacheWrite": 17.5,
+      "cacheRead": 0.7,
+      "notes": "官方端点$2/$10,缓存读$0.1/写$2.5;三家同价(2026-11-18录入)"
     }
   ],
   "subscriptions": [
@@ -518,7 +578,9 @@
         "gpt-6-astra",
         "gpt-6-sol",
         "gpt-6-luna",
-        "gpt-6.1-terra"
+        "gpt-6.1-terra",
+        "gpt-6.2-astra",
+        "gpt-6.2-sol"
       ],
       "notes": "覆盖最广,支持缓存;Claude Plus分组2026-10涨价(0.8→1.0)"
     },
@@ -616,7 +678,9 @@
         "gpt-6-astra",
         "gpt-6-sol",
         "gpt-6-luna",
-        "gpt-6.1-terra"
+        "gpt-6.1-terra",
+        "gpt-6.2-astra",
+        "gpt-6.2-sol"
       ],
       "notes": "官方价直连,DeepSeek有折扣;Sonnet5.5缓存读2026-10降50%"
     },
@@ -783,6 +847,16 @@
       "input": 7.0,
       "output": 35.0,
       "cacheRead": 0.35
+    },
+    "gpt-6.2-astra": {
+      "input": 56.0,
+      "output": 280.0,
+      "cacheRead": 2.8
+    },
+    "gpt-6.2-sol": {
+      "input": 14.0,
+      "output": 70.0,
+      "cacheRead": 0.7
     }
   }
 }
