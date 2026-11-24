@@ -54,7 +54,7 @@ AIHOT_URL = "https://aihot.news/leaderboard"
 # gemini-3.8-flash、glm-5.3-flash、claude-sonnet-5、gpt-6-sol。
 # 2026-11-24 移除 gpt-6.1-sol（gpt-6.2-sol 同价替代）、gpt-6-astra（6.2-astra 替代）、
 # claude-fable-5.1（fable-5.2 替代）；新增 gemini-4-carbon（#2）/ gemini-4-hydrogen（#5）/
-# claude-fable-5.2（#1）。
+# claude-fable-5.2（#1）。2026-11-24 补录 gemini-4-argon / gemini-4-neon（aihot 四个 slug 齐全）。
 MODEL_SLUG_MAP = {
     "claude-opus-5.5": "claude-opus-5-5",
     "claude-fable-5.2": "claude-fable-5-2",
@@ -65,8 +65,10 @@ MODEL_SLUG_MAP = {
     "gpt-6.1-terra": "gpt-6-1-terra",
     "gpt-6.2-astra": "gpt-6-2-astra",
     "gpt-6.2-sol": "gpt-6-2-sol",
+    "gemini-4-argon": "gemini-4-argon",
     "gemini-4-carbon": "gemini-4-carbon",
     "gemini-4-hydrogen": "gemini-4-hydrogen",
+    "gemini-4-neon": "gemini-4-neon",
 }
 
 # 每个模型存档的字段（components 子分存档不展示，留作将来分析）

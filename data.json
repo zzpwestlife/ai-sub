@@ -185,6 +185,12 @@
       "output": 52.5,
       "cacheWrite": 0.5833,
       "cacheRead": 0.525
+    },
+    "gemini-4-neon": {
+      "input": 21.0,
+      "output": 105.0,
+      "cacheWrite": 0.5833,
+      "cacheRead": 1.05
     }
   },
   "models": [
@@ -259,6 +265,12 @@
       "name": "Gemini 4 Hydrogen",
       "category": "Gemini",
       "desc": "高吞吐主力款/低延迟/1.05M上下文/比Carbon便宜25%"
+    },
+    {
+      "id": "gemini-4-neon",
+      "name": "Gemini 4 Neon",
+      "category": "Gemini",
+      "desc": "旗舰高端款/1.05M上下文/价格约为Carbon的1.5倍"
     }
   ],
   "prices": [
@@ -408,6 +420,14 @@
       "notes": "官方价$2/$10,缓存读$0.1(2026-10-30录入;暂不监控,需加入check_prices.py名单才抓取)"
     },
     {
+      "model": "gemini-4-argon",
+      "provider": "apifun",
+      "input": 2.0,
+      "output": 10.0,
+      "cacheRead": 0.1,
+      "notes": "Gemini（特价渠道）1.0x;官方美元价按人民币收,约官方1/7(2026-11-24录入);页面仅三项(input/output/cacheRead),无缓存写价"
+    },
+    {
       "model": "gpt-6.2-astra",
       "provider": "apifun",
       "input": 5.6,
@@ -462,6 +482,14 @@
       "notes": "ratio还原(1/×5/cache0.05),无平台加价(2026-11-24录入)"
     },
     {
+      "model": "gemini-4-carbon",
+      "provider": "apifun",
+      "input": 2.0,
+      "output": 10.0,
+      "cacheRead": 0.1,
+      "notes": "Gemini（特价渠道）1.0x;官方美元价按人民币收,约官方1/7(2026-11-24录入);页面仅三项(input/output/cacheRead),无缓存写价"
+    },
+    {
       "model": "gemini-4-hydrogen",
       "provider": "openrouter",
       "input": 10.5,
@@ -478,6 +506,31 @@
       "cacheWrite": null,
       "cacheRead": 0.525,
       "notes": "ratio还原(0.75/×5/cache0.05),无平台加价(2026-11-24录入)"
+    },
+    {
+      "model": "gemini-4-hydrogen",
+      "provider": "apifun",
+      "input": 1.5,
+      "output": 7.5,
+      "cacheRead": 0.075,
+      "notes": "Gemini（特价渠道）1.0x;官方美元价按人民币收,约官方1/7(2026-11-24录入);页面仅三项(input/output/cacheRead),无缓存写价"
+    },
+    {
+      "model": "gemini-4-neon",
+      "provider": "openrouter",
+      "input": 21.0,
+      "output": 105.0,
+      "cacheWrite": 0.5833,
+      "cacheRead": 1.05,
+      "notes": "官方端点$3/$15,缓存读$0.15/写$0.0833(2026-11-24录入)"
+    },
+    {
+      "model": "gemini-4-neon",
+      "provider": "apifun",
+      "input": 3.0,
+      "output": 15.0,
+      "cacheRead": 0.15,
+      "notes": "Gemini（特价渠道）1.0x;官方美元价按人民币收,约官方1/7(2026-11-24录入);页面仅三项(input/output/cacheRead),无缓存写价"
     },
     {
       "model": "claude-fable-5.2",
@@ -519,7 +572,11 @@
         "gpt-6-luna",
         "gpt-6.1-terra",
         "gpt-6.2-astra",
-        "gpt-6.2-sol"
+        "gpt-6.2-sol",
+        "gemini-4-neon",
+        "gemini-4-carbon",
+        "gemini-4-argon",
+        "gemini-4-hydrogen"
       ],
       "notes": "覆盖最广,支持缓存;Claude Plus分组2026-10涨价(0.8→1.0)"
     },
@@ -606,7 +663,9 @@
         "gpt-6.2-sol",
         "gemini-4-carbon",
         "gemini-4-hydrogen",
-        "claude-fable-5.2"
+        "claude-fable-5.2",
+        "gemini-4-neon",
+        "gemini-4-argon"
       ],
       "notes": "官方价直连,DeepSeek有折扣;Sonnet5.5缓存读2026-10降50%"
     },
@@ -757,6 +816,16 @@
       "input": 56.0,
       "output": 280.0,
       "cacheRead": 1.4
+    },
+    "gemini-4-argon": {
+      "input": 14.0,
+      "output": 70.0,
+      "cacheRead": 0.7
+    },
+    "gemini-4-neon": {
+      "input": 21.0,
+      "output": 105.0,
+      "cacheRead": 1.05
     }
   }
 }

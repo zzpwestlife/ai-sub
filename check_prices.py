@@ -71,8 +71,10 @@ OPENROUTER_MODEL_MAP = {
     "gpt-6.2-astra": "openai/gpt-6.2-astra",
     "gpt-6.2-sol": "openai/gpt-6.2-sol",
     "gpt-6-luna": "openai/gpt-6-luna",
+    "gemini-4-argon": "google/gemini-4-argon",
     "gemini-4-carbon": "google/gemini-4-carbon",
     "gemini-4-hydrogen": "google/gemini-4-hydrogen",
+    "gemini-4-neon": "google/gemini-4-neon",
 }
 
 # apifun 分组名 → 负责的模型（与用户当前使用的分组一致）
@@ -81,6 +83,8 @@ APIFUN_GROUP_MODELS = {
     "Codex Pro（仅限Codex）": ["gpt-6-luna", "gpt-6.1-terra",
                            "gpt-6.2-astra", "gpt-6.2-sol"],  # 2026-11-24 移除 gpt-6.1-sol / gpt-6-astra（各有 6.2 同价替代）
     "DeepSeek（大厂直供）": ["deepseek-v4.1-flash"],  # 2026-09-21 由「云厂商渠道」改名，倍率 0.75→0.5
+    "Gemini （特价渠道）": ["gemini-4-neon", "gemini-4-carbon", "gemini-4-argon",
+                          "gemini-4-hydrogen"],  # 2026-11-24 补录全系列；倍率 1.0（官方美元价按人民币收）
 }
 
 # 官方价本身就是人民币的模型（DeepSeek/GLM），apifun 倍率直接乘
