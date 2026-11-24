@@ -52,18 +52,21 @@ AIHOT_URL = "https://aihot.news/leaderboard"
 # 补录 claude-sonnet-5.5 / gpt-6.1-sol / gpt-6.1-terra（榜上 #5 / #9 / #12）；
 # 移除已取消关注的 grok-4.6、grok-4.7、gpt-5.6-*、claude-opus-5、claude-fable-5、
 # gemini-3.8-flash、glm-5.3-flash、claude-sonnet-5、gpt-6-sol。
+# 2026-11-24 移除 gpt-6.1-sol（gpt-6.2-sol 同价替代）、gpt-6-astra（6.2-astra 替代）、
+# claude-fable-5.1（fable-5.2 替代）；新增 gemini-4-carbon（#2）/ gemini-4-hydrogen（#5）/
+# claude-fable-5.2（#1）。
 MODEL_SLUG_MAP = {
     "claude-opus-5.5": "claude-opus-5-5",
-    "claude-fable-5.1": "claude-fable-5-1",
+    "claude-fable-5.2": "claude-fable-5-2",
     "claude-sonnet-5.5": "claude-sonnet-5-5",
     "claude-haiku-5.5": "claude-haiku-5-5",
     "deepseek-v4.1-flash": "deepseek-v-4-1-flash",
     "gpt-6-luna": "gpt-6-luna",
-    "gpt-6-astra": "gpt-6-astra",
-    "gpt-6.1-sol": "gpt-6-1-sol",
     "gpt-6.1-terra": "gpt-6-1-terra",
     "gpt-6.2-astra": "gpt-6-2-astra",
     "gpt-6.2-sol": "gpt-6-2-sol",
+    "gemini-4-carbon": "gemini-4-carbon",
+    "gemini-4-hydrogen": "gemini-4-hydrogen",
 }
 
 # 每个模型存档的字段（components 子分存档不展示，留作将来分析）

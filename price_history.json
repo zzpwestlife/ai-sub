@@ -2905,5 +2905,194 @@
     "from": 0.077,
     "to": 0.07,
     "note": ""
+  },
+  {
+    "time": "2026-11-24 09:32",
+    "provider": "apifun",
+    "model": "gpt-6.2-astra",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "删除 gpt-6-astra / claude-fable-5.1，新增 gemini-4-carbon / hydrogen（2026-11-24 清理）"
+  },
+  {
+    "time": "2026-11-24 09:32",
+    "provider": "openrouter",
+    "model": "gpt-6.2-astra",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "删除 gpt-6-astra / claude-fable-5.1，新增 gemini-4-carbon / hydrogen（2026-11-24 清理）"
+  },
+  {
+    "time": "2026-11-24 09:32",
+    "provider": "apifun",
+    "model": "gpt-6.2-sol",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "删除 gpt-6-astra / claude-fable-5.1，新增 gemini-4-carbon / hydrogen（2026-11-24 清理）"
+  },
+  {
+    "time": "2026-11-24 09:32",
+    "provider": "openrouter",
+    "model": "gpt-6.2-sol",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "删除 gpt-6-astra / claude-fable-5.1，新增 gemini-4-carbon / hydrogen（2026-11-24 清理）"
+  },
+  {
+    "time": "2026-11-24 09:32",
+    "provider": "openrouter",
+    "model": "gemini-4-carbon",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "删除 gpt-6-astra / claude-fable-5.1，新增 gemini-4-carbon / hydrogen（2026-11-24 清理）"
+  },
+  {
+    "time": "2026-11-24 09:32",
+    "provider": "aihubmix",
+    "model": "gemini-4-carbon",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "删除 gpt-6-astra / claude-fable-5.1，新增 gemini-4-carbon / hydrogen（2026-11-24 清理）"
+  },
+  {
+    "time": "2026-11-24 09:32",
+    "provider": "openrouter",
+    "model": "gemini-4-hydrogen",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "删除 gpt-6-astra / claude-fable-5.1，新增 gemini-4-carbon / hydrogen（2026-11-24 清理）"
+  },
+  {
+    "time": "2026-11-24 09:32",
+    "provider": "aihubmix",
+    "model": "gemini-4-hydrogen",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "删除 gpt-6-astra / claude-fable-5.1，新增 gemini-4-carbon / hydrogen（2026-11-24 清理）"
+  },
+  {
+    "time": "2026-11-24 09:32",
+    "provider": "openrouter",
+    "model": "claude-fable-5.1",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "删除 gpt-6-astra / claude-fable-5.1，新增 gemini-4-carbon / hydrogen（2026-11-24 清理）"
+  },
+  {
+    "time": "2026-11-24 09:32",
+    "provider": "aihubmix",
+    "model": "claude-fable-5.1",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "删除 gpt-6-astra / claude-fable-5.1，新增 gemini-4-carbon / hydrogen（2026-11-24 清理）"
+  },
+  {
+    "time": "2026-11-24 09:32",
+    "provider": "apifun",
+    "model": "gpt-6-astra",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "删除 gpt-6-astra / claude-fable-5.1，新增 gemini-4-carbon / hydrogen（2026-11-24 清理）"
+  },
+  {
+    "time": "2026-11-24 09:32",
+    "provider": "aicode007",
+    "model": "gpt-6-astra",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "删除 gpt-6-astra / claude-fable-5.1，新增 gemini-4-carbon / hydrogen（2026-11-24 清理）"
+  },
+  {
+    "time": "2026-11-24 09:32",
+    "provider": "openrouter",
+    "model": "gpt-6-astra",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "删除 gpt-6-astra / claude-fable-5.1，新增 gemini-4-carbon / hydrogen（2026-11-24 清理）"
+  },
+  {
+    "time": "2026-11-24 09:32",
+    "provider": "aihubmix",
+    "model": "gpt-6-astra",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "删除 gpt-6-astra / claude-fable-5.1，新增 gemini-4-carbon / hydrogen（2026-11-24 清理）"
+  },
+  {
+    "time": "2026-11-24 09:32",
+    "provider": "nonelinear",
+    "model": "gpt-6-astra",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "删除 gpt-6-astra / claude-fable-5.1，新增 gemini-4-carbon / hydrogen（2026-11-24 清理）"
+  },
+  {
+    "time": "2026-11-24 09:32",
+    "provider": "aiberm",
+    "model": "gpt-6-astra",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "删除 gpt-6-astra / claude-fable-5.1，新增 gemini-4-carbon / hydrogen（2026-11-24 清理）"
+  },
+  {
+    "time": "2026-11-24 09:32",
+    "provider": "v3api",
+    "model": "gpt-6-astra",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "删除 gpt-6-astra / claude-fable-5.1，新增 gemini-4-carbon / hydrogen（2026-11-24 清理）"
+  },
+  {
+    "time": "2026-11-24 09:32",
+    "provider": "openrouter",
+    "model": "gpt-6.1-sol",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "删除 gpt-6-astra / claude-fable-5.1，新增 gemini-4-carbon / hydrogen（2026-11-24 清理）"
+  },
+  {
+    "time": "2026-11-24 09:32",
+    "provider": "apifun",
+    "model": "gpt-6.1-sol",
+    "field": "(删除条目)",
+    "from": "-",
+    "to": "-",
+    "note": "删除 gpt-6-astra / claude-fable-5.1，新增 gemini-4-carbon / hydrogen（2026-11-24 清理）"
+  },
+  {
+    "time": "2026-11-24 09:46",
+    "provider": "openrouter",
+    "model": "claude-fable-5.2",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "录入 claude-fable-5.2（替代 5.1）"
+  },
+  {
+    "time": "2026-11-24 09:46",
+    "provider": "aihubmix",
+    "model": "claude-fable-5.2",
+    "field": "(新增条目)",
+    "from": "-",
+    "to": "-",
+    "note": "录入 claude-fable-5.2（替代 5.1）"
   }
 ]

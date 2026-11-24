@@ -10,9 +10,11 @@ AI 订阅价格监控脚本
 监控范围：
   - OpenRouter：公开 API，拿到精确美元价格
   - apifun：    公开 API 拿分组倍率，推算实际价格（价格 = 官方美元价 × 倍率）
-  - V3 API：    公开 API 拿基础倍率（分组倍率不公开，用快照对比检测变动）
   - 非线智能：  公开 /models 接口，直接返回人民币价格（无需登录）
   - Cubence：   /v1/models 需 API Key 但不含定价 → 仅监控模型可用性（价格仍人工录入）
+
+注：V3 API 的定价接口（api.v3.cm/api/pricing）自 2026-10 底起 404，倍率快照对比
+于 2026-11-24 整体移除（见《价格监控指南.md》§3）。
 
 用法：
   python3 check_prices.py            # 正常检查
@@ -22,6 +24,7 @@ AI 订阅价格监控脚本
 详细说明见同目录《价格监控指南.md》
 """
 
+import copy
 import json
 import os
 import subprocess
@@ -35,7 +38,6 @@ from pathlib import Path
 BASE_DIR = Path(__file__).parent
 DATA_FILE = BASE_DIR / "data.json"
 CONFIG_FILE = BASE_DIR / "monitor_config.local.json"
-SNAPSHOT_FILE = BASE_DIR / "price_state" / "v3_snapshot.json"
 DATA_SNAPSHOT_FILE = BASE_DIR / "price_state" / "data_snapshot.json"
 HISTORY_FILE = BASE_DIR / "price_history.json"
 REPORT_DIR = BASE_DIR / "price_reports"
@@ -63,21 +65,21 @@ OPENROUTER_MODEL_MAP = {
     "claude-sonnet-5.5": "anthropic/claude-sonnet-5.5",
     "claude-haiku-5.5": "anthropic/claude-haiku-5.5",
     "claude-opus-5.5": "anthropic/claude-opus-5.5",
-    "claude-fable-5.1": "anthropic/claude-fable-5.1",
+    "claude-fable-5.2": "anthropic/claude-fable-5.2",
     "deepseek-v4.1-flash": "deepseek/deepseek-v4.1-flash",
-    "gpt-6-astra": "openai/gpt-6-astra",
-    "gpt-6.1-sol": "openai/gpt-6.1-sol",
     "gpt-6.1-terra": "openai/gpt-6.1-terra",
     "gpt-6.2-astra": "openai/gpt-6.2-astra",
     "gpt-6.2-sol": "openai/gpt-6.2-sol",
     "gpt-6-luna": "openai/gpt-6-luna",
+    "gemini-4-carbon": "google/gemini-4-carbon",
+    "gemini-4-hydrogen": "google/gemini-4-hydrogen",
 }
 
 # apifun 分组名 → 负责的模型（与用户当前使用的分组一致）
 APIFUN_GROUP_MODELS = {
-    "Claude Plus（精品）": ["claude-sonnet-5.5", "claude-opus-5.5", "claude-fable-5.1"],
-    "Codex Pro（仅限Codex）": ["gpt-6-astra", "gpt-6.1-sol", "gpt-6-luna", "gpt-6.1-terra",
-                           "gpt-6.2-astra", "gpt-6.2-sol"],
+    "Claude Plus（精品）": ["claude-sonnet-5.5", "claude-opus-5.5"],
+    "Codex Pro（仅限Codex）": ["gpt-6-luna", "gpt-6.1-terra",
+                           "gpt-6.2-astra", "gpt-6.2-sol"],  # 2026-11-24 移除 gpt-6.1-sol / gpt-6-astra（各有 6.2 同价替代）
     "DeepSeek（大厂直供）": ["deepseek-v4.1-flash"],  # 2026-09-21 由「云厂商渠道」改名，倍率 0.75→0.5
 }
 
@@ -87,32 +89,29 @@ APIFUN_GROUP_MODELS = {
 CNY_OFFICIAL_MODELS = {"deepseek-v4.1-flash", "glm-5.3-flash"}
 
 # 非线智能上追踪的模型名（模型 ID 与 data.json 一致，无需单独映射）
-# 注：非线智能尚未上线 deepseek-v4.1-flash / claude-fable-5.1（2026-09-10 核查），暂不列入
+# 注：Gemini 4 系（carbon/argon/hydrogen）非线智能线上挂的是官方价 2 倍（2026-11-24 核查），
+# 录进去会天天误报，故不列入
 NONELINEAR_MODELS = [
     "claude-sonnet-5.5",
-    "gpt-6-astra",  # 保留：astra 的第三方比价来源之一
 ]
 
 # AIHubMix 上追踪的模型名（多数与 data.json ID 一致，不一致的见 AIHUBMIX_ID_MAP）
 AIHUBMIX_MODELS = [
-    "claude-sonnet-5.5", "claude-fable-5.1",
+    "claude-sonnet-5.5",
+    "claude-fable-5.2",
     "deepseek-v4.1-flash",
-    "gpt-6-astra",  # 保留：astra 的第三方比价来源之一
+    "gemini-4-carbon",
+    "gemini-4-hydrogen",
 ]
 
-# AIHubMix 把 Fable 5.1 写成连字符形式（claude-fable-5-1），与 data.json 的点号 ID 不一致
-AIHUBMIX_ID_MAP = {"claude-fable-5.1": "claude-fable-5-1"}
+# AIHubMix 平台侧 ID 与 data.json ID 不一致时的映射（点号 → 连字符）
+AIHUBMIX_ID_MAP = {"claude-fable-5.2": "claude-fable-5-2"}
 
-# V3 上追踪的模型名（V3 用带日期后缀的版本号；fable 5.1 平台侧写作 claude-fable-5-1）
-V3_MODELS = [
-    "claude-sonnet-5.5", "claude-fable-5-1",
-    "deepseek-v4-flash-0731",
-    "gpt-6-astra",
-]
+# V3 的倍率快照对比已于 2026-11-24 移除（定价接口 404，见文件头注释）
 
 # Cubence 平台侧模型 ID 与 data.json ID 不一致的映射（点号 → 连字符）
-# 2026-09-12 核查：Cubence /v1/models 共 28 个模型，平台写作 claude-fable-5-1
-CUBENCE_ID_MAP = {"claude-fable-5.1": "claude-fable-5-1"}
+# 2026-09-12 核查：Cubence /v1/models 共 28 个模型；2026-11-24 fable-5.1 已下架，映射表清空
+CUBENCE_ID_MAP = {}
 
 
 def log(msg):
@@ -193,8 +192,6 @@ def verify_url(provider, model_id=None, or_id=None):
         return f"https://openrouter.ai/{or_id}"
     if provider == "apifun":
         return "https://apikey.fan/pricing"
-    if provider == "V3 API":
-        return "https://api.v3.cm/panel"
     if provider == "非线智能":
         return "https://nonelinear.com/static/models.html"
     if provider == "AIHubMix":
@@ -535,63 +532,6 @@ def check_aihubmix(data, cfg, use_proxy=True):
 
 
 # ---------------------------------------------------------------------------
-# V3 API（基础倍率，快照对比）
-# ---------------------------------------------------------------------------
-
-def check_v3(cfg, use_proxy=True):
-    """拉取 V3 基础倍率，与上次快照对比。分组倍率不公开，无法算出最终价格，
-    因此只检测倍率本身是否变动。"""
-    diffs = []
-    log("拉取 V3 API 基础倍率 ...")
-    proxy = cfg.get("proxy") if use_proxy else None
-    raw = http_get_json("https://api.v3.cm/api/pricing", proxy=proxy)
-    items = raw if isinstance(raw, list) else raw.get("data", [])
-    remote = {}
-    for it in items:
-        name = it.get("model_name", "")
-        if name in V3_MODELS:
-            remote[name] = {
-                "model_ratio": it.get("model_ratio"),
-                "completion_ratio": it.get("completion_ratio"),
-                "enable_groups": it.get("enable_groups", []),
-            }
-
-    snapshot = {}
-    if SNAPSHOT_FILE.exists():
-        with open(SNAPSHOT_FILE) as f:
-            snapshot = json.load(f)
-
-    if not snapshot:
-        log("V3 无历史快照，本次作为基线保存。")
-    else:
-        for name, r in remote.items():
-            s = snapshot.get(name)
-            if s is None:
-                diffs.append({"provider": "V3 API", "model": name, "field": "-",
-                              "local": "(快照中无)", "remote": f"新增模型 倍率 {r['model_ratio']}/{r['completion_ratio']}",
-                              "url": verify_url("V3 API")})
-                continue
-            for k in ("model_ratio", "completion_ratio"):
-                if s.get(k) != r.get(k):
-                    diffs.append({"provider": "V3 API", "model": name, "field": k,
-                                  "local": f"{s.get(k)}", "remote": f"{r.get(k)}",
-                                  "url": verify_url("V3 API")})
-            if sorted(s.get("enable_groups", [])) != sorted(r.get("enable_groups", [])):
-                diffs.append({"provider": "V3 API", "model": name, "field": "enable_groups",
-                              "local": str(s.get("enable_groups")), "remote": str(r.get("enable_groups")),
-                              "url": verify_url("V3 API")})
-
-    # 空/异常响应不覆写快照，否则下次恢复时会全量误报"新增模型"
-    if not remote:
-        log("V3 返回为空，保留旧快照，不更新基线。")
-        return diffs
-
-    SNAPSHOT_FILE.parent.mkdir(parents=True, exist_ok=True)
-    atomic_write_json(SNAPSHOT_FILE, remote)
-    return diffs
-
-
-# ---------------------------------------------------------------------------
 # 价格变更历史（自动检测 data.json 的改动）
 # ---------------------------------------------------------------------------
 
@@ -770,7 +710,10 @@ def main():
     cfg = load_config()
     with open(DATA_FILE) as f:
         data = json.load(f)
-    old_ref_min = data.get("openrouterRefMin")
+    # 必须深拷贝：check_openrouter 是在原 dict 上就地写入 refMin，若 old_ref_min 只是
+    # 同一个对象的别名，末尾的「有变化才回写」比较永远相等 → 回写分支变成死代码，
+    # 新增模型的最低参考价永远不会落盘（2026-11-24 实测发现）
+    old_ref_min = copy.deepcopy(data.get("openrouterRefMin"))
 
     # 先检测 data.json 本身的人工改动，记入历史（在任何在线检查之前）
     try:
@@ -788,7 +731,6 @@ def main():
         ("apifun", lambda: check_apifun(data, cfg, use_proxy=("apifun" not in no_proxy))),
         ("非线智能", lambda: check_nonelinear(data, cfg, use_proxy=("非线智能" not in no_proxy))),
         ("AIHubMix", lambda: check_aihubmix(data, cfg, use_proxy=("AIHubMix" not in no_proxy))),
-        ("V3 API", lambda: check_v3(cfg, use_proxy=("V3 API" not in no_proxy))),
         ("Cubence", lambda: check_cubence(data, cfg, use_proxy=("Cubence" not in no_proxy))),
     ]:
         try:

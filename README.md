@@ -8,7 +8,6 @@
 |:------:|:------:|:--------:|:--------:|
 | OpenRouter | 公开 API | 多 provider 报价取众数，精确美元价格 | 无需 |
 | apifun | 公开 API | 分组倍率推算实际价格（¥ = 官方美元价 × 倍率） | 无需 |
-| V3 API | 公开 API | 基础倍率快照对比（分组倍率不公开） | 无需（需代理） |
 | 非线智能 | 公开 /models 接口 | 直接返回人民币价格 | 无需 |
 | Cubence | REST API | 每个模型的人民币价格 | Bearer Token |
 
@@ -62,7 +61,7 @@ cp monitor_config.local.json.example monitor_config.local.json
 
 | 字段 | 类型 | 默认值 | 说明 |
 |:----:|:----:|:------:|:----:|
-| `proxy` | string | `""` | HTTP 代理地址（V3 API、AIHubMix 必需），留空则直连 |
+| `proxy` | string | `""` | HTTP 代理地址（AIHubMix 必需），留空则直连 |
 | `no_proxy_providers` | array | `["OpenRouter", "apifun", "非线智能"]` | 不需要代理的提供商列表（直连更快） |
 | `fx_rate` | float | `7.0` | 美元兑人民币汇率 |
 | `change_threshold_pct` | float | `0.5` | 变动判定阈值（%） |
