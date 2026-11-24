@@ -107,14 +107,6 @@
       "type": "official",
       "url": "https://bigmodel.cn",
       "notes": "GLM 系列"
-    },
-    {
-      "id": "fusecode",
-      "name": "Fusecode",
-      "type": "subscription",
-      "url": "https://www.fusecode.cc/pricing",
-      "baseUrl": "https://api.fusecode.cc/v1",
-      "notes": "订阅制编程API服务,Claude Code+Codex,周额度制"
     }
   ],
   "officialPrices": {
@@ -664,49 +656,6 @@
         "glm-5.3-flash"
       ],
       "notes": "只关注价格数据,不再充值(2026-09-21);余额已清零,仅观察;价格同官方无折扣优势"
-    },
-    {
-      "provider": "fusecode",
-      "balance": null,
-      "currency": "CNY",
-      "role": "仅监控",
-      "models": [
-        "claude-sonnet-5",
-        "claude-opus-5",
-        "claude-opus-5.5",
-        "gpt-5.6-terra",
-        "gpt-5.6-sol",
-        "gpt-6-sol",
-        "gpt-6-luna",
-        "gemini-3.8-flash"
-      ],
-      "plans": [
-        {
-          "name": "Basic月卡",
-          "price": 179,
-          "weeklyLimitUsd": 50,
-          "seats": 25
-        },
-        {
-          "name": "Plus月卡",
-          "price": 399,
-          "weeklyLimitUsd": 110,
-          "seats": 23
-        },
-        {
-          "name": "Pro月卡",
-          "price": 799,
-          "weeklyLimitUsd": 260,
-          "seats": 8
-        },
-        {
-          "name": "Max月卡",
-          "price": 1599,
-          "weeklyLimitUsd": 550,
-          "seats": 1
-        }
-      ],
-      "notes": "订阅制(月费+周额度),Claude Code+Codex双工作流;Pro档¥0.77/$最划算"
     }
   ],
   "scenarios": [
